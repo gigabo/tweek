@@ -1,0 +1,6 @@
+#greeting
+  %h2 @#{params[:handle]}'s Twitter Punch Card:
+#dates
+  %ul
+    - @dates.each do |date|
+      %li= date

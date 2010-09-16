@@ -1,10 +1,15 @@
 require 'rubygems'
 require 'sinatra'
+require 'tweetdates'
+require 'haml'
 
 get '/' do
   "My Playground."
 end
 
 get '/punchcard/:handle' do
-  "@#{params[:handle]}'s Twitter Punch Card"
+  @dates = TweetDates.new(params[:handle]).collect do |date|
+    "#{date.wday} #{date.hour}"
+  end
+  haml :punchcard
 end
