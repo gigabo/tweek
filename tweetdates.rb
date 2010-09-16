@@ -18,14 +18,18 @@ class TweetDates
 
   private
   def init_dates
-    url = URI.parse('http://search.twitter.com/')
 
-    res = JSON Net::HTTP.start(url.host, url.port) {|http|
-      http.get("/search.json?q=from:#@handle")
-    }.body
+    @dates = [];
+    begin
+      url = URI.parse('http://search.twitter.com/')
+      res = JSON Net::HTTP.start(url.host, url.port) {|http|
+        http.get("/search.json?q=from:#@handle")
+      }.body
 
-    @dates = res['results'].collect do |tweet|
-      DateTime.parse(tweet['created_at'])
+      @dates = res['results'].collect do |tweet|
+        DateTime.parse(tweet['created_at'])
+      end
+    rescue JSON::ParserError
     end
   end
 end
