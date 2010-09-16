@@ -1,4 +1,10 @@
-#greeting
-  %h2 @#{params[:handle]}'s Twitter Punch Card:
-#chart
-  %img{:src => @chart_url}
+%head
+  %link{:rel => "stylesheet", :href => "/css/punch.css", :type => "text/css"}
+%body
+  #punch
+    #greeting
+      %h2
+        #handle @#{params[:handle]}
+        's Twitter Punch Card:
+    #chart
+      %img{:src => @chart_url}

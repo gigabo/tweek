@@ -3,9 +3,15 @@ require 'sinatra'
 require 'tweetdates'
 require 'punchcard'
 require 'haml'
+require 'less'
 
 get '/' do
   "My Playground."
+end
+
+get '/css/punch.css' do
+  content_type 'text/css', :charset => 'utf-8'
+  less :punch
 end
 
 get '/punch' do
