@@ -12,7 +12,7 @@ end
 
 get '/punch/:handle' do
   @handle = params[:handle]
-  @chart_url = PunchCard.fake#new(TweetDates.new(@handle)).url
+  @chart_url = PunchCard.new(TweetDates.new(@handle)).url
   haml :punchcard
 end
 
