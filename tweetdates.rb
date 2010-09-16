@@ -35,6 +35,7 @@ class TweetDates
       @dates.push(*got)
       break unless got.size == @page_size
       page += 1
+      break if page > 2 # Just get last 200 tweets for now
     end
   end
   def get_some(page)
