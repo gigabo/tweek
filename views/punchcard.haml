@@ -3,7 +3,9 @@
 %body
   #punch
     #greeting
-      #handle @#{params[:handle]}
+      #handle
+        %a{:href => "http://twitter.com/#{params[:handle]}"}
+          @#{params[:handle]}
       's Twitter Punch Card:
     #chart
       %img{:src => @chart_url}
