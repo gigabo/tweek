@@ -5,8 +5,7 @@
   #punch
     #greeting
       #handle
-        %a{:href => "http://twitter.com/#{params[:handle]}"}
-          @#{params[:handle]}
+        %a{:href => "http://twitter.com/#@handle"} @#{@handle}
       's Punch Card:
     #chart
       %img{:src => @chart_url}

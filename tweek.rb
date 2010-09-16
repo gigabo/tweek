@@ -11,7 +11,8 @@ get '/css/punch.css' do
 end
 
 get '/punch/:handle' do
-  @chart_url = PunchCard.new(TweetDates.new(params[:handle])).url
+  @handle = params[:handle]
+  @chart_url = PunchCard.fake#new(TweetDates.new(@handle)).url
   haml :punchcard
 end
 
