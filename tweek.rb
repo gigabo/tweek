@@ -7,6 +7,10 @@ get '/' do
   "My Playground."
 end
 
+get '/punch' do
+  "Coming soon."
+end
+
 get '/punch/:handle' do
   @dates = TweetDates.new(params[:handle]).collect do |date|
     "#{date.wday} #{date.hour}"
