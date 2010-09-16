@@ -6,6 +6,9 @@ require 'json'
 
 class TweetDates
   include Enumerable
+
+  attr_reader :error
+
   def initialize(handle)
     @handle = handle
     init_dates
@@ -30,6 +33,7 @@ class TweetDates
         DateTime.parse(tweet['created_at'])
       end
     rescue JSON::ParserError
+      @error = "Failed to fetch timeline for @#@handle.";
     end
   end
 end
