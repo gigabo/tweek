@@ -1,6 +1,5 @@
 require 'net/http'
 require 'uri'
-require 'date'
 require 'rubygems'
 require 'json'
 require 'grackle'
@@ -12,6 +11,7 @@ class TweetDates
 
   def initialize(handle)
     @handle = handle
+    @page_size = 100
     @client = Grackle::Client.new(:auth=>{
       :type=>:oauth,
       :consumer_key=>'lXFnhg5AgAOjcAY3XZcUPA',
@@ -29,10 +29,23 @@ class TweetDates
 
   private
   def init_dates
-    @dates = @client.statuses.user_timeline?(
-      :screen_name => @handle
-    ).collect do |tweet|
-      DateTime.parse(tweet.created_at)
+    @dates = []
+    page = 1
+    while got = get_some(page) do
+      @dates.push(*got)
+      break unless got.size == @page_size
+      page += 1
+    end
+  end
+  def get_some(page)
+    args = {
+      :screen_name => @handle,
+      :include_rts => 'true',
+      :count       => @page_size,
+      :page        => page
+    }
+    @client.statuses.user_timeline?(args).collect do |tweet|
+      Time.parse(tweet.created_at)
     end
   end
 end
