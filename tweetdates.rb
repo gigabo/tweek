@@ -30,7 +30,7 @@ class TweetDates
   private
   def init_dates
     @dates = @client.statuses.user_timeline?(
-      :screen_name => 'gigabo'
+      :screen_name => @handle
     ).collect do |tweet|
       DateTime.parse(tweet.created_at)
     end

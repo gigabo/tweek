@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'tweetdates'
+require 'punchcard'
 require 'haml'
 
 get '/' do
@@ -12,8 +13,6 @@ get '/punch' do
 end
 
 get '/punch/:handle' do
-  @dates = TweetDates.new(params[:handle]).collect do |date|
-    "#{date.wday} #{date.hour}"
-  end
+  @chart_url = PunchCard.new(TweetDates.new(params[:handle])).url
   haml :punchcard
 end
