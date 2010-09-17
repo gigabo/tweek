@@ -1,3 +1,3 @@
 require 'tweek'
 
-run Sinatra::Application
+run Tweek
