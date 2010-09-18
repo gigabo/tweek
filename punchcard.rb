@@ -58,7 +58,7 @@ class PunchCard
       v1 > m1 ? v1 : m1
     end
 
-    scale = 24 / max # Max value = 100
+    scale = max > 0 ? (24 / max) : 0
 
     values = []
     (0..7).each do |y|

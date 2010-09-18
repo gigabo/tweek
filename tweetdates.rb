@@ -43,8 +43,12 @@ class TweetDates
       :count       => @page_size,
       :page        => page
     }
-    @client.statuses.user_timeline?(args).collect do |tweet|
-      Time.parse(tweet.created_at)
+    return begin
+      @client.statuses.user_timeline?(args).collect do |tweet|
+        Time.parse(tweet.created_at)
+      end
+    rescue
+      [] # Just return an empty list of dates on error
     end
   end
 end
