@@ -1,8 +1,5 @@
-require 'net/http'
-require 'uri'
 require 'time'
 require 'rubygems'
-require 'json'
 require 'grackle'
 
 class TweetDates
