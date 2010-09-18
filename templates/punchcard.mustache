@@ -1,8 +1,15 @@
 <div id="punch">
   <div id="greeting">
-    <a href="http://twitter.com/{{handle}}">{{handle}}</a>'s Punch Card
+    <a href="http://twitter.com/{{handle}}">@{{handle}}</a>'s Punch Card
   </div>
   <div id="chart">
     <img src="{{chart_url}}">
+  </div>
+  <div id="form_div">
+    <form id="punch_form" action="/punch">
+      <input type="text" name="handle" id="handle_input" value="{{handle}}"
+        spellcheck=false>
+      <input type="submit" name="punch" id="punch_input" value="Punch">
+    </form>
   </div>
 </div>

@@ -13,10 +13,19 @@ class Tweek < Sinatra::Base
     :views     => 'views/',
     :templates => 'templates/'
   }
+  set :public, File.dirname(__FILE__) + '/public'
 
-  get '/css/punch.css' do
+  get '/css/:file.css' do
     content_type 'text/css', :charset => 'utf-8'
-    less :punch
+    less :"#{params[:file]}"
+  end
+
+  get '/punch' do
+    if params[:handle]
+      redirect "/punch/#{params[:handle]}"
+    else
+      pass
+    end
   end
 
   get '/punch/:handle' do
@@ -26,6 +35,7 @@ class Tweek < Sinatra::Base
   end
 
   get '/*' do
+    pass if params[:splat].first.match(/^\/?js\//)
     mustache :coming_soon
   end
 end

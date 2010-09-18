@@ -1,26 +1,54 @@
 
-@image_bg: #efefef;
+@image_bg: #e0e0e0;
+@vertical_padding: 30px;
 
 body {
   padding-top: 100px;
-  background-color: @image_bg * .75;
+  background-color: @image_bg;
   color: @image_bg * .2;
 }
 #punch {
-  margin-left: auto;
-  margin-right: auto;
-  width: 70%;
-}
-#greeting {
-  font-size: 24pt;
-  font-weight: bold;
-  font-family: Verdana, Geneva, sans-serif;
-  padding-bottom: 20px;
-  a {
-    text-decoration: none;
-    color: @image_bg * .35;
+  float: left;
+  padding-left: 20%;
+  #greeting {
+    font-size: 24pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, sans-serif;
+    padding-bottom: @vertical_padding;
+    padding-left: 28px;
+    a {
+      text-decoration: none;
+      color: @image_bg * .35;
+    }
+
+  }
+  #form_div {
+    float: right;
+    padding-top: @vertical_padding;
+    padding-right: 14px;
+
+    input {
+      font-size: 150%;
+      color: @image_bg * 1.2;
+      border: 0px solid (@image_bg * .8);
+      background-color: @image_bg * .5;
+      border-radius: 5px;
+    }
+    #handle_input{
+      color: @image_bg * .8;
+      background: @image_bg * 1.07;
+    }
+    #handle_input:focus {
+      color: @image_bg * .4;
+    }
+
   }
 }
-#handle {
-  float: left;
+
+::selection {
+  background: @image_bg * .9;
+}
+
+:focus {
+  outline: 4px solid (@image_bg * .8);
 }
