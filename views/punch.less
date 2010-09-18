@@ -2,20 +2,33 @@
 @image_bg: #e0e0e0;
 @vertical_padding: 30px;
 
+.rounded_corners (@radius: 5px) {
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  border-radius: @radius;
+}
+
 body {
-  padding-top: 100px;
+  padding-top: 10%;
   background-color: @image_bg;
   color: @image_bg * .2;
 }
 #punch {
-  float: left;
+  width: 60%;
   padding-left: 20%;
+  /*
+  float: left;
+  padding-left: 5%;
+  */
+  #chart_img {
+    width: 100%;
+  }
   #greeting {
     font-size: 24pt;
     font-weight: bold;
     font-family: Verdana, Geneva, sans-serif;
     padding-bottom: @vertical_padding;
-    padding-left: 28px;
+    padding-left: 4%;
     a {
       text-decoration: none;
       color: @image_bg * .35;
@@ -25,14 +38,15 @@ body {
   #form_div {
     float: right;
     padding-top: @vertical_padding;
-    padding-right: 14px;
+    padding-right: 1.5%;
+    text-align: right;
 
     input {
       font-size: 150%;
       color: @image_bg * 1.2;
       border: 0px solid (@image_bg * .8);
       background-color: @image_bg * .5;
-      border-radius: 5px;
+      .rounded_corners;
     }
     #handle_input{
       color: @image_bg * .8;
@@ -42,6 +56,9 @@ body {
       color: @image_bg * .4;
     }
 
+  }
+  .unit {
+    white-space: nowrap;
   }
 }
 
