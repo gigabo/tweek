@@ -7,9 +7,10 @@ class TweetDates
 
   attr_reader :error
 
+  PAGE_SIZE = 200
+
   def initialize(handle)
     @handle = handle
-    @page_size = 100
     @client = Grackle::Client.new(:auth=>{
       :type=>:oauth,
       :consumer_key=>'lXFnhg5AgAOjcAY3XZcUPA',
@@ -31,16 +32,16 @@ class TweetDates
     page = 1
     while got = get_some(page) do
       @dates.push(*got)
-      break unless got.size == @page_size
+      break unless got.size == PAGE_SIZE
       page += 1
-      break if page > 2 # Just get last 200 tweets for now
+      break if page > 2 # Just get last 2 pages for now
     end
   end
   def get_some(page)
     args = {
       :screen_name => @handle,
       :include_rts => 'true',
-      :count       => @page_size,
+      :count       => PAGE_SIZE,
       :page        => page
     }
     return begin
