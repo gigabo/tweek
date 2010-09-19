@@ -2,6 +2,9 @@ require 'time'
 require 'rubygems'
 require 'grackle'
 
+# Yuck.  Don't like having to reach in to do this.
+#Grackle::Client::TWITTER_API_HOSTS[:v1] = "punch.gigabo.apigee.com"
+
 class TweetDates
   include Enumerable
 
