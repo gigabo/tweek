@@ -45,7 +45,8 @@ class Tweek < Sinatra::Base
 
   get '/play/:script' do
     @title = "Play (#{params[:script]})"
-    @scripts = [{:name => "/coffee/#{params[:script]}.coffee"}]
+    #@scripts = [{:name => "/coffee/#{params[:script]}.coffee"}]
+    @scripts = [{:name => "/js/#{params[:script]}.js"}]
     mustache :play
   end
 
