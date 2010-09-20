@@ -1,12 +1,14 @@
 
-TOWER_HEIGHT  = 200
+MAX_HEIGHT    = 200
+TOWER_HEIGHT  = 1
 WIDTH         = undefined
 HEIGHT        = undefined
 ctx           = undefined
-columns       = undefined
-move_number   = 0
+towers        = undefined
+step_timer    = undefined
+move_number   = 1
 
-class Column
+class Tower
   constructor: (@index) ->
     @disks = []
 
@@ -18,17 +20,42 @@ init = () ->
   WIDTH       = $("#play_canvas").width()
   HEIGHT      = $("#play_canvas").height()
 
-  columns = _.map [0,1,2], (i)=>
-    new Column(i)
+  init_controls()
+  init_towers()
 
-  columns[0].disks = _([1..TOWER_HEIGHT]).chain()
+init_controls = () ->
+  $("#play").prepend("<input id='tower_refresh' type='button' value='Go'>")
+  $("#play").prepend("<input id='tower_height'>")
+  $("#tower_refresh").click re_init_towers
+  $("#tower_height").keydown (evt) =>
+    if evt.keyCode == 13 then re_init_towers()
+
+re_init_towers = () ->
+  init_towers($("#tower_height").val())
+
+init_towers = (new_height) ->
+  clearInterval(step_timer) if step_timer
+
+  if new_height
+    new_height = parseInt(new_height)
+    if 0 < new_height <= MAX_HEIGHT
+      TOWER_HEIGHT = new_height
+
+  $("#tower_height").val(TOWER_HEIGHT)
+
+  move_number = 1
+
+  towers = _.map [0,1,2], (i)=>
+    new Tower(i)
+
+  towers[0].disks = _([1..TOWER_HEIGHT]).chain()
     .reverse()
     .map (i)=>
       new Disk(i)
     .value()
 
   draw()
-  setInterval(step, 1)
+  step_timer = setInterval(step, 500/Math.pow(TOWER_HEIGHT, 1.2))
 
 rect = (x,y,w,h) ->
   ctx.beginPath()
@@ -36,21 +63,18 @@ rect = (x,y,w,h) ->
   ctx.closePath()
   ctx.fill()
 
-color = (r,g,b,a) ->
-  ctx.fillStyle = "rgba(#{r}, #{g}, #{b}, #{a})"
-
 clear = () ->
   ctx.clearRect(0, 0, WIDTH, HEIGHT)
 
 draw = () ->
   clear()
   i = 0
-  for col in columns
+  for col in towers
     j = 0
-    for disk in columns[i].disks
-      shade = (300 - disk.width) / 2
-      color(shade, shade, shade, 255)
-      rect(WIDTH/4*(i+1)-disk.width/2,HEIGHT - j,disk.width,1)
+    for disk in towers[i].disks
+      mult = MAX_HEIGHT/TOWER_HEIGHT
+      rect(WIDTH/4*(i+1)-disk.width*mult/2,HEIGHT-j*mult-mult,
+        disk.width*mult,mult)
       j++
     i++
 
@@ -63,6 +87,7 @@ get_move = (move) ->
 
   move >>= 1; # Now the Nth move *for this disk*
 
+
   direction = [
     [ 0, 1, 2 ],
     [ 0, 2, 1 ],
@@ -71,9 +96,11 @@ get_move = (move) ->
   [ direction[ move % 3], direction[ (move + 1) % 3 ] ]
 
 step = () ->
-  if columns[1].disks.length != TOWER_HEIGHT
-    [from, to] = get_move(++move_number)
-    columns[to].disks.push(columns[from].disks.pop())
+  if towers[1].disks.length != TOWER_HEIGHT
+    [from, to] = get_move(move_number++)
+    towers[to].disks.push(towers[from].disks.pop())
+  else
+    init_towers(TOWER_HEIGHT+1)
 
   draw()
 
