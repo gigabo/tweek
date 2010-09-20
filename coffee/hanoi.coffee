@@ -1,10 +1,10 @@
 
-TOWER_HEIGHT=200
-WIDTH = undefined
-HEIGHT = undefined
-ctx = undefined
-columns = undefined
-move_number = 0
+TOWER_HEIGHT  = 200
+WIDTH         = undefined
+HEIGHT        = undefined
+ctx           = undefined
+columns       = undefined
+move_number   = 0
 
 class Column
   constructor: (@index) ->
@@ -14,13 +14,14 @@ class Disk
   constructor: (@width) ->
 
 init = () ->
-  ctx = $('#play_canvas')[0].getContext("2d")
-  WIDTH = $("#play_canvas").width()
-  HEIGHT = $("#play_canvas").height()
+  ctx         = $('#play_canvas')[0].getContext("2d")
+  WIDTH       = $("#play_canvas").width()
+  HEIGHT      = $("#play_canvas").height()
+
   columns = _.map [0,1,2], (i)=>
     new Column(i)
 
-  columns[0].disks = _([1..200]).chain()
+  columns[0].disks = _([1..TOWER_HEIGHT]).chain()
     .reverse()
     .map (i)=>
       new Disk(i)
@@ -49,12 +50,11 @@ draw = () ->
     for disk in columns[i].disks
       shade = (300 - disk.width) / 2
       color(shade, shade, shade, 255)
-      rect((WIDTH/4)*(i+1)-disk.width/2,HEIGHT - j,disk.width,1)
+      rect(WIDTH/4*(i+1)-disk.width/2,HEIGHT - j,disk.width,1)
       j++
     i++
 
 get_move = (move) ->
-
   disk = 1
 
   while (!(move & 1))
@@ -71,8 +71,9 @@ get_move = (move) ->
   [ direction[ move % 3], direction[ (move + 1) % 3 ] ]
 
 step = () ->
-  [from, to] = get_move(++move_number)
-  columns[to].disks.push(columns[from].disks.pop())
+  if columns[1].disks.length != TOWER_HEIGHT
+    [from, to] = get_move(++move_number)
+    columns[to].disks.push(columns[from].disks.pop())
 
   draw()
 
