@@ -45,8 +45,14 @@
     }
     if (new_height) {
       new_height = parseInt(new_height);
-      if ((0 < new_height) && (new_height <= MAX_HEIGHT)) {
-        TOWER_HEIGHT = new_height;
+      if (!_.isNaN(new_height)) {
+        if (new_height < 1) {
+          TOWER_HEIGHT = 1;
+        } else if (new_height > MAX_HEIGHT) {
+          TOWER_HEIGHT = MAX_HEIGHT;
+        } else {
+          TOWER_HEIGHT = new_height;
+        }
       }
     }
     $("#tower_height").val(TOWER_HEIGHT);
@@ -62,7 +68,7 @@
       return new Disk(i);
     }, this)).value();
     draw();
-    return (step_timer = setInterval(step, 500 / Math.pow(TOWER_HEIGHT, 1.2)));
+    return (step_timer = setInterval(step, 1000 / Math.pow(TOWER_HEIGHT, 1.3)));
   };
   rect = function(x, y, w, h) {
     ctx.beginPath();
