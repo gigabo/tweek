@@ -4,6 +4,9 @@ class Tweek
       def title
         @title || "Tweek: Bo's Playground"
       end
+      def scripts
+        @scripts || []
+      end
     end
   end
 end

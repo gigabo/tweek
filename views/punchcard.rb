@@ -1,6 +1,6 @@
 class Tweek
   module Views
-    class Punchcard < Mustache
+    class Punchcard < Layout
       attr_reader :handle
       attr_reader :chart_url
     end

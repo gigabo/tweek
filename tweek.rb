@@ -4,6 +4,7 @@ require 'tweetdates'
 require 'punchcard'
 require 'mustache/sinatra'
 require 'less'
+require 'coffee-script'
 
 class Tweek < Sinatra::Base
   register Mustache::Sinatra
@@ -30,8 +31,22 @@ class Tweek < Sinatra::Base
 
   get '/punch/:handle' do
     @handle = params[:handle]
+    @title = "Punch Card"
     @chart_url = PunchCard.new(TweetDates.new(@handle)).url
+    @scripts = [{:name => '/js/punch.js'}]
     mustache :punchcard
+  end
+
+  get '/coffee/:script' do
+    content_type :js
+    base_name = File.dirname(__FILE__) + '/coffee/' + params[:script]
+    CoffeeScript.compile File.open(base_name, 'r'){|f| f.read }
+  end
+
+  get '/play/:script' do
+    @title = "Play (#{params[:script]})"
+    @scripts = [{:name => "/coffee/#{params[:script]}.coffee"}]
+    mustache :play
   end
 
   get '/*' do
