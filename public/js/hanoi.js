@@ -1,15 +1,17 @@
 (function() {
-  var Disk, HEIGHT, MAX_HEIGHT, TOWER_HEIGHT, Tower, WIDTH, clear, ctx, draw, get_move, init, init_controls, init_towers, move_number, re_init_towers, rect, step, step_timer, towers;
+  var Disk, HEIGHT, MAX_HEIGHT, TOWER_HEIGHT, Tower, WIDTH, canvas, clear, ctx, draw, get_move, init, init_canvas, init_controls, init_towers, initial_ratio, move_number, re_init_towers, rect, step, step_timer, towers, update_canvas_width;
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
+  WIDTH = 800;
+  HEIGHT = 400;
   MAX_HEIGHT = 200;
   TOWER_HEIGHT = 1;
-  WIDTH = undefined;
-  HEIGHT = undefined;
+  canvas = undefined;
   ctx = undefined;
   towers = undefined;
   step_timer = undefined;
+  initial_ratio = undefined;
   move_number = 1;
   Tower = function(_a) {
     this.index = _a;
@@ -21,11 +23,21 @@
     return this;
   };
   init = function() {
-    ctx = $('#play_canvas')[0].getContext("2d");
-    WIDTH = $("#play_canvas").width();
-    HEIGHT = $("#play_canvas").height();
+    init_canvas();
     init_controls();
     return init_towers();
+  };
+  init_canvas = function() {
+    canvas = $('#play_canvas');
+    ctx = canvas[0].getContext("2d");
+    initial_ratio = 800 / canvas.parent().innerWidth();
+    return setInterval(update_canvas_width, 100);
+  };
+  update_canvas_width = function() {
+    var width;
+    width = canvas.parent().innerWidth() * initial_ratio;
+    canvas.width(width);
+    return canvas.height(width / 2);
   };
   init_controls = function() {
     $("#play").append("<div id='controls' class='control_container'></div>");

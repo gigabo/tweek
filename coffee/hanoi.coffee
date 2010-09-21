@@ -1,11 +1,13 @@
 
+WIDTH         = 800
+HEIGHT        = 400
 MAX_HEIGHT    = 200
 TOWER_HEIGHT  = 1
-WIDTH         = undefined
-HEIGHT        = undefined
+canvas        = undefined
 ctx           = undefined
 towers        = undefined
 step_timer    = undefined
+initial_ratio = undefined
 move_number   = 1
 
 class Tower
@@ -16,12 +18,21 @@ class Disk
   constructor: (@width) ->
 
 init = () ->
-  ctx         = $('#play_canvas')[0].getContext("2d")
-  WIDTH       = $("#play_canvas").width()
-  HEIGHT      = $("#play_canvas").height()
-
+  init_canvas()
   init_controls()
   init_towers()
+
+init_canvas = () ->
+  canvas      = $('#play_canvas')
+  ctx         = canvas[0].getContext("2d")
+
+  initial_ratio = 800 / canvas.parent().innerWidth()
+  setInterval(update_canvas_width, 100)
+
+update_canvas_width = () ->
+  width = canvas.parent().innerWidth() * initial_ratio
+  canvas.width(width)
+  canvas.height(width/2)
 
 init_controls = () ->
   $("#play").append("<div id='controls' class='control_container'></div>")
