@@ -1,4 +1,4 @@
-class Tweek
+class TweekApp
   module Views
     class Punchcard < Layout
       attr_reader :handle

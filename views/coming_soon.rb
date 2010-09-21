@@ -1,4 +1,4 @@
-class Tweek
+class TweekApp
   module Views
     class ComingSoon < Layout
       attr_reader :title

@@ -1,4 +1,4 @@
-class Tweek
+class TweekApp
   module Views
     class Layout < Mustache
       def title
