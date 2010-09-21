@@ -1,3 +1,3 @@
-require 'tweek'
+require 'tweekapp'
 
-run Tweek
+run TweekApp
