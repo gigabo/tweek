@@ -24,7 +24,7 @@ class PunchCard
     params = {
       :chs => '800x300',
       :chds => '-1,24,-1,7,0,22',
-      :chf => 'bg,s,e0e0e0',
+      :chf => 'bg,s,c0c0b5',
       :chxt => 'x,y',
       :chm => 'o,333333,1,1.0,25.0',
       :chxl => [
