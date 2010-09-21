@@ -1,10 +1,9 @@
 
 
 init_controls = () ->
-  $("#play").append("<h1>API Client</h1>")
-  $("#play").append("<input type='text' spellcheck='false' id='api_query'>")
-  $("#play").append("<input id='api_go' type='button' value='Go'>")
-  $("#play").append("<pre id='api_result'></pre>")
+  $("#play_container").append("<input type='text' spellcheck='false' id='api_query'>")
+  $("#play_container").append("<input id='api_go' type='button' value='Go'>")
+  $("#play_container").append("<pre id='api_result'></pre>")
   $("#api_go").click api_go
   $("#api_query").width("90%")
   $("#api_query").keydown (evt) =>

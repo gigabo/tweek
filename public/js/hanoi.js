@@ -28,8 +28,9 @@
     return init_towers();
   };
   init_controls = function() {
-    $("#play").prepend("<input id='tower_refresh' type='button' value='Go'>");
-    $("#play").prepend("<input id='tower_height'>");
+    $("#play").append("<div id='controls' class='control_container'></div>");
+    $("#controls").append("<input type='text' id='tower_height'>");
+    $("#controls").append("<input id='tower_refresh' type='button' value='Go'>");
     $("#tower_refresh").click(re_init_towers);
     return $("#tower_height").keydown(__bind(function(evt) {
       return evt.keyCode === 13 ? re_init_towers() : null;
@@ -92,7 +93,7 @@
         for (_e = 0, _g = _f.length; _e < _g; _e++) {
           disk = _f[_e];
           mult = MAX_HEIGHT / TOWER_HEIGHT;
-          rect(WIDTH / 4 * (i + 1) - disk.width * mult / 2, HEIGHT - j * mult - mult, disk.width * mult, mult);
+          rect(WIDTH / 4 * (i + 1) - disk.width * mult / 2, HEIGHT - MAX_HEIGHT / 2 - j * mult - mult, disk.width * mult, mult);
           j++;
         }
         return i++;
