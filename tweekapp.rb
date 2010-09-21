@@ -23,14 +23,9 @@ class TweekApp < Sinatra::Base
     less :"#{params[:file]}"
   end
 
-  get '/api/*' do
+  get '/api/json/*' do
     content_type 'text/json', :charset => 'utf-8'
-    args = params[:splat][0].split('/')
-    if m = Tweek::API::MODULES[:"#{args[0]}"]
-      m.new(params).response.to_json
-    else
-      {:error => "Unknown service"}.to_json
-    end
+    Tweek::API.response(params).to_json
   end
 
   get '/punch' do
