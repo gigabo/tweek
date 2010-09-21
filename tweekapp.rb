@@ -54,6 +54,7 @@ class TweekApp < Sinatra::Base
     @title = "Play (#{params[:script]})"
     #@scripts = [{:name => "/coffee/#{params[:script]}.coffee"}]
     @scripts = [{:name => "/js/#{params[:script]}.js"}]
+    @scripts.push({:name => "/js/jquery.dump.js"})
     mustache :play
   end
 

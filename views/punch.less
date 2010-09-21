@@ -1,5 +1,5 @@
 
-@image_bg: #e0e0e0;
+@image_bg: #c0c0b5;
 @vertical_padding: 30px;
 
 .rounded_corners (@radius: 5px) {
@@ -8,64 +8,63 @@
   border-radius: @radius;
 }
 
+.highlight () {
+  background-color: red;
+}
+
 body {
-  padding-top: 5%;
+  font-size: 12pt;
+  font-weight: bold;
+  font-family: Verdana, Geneva, sans-serif;
   background-color: @image_bg;
   color: @image_bg * .2;
 }
 
 #main {
-  width: 60%;
-  padding-left: 19%;
+  background-color: @image_bg * .8;
+  width: 80%;
+  margin: 5% 5%;
+  padding: 2% 5%;
+  height: auto;
+  .rounded_corners(25px);
 }
 
-#play {
-  #play_canvas {
-  }
+a {
+  text-decoration: none;
+  color: @image_bg * .35;
 }
 
-#punch {
+input {
+  font-size: 150%;
+  color: @image_bg * 1.2;
+  border: 0px solid (@image_bg * .8);
+  background-color: @image_bg * .5;
+  .rounded_corners(5px);
+}
 
-  #chart_img {
-    width: 100%;
-  }
-  #greeting {
-    font-size: 24pt;
-    font-weight: bold;
-    font-family: Verdana, Geneva, sans-serif;
-    padding-bottom: @vertical_padding;
-    padding-left: 4%;
-    a {
-      text-decoration: none;
-      color: @image_bg * .35;
-    }
+input[type='text'] {
+  color: @image_bg * .8;
+  background: @image_bg * 1.07;
+}
+input[type='text']:focus {
+  color: @image_bg * .4;
+}
+input[type='button']:hover, input[type='submit']:hover {
+  color: @image_bg * .4;
+}
 
-  }
-  #form_div {
-    float: right;
-    padding-top: @vertical_padding;
-    padding-right: 1.5%;
-    text-align: right;
+h1 {
+  font-size: 200%;
+}
 
-    input {
-      font-size: 150%;
-      color: @image_bg * 1.2;
-      border: 0px solid (@image_bg * .8);
-      background-color: @image_bg * .5;
-      .rounded_corners;
-    }
-    #handle_input{
-      color: @image_bg * .8;
-      background: @image_bg * 1.07;
-    }
-    #handle_input:focus {
-      color: @image_bg * .4;
-    }
+pre {
+  font-size: 150%;
+}
 
-  }
-  .unit {
-    white-space: nowrap;
-  }
+.control_container {
+  padding-top: @vertical_padding;
+  padding-right: 0%;
+  text-align: right;
 }
 
 ::selection {
@@ -75,3 +74,13 @@ body {
 :focus {
   outline: 4px solid (@image_bg * .8);
 }
+
+.unit {
+  white-space: nowrap;
+}
+
+#chart_img {
+  width: 100%;
+  .rounded_corners(10px);
+}
+

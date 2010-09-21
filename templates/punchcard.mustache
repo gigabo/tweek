@@ -1,16 +1,15 @@
-<div id="punch">
-  <div id="greeting">
-    <a href="http://twitter.com/{{handle}}">@{{handle}}</a>'s
-    <span class="unit">Punch Card</span>
-  </div>
-  <div id="chart">
-    <img id="chart_img" src="{{chart_url}}">
-  </div>
-  <div id="form_div">
-    <form id="punch_form" action="/punch">
-      <input type="text" name="handle" id="handle_input" value="{{handle}}"
-        spellcheck=false>
-      <input type="submit" name="punch" id="punch_input" value="Punch">
-    </form>
-  </div>
+<h1 id="greeting">
+  <a href="http://twitter.com/{{handle}}">@{{handle}}</a>'s
+  <span class="unit">Punch Card</span>
+</h1>
+<div id="chart">
+  <img id="chart_img" src="{{chart_url}}">
+</div>
+<div id="form_div" class="control_container">
+  <form id="punch_form" action="/punch">
+    <input type="text" name="handle" id="handle_input"
+           value="{{handle}}" spellcheck=false>
+    <input type="submit" name="punch" id="punch_input"
+           class="input_button" value="Punch">
+  </form>
 </div>

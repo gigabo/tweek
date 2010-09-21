@@ -25,7 +25,7 @@ init = () ->
 
 init_controls = () ->
   $("#play").prepend("<input id='tower_refresh' type='button' value='Go'>")
-  $("#play").prepend("<input id='tower_height'>")
+  $("#play").prepend("<input id='tower_height'  type='text'>")
   $("#tower_refresh").click re_init_towers
   $("#tower_height").keydown (evt) =>
     if evt.keyCode == 13 then re_init_towers()
