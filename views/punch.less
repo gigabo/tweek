@@ -24,7 +24,7 @@ body {
   background-color: @image_bg * .8;
   width: 80%;
   margin: 2% 5%;
-  padding: 2% 5%;
+  padding: 1% 5%;
   height: auto;
   .rounded_corners(25px);
 }
@@ -36,10 +36,12 @@ a {
 
 #play_container {
   background-color: @image_bg * .65;
-  padding: 5% 2%;
+  padding: 2% 2%;
   .rounded_corners(10px);
 }
 #canvas_container {
+  min-width: 900px;
+  background-color: inherit;
   text-align: center;
 }
 canvas {
@@ -65,7 +67,7 @@ input[type='button']:hover, input[type='submit']:hover {
 }
 
 h1 {
-  font-size: 200%;
+  font-size: 150%;
 }
 
 pre {
