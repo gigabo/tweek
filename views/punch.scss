@@ -1,0 +1,96 @@
+
+$image_bg: #c0c0b5;
+$vertical_padding: 30px;
+
+@mixin rounded_corners ($radius: 5px) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin highlight () {
+  background-color: red;
+}
+
+body {
+  font-size: 12pt;
+  font-weight: bold;
+  font-family: Verdana, Geneva, sans-serif;
+  background-color: $image_bg;
+  color: $image_bg * .2;
+}
+
+#main {
+  background-color: $image_bg * .8;
+  width: 80%;
+  margin: 2% 5%;
+  padding: 1% 5%;
+  height: auto;
+  @include rounded_corners(25px);
+}
+
+a {
+  text-decoration: none;
+  color: $image_bg * .35;
+}
+
+#play_container {
+  background-color: $image_bg * .65;
+  padding: 2% 2%;
+  @include rounded_corners(10px);
+}
+#canvas_container {
+  background-color: inherit;
+  text-align: center;
+}
+canvas {
+}
+
+input {
+  font-size: 150%;
+  color: $image_bg * 1.2;
+  border: 0px solid ($image_bg * .8);
+  background-color: $image_bg * .5;
+  @include rounded_corners(5px);
+  &[type='text'] {
+    color: $image_bg * .8;
+    background: $image_bg * 1.07;
+    &:focus { color: $image_bg * .4; }
+
+  }
+  &[type='button']:hover, &[type='submit']:hover {
+    color: $image_bg * .4;
+  }
+}
+
+h1 {
+  font-size: 150%;
+}
+
+pre {
+  font-size: 150%;
+}
+
+.control_container {
+  padding-top: $vertical_padding;
+  padding-right: 0%;
+  text-align: right;
+}
+
+::selection {
+  background: $image_bg * .9;
+}
+
+:focus {
+  outline: 4px solid ($image_bg * .8);
+}
+
+.unit {
+  white-space: nowrap;
+}
+
+#chart_img {
+  width: 100%;
+  @include rounded_corners(10px);
+}
+

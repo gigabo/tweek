@@ -3,7 +3,6 @@ require 'sinatra/base'
 require 'tweetdates'
 require 'punchcard'
 require 'mustache/sinatra'
-require 'less'
 require 'coffee-script'
 require 'json'
 require 'tweek/api'
@@ -17,11 +16,6 @@ class TweekApp < Sinatra::Base
     :templates => 'templates/'
   }
   set :public, File.dirname(__FILE__) + '/public'
-
-  get '/css/:file.css' do
-    content_type 'text/css', :charset => 'utf-8'
-    less :"#{params[:file]}"
-  end
 
   get '/api/json/*' do
     content_type 'text/json', :charset => 'utf-8'
@@ -41,6 +35,7 @@ class TweekApp < Sinatra::Base
     @title = "Punch Card"
     @chart_url = PunchCard.new(TweetDates.new(@handle)).url
     @scripts = [{:name => '/js/punch.js'}]
+    #@scripts = [{:name => '/coffee/punch.coffee'}]
     mustache :punchcard
   end
 

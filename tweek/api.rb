@@ -1,9 +1,11 @@
 require 'tweek/api/ok'
+require 'tweek/api/punch'
 
 class Tweek
   class API
     MODULES = {
-      :ok => Tweek::API::OK
+      :ok     => Tweek::API::OK,
+      :punch  => Tweek::API::Punch
     }
     class << self
       def response(params)
