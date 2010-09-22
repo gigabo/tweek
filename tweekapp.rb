@@ -35,10 +35,6 @@ class TweekApp < Sinatra::Base
   get '/punch/:handle' do
     @handle = params[:handle]
     @title = "Punch Card"
-    dates = Tweek::Cache.do(@handle) do
-      TweetDates.new(@handle)
-    end
-    @chart_url = PunchCard.new(dates).url
     @scripts = [{:name => '/js/punch.js'}]
     #@scripts = [{:name => '/coffee/punch.coffee'}]
     mustache :punchcard
