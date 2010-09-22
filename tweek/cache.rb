@@ -5,7 +5,7 @@ class Tweek
   class Cache
     class << self
       def do(key, &block)
-        @cache ||= Memcached.new("localhost:11211")
+        @cache ||= Memcached.new
         begin
           result = @cache.get key
         rescue Memcached::NotFound

@@ -13,10 +13,6 @@ class TweekApp < Sinatra::Base
   register Mustache::Sinatra
   require 'views/layout'
 
-  configure do
-    require 'memcached'
-    CACHE = Memcached.new
-  end
   set :mustache, {
     :views     => 'views/',
     :templates => 'templates/'
