@@ -1,4 +1,5 @@
 require 'tweetdates'
+require 'tweek/cache'
 
 class Tweek
   class API
@@ -9,7 +10,11 @@ class Tweek
       end
       def response
 
-        @dates = TweetDates.new(@user).collect do |date|
+        dates = Tweek::Cache.do(@user) do
+          TweetDates.new(@user)
+        end
+
+        @dates = dates.collect do |date|
           {
             :wday => date.wday,
             :hour => date.hour

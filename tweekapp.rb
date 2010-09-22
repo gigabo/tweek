@@ -6,11 +6,17 @@ require 'mustache/sinatra'
 require 'coffee-script'
 require 'json'
 require 'tweek/api'
+require 'tweek/cache'
+
 
 class TweekApp < Sinatra::Base
   register Mustache::Sinatra
   require 'views/layout'
 
+  configure do
+    require 'memcached'
+    CACHE = Memcached.new
+  end
   set :mustache, {
     :views     => 'views/',
     :templates => 'templates/'
@@ -33,7 +39,10 @@ class TweekApp < Sinatra::Base
   get '/punch/:handle' do
     @handle = params[:handle]
     @title = "Punch Card"
-    @chart_url = PunchCard.new(TweetDates.new(@handle)).url
+    dates = Tweek::Cache.do(@handle) do
+      TweetDates.new(@handle)
+    end
+    @chart_url = PunchCard.new(dates).url
     @scripts = [{:name => '/js/punch.js'}]
     #@scripts = [{:name => '/coffee/punch.coffee'}]
     mustache :punchcard

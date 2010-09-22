@@ -2,3 +2,4 @@ sinatra
 grackle
 mustache
 coffee-script
+memcached
