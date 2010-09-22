@@ -53,6 +53,6 @@ class TweetDates
       end
     rescue
       [] # Just return an empty list of dates on error
-    end
+    end.sort
   end
 end
