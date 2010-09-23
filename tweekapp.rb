@@ -19,7 +19,7 @@ class TweekApp < Sinatra::Base
   }
   set :public, File.dirname(__FILE__) + '/public'
 
-  get '/' do mustache :index end
+#  get '/' do mustache :index end
 
   get '/api/json/*' do
     content_type 'text/json', :charset => 'utf-8'
