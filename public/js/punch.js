@@ -1,5 +1,5 @@
 (function() {
-  var HEIGHT, Halo, WIDTH, api_go, canvas, circle, clear, ctx, dates, draw, draw_grid, draw_halos, draw_key, draw_punchcard, frame, grid, grid_x, grid_y, halo_life, halos, init, init_handle_input, initial_ratio, interval, line, max_encountered, new_halo, step, text, update_canvas_width, user;
+  var HEIGHT, Halo, WIDTH, api_go, canvas, circle, clear, ctx, dates, draw, draw_grid, draw_halos, draw_key, draw_punchcard, frame, grid, grid_x, grid_y, halo_life, halos, init, init_handle_input, initial_ratio, interval, is_ipad, line, max_encountered, new_halo, step, text, update_canvas_width, user;
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
@@ -12,6 +12,7 @@
   interval = undefined;
   WIDTH = undefined;
   HEIGHT = undefined;
+  is_ipad = false;
   max_encountered = 0;
   frame = 0;
   halos = [];
@@ -20,6 +21,7 @@
     init_handle_input();
     canvas = $("#chart_canvas");
     ctx = canvas[0].getContext("2d");
+    is_ipad = navigator.userAgent.match(/iPad/i) !== null;
     WIDTH = canvas.width();
     HEIGHT = canvas.height();
     update_canvas_width();
@@ -136,7 +138,7 @@
   text = function(text, x, y) {
     x = grid_x(x);
     y = grid_y(y);
-    return ctx.fillText(text, x, y);
+    return is_ipad ? ctx.strokeText(text, x, y) : ctx.fillText(text, x, y);
   };
   circle = function(x, y, r, fill) {
     var cur_mult, max_circle;
