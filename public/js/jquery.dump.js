@@ -1,7 +1,7 @@
 /**
- * jquery.dump.js
- * @author Torkild Dyvik Olsen
- * @version 1.0
+ * jquery.tweekdump.js
+ * @author Bo Borgerson, based on jquery.dump.js by Torkild Dyvik Olsen
+ * @version 0.1
  * 
  * A simple debug function to gather information about an object.
  * Returns a nested tree with information.
@@ -32,57 +32,19 @@ $.dump = function(object) {
          case "date":
             return "Date: " + obj.toLocaleString();
          case "array":
-            dump += 'Array ( \n';
+            dump += '[\n';
             $.each(obj, function(k,v) {
                dump += p +'\t' + k + ' => ' + recursion(v, level + 1) + '\n';
             });
-            dump += p + ')';
+            dump += p + ']';
             break;
          case "object":
-            dump += 'Object { \n';
+            dump += '{ \n';
             $.each(obj, function(k,v) {
                dump += p + '\t' + k + ': ' + recursion(v, level + 1) + '\n';
             });
             dump += p + '}';
             break;
-         case "jquery":
-            dump += 'jQuery Object { \n';
-            $.each(obj, function(k,v) {
-               dump += p + '\t' + k + ' = ' + recursion(v, level + 1) + '\n';
-            });
-            dump += p + '}';
-            break;
-         case "regexp":
-            return "RegExp: " + obj.toString();
-         case "error":
-            return obj.toString();
-         case "document":
-         case "domelement":
-            dump += 'DOMElement [ \n'
-                  + p + '\tnodeName: ' + obj.nodeName + '\n'
-                  + p + '\tnodeValue: ' + obj.nodeValue + '\n'
-                  + p + '\tinnerHTML: [ \n';
-            $.each(obj.childNodes, function(k,v) {
-               if(k < 1) var r = 0;
-               if(type(v) == "string") {
-                  if(v.textContent.match(/[^\s]/)) {
-                     dump += p + '\t\t' + (k - (r||0)) + ' = String: ' + trim(v.textContent) + '\n';
-                  } else {
-                     r--;
-                  }
-               } else {
-                  dump += p + '\t\t' + (k - (r||0)) + ' = ' + recursion(v, level + 2) + '\n';
-               }
-            });
-            dump += p + '\t]\n'
-                  + p + ']';
-            break;
-         case "function":
-            var match = obj.toString().match(/^(.*)\(([^\)]*)\)/im);
-            match[1] = trim(match[1].replace(new RegExp("[\\s]+", "g"), " "));
-            match[2] = trim(match[2].replace(new RegExp("[\\s]+", "g"), " "));
-            return match[1] + "(" + match[2] + ")";
-         case "window":
          default:
             dump += 'N/A: ' + t;
             break;

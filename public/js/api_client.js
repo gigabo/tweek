@@ -9,6 +9,7 @@
     $("#play_container").append("<pre id='api_result'></pre>");
     $("#api_go").click(api_go);
     $("#api_query").width("90%");
+    $("#api_query").focus();
     return $("#api_query").keydown(__bind(function(evt) {
       return evt.keyCode === 13 ? api_go() : null;
     }, this));
@@ -20,11 +21,11 @@
       var dump;
       dump = $.dump(res);
       $("#api_result").empty();
-      return $("#api_result").append("Got a response: " + (dump) + "\n");
+      return dump.length ? $("#api_result").append("" + (dump) + "\n") : $("#api_result").append("No response.\n");
     }, this));
   };
   $(document).ready(__bind(function() {
     $("#play_canvas").remove();
-    return $.getScript("/js/jquery.dump.js", init_controls);
+    return $.getScript("/js/jquery.tweekdump.js", init_controls);
   }, this));
 })();
