@@ -91,10 +91,10 @@
   };
   draw_grid = function() {
     ctx.strokeStyle = "rgba(0, 0, 0, 1)";
-    line(.5, 0, .5, 6.75);
-    line(.5, 6.75, 24, 6.75);
+    line(.25, 0, .25, 6.75);
+    line(.25, 6.75, 24, 6.75);
     _.each(_.range(0, 7), __bind(function(i) {
-      return line(.4, i, .5, i);
+      return line(.15, i, .25, i);
     }, this));
     return _.each(_.range(0, 24), __bind(function(i) {
       return line(i + 1, 6.75, i + 1, 6.85);

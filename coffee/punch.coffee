@@ -80,10 +80,10 @@ new_halo = (x, y, r) ->
 
 draw_grid = () ->
   ctx.strokeStyle = "rgba(0, 0, 0, 1)"
-  line(.5,0,.5,6.75)
-  line(.5,6.75,24,6.75)
+  line(.25,0,.25,6.75)
+  line(.25,6.75,24,6.75)
   _.each _.range(0, 7), (i) =>
-    line(.4,i,.5,i)
+    line(.15,i,.25,i)
   _.each _.range(0, 24), (i) =>
     line(i+1,6.75,i+1,6.85)
 
