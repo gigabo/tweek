@@ -7,7 +7,7 @@ initial_ratio   = undefined
 interval        = undefined
 WIDTH           = undefined
 HEIGHT          = undefined
-is_ipad         = false
+is_ipad_3       = false
 max_encountered = 0
 frame           = 0
 halos           = []
@@ -19,8 +19,7 @@ init = () ->
   canvas        = $("#chart_canvas")
   ctx           = canvas[0].getContext("2d")
 
-  is_ipad = navigator.userAgent.match(/iPad/i) != null
-  $("#chart").append("ua: #{navigator.userAgent}<br>is_ipad: #{is_ipad}")
+  is_ipad_3 = navigator.userAgent.match(/iPad[^\)]+OS 3/i) != null
 
   WIDTH = canvas.width()
   HEIGHT = canvas.height()
@@ -125,11 +124,9 @@ line = (x1, y1, x2, y2) ->
 text = (text, x, y) ->
   x = grid_x(x)
   y = grid_y(y)
-  if is_ipad
-    # fillText seems to be broken on the iPad
-    ctx.strokeText(text, x, y)
-  else
-    ctx.fillText(text, x, y)
+
+  # fillText seems to be broken on the iPad OS 3
+  ctx.fillText(text, x, y) unless is_ipad_3
 
 circle = (x,y,r,fill) ->
   fill = true if fill == undefined
