@@ -22,6 +22,7 @@
     canvas = $("#chart_canvas");
     ctx = canvas[0].getContext("2d");
     is_ipad = navigator.userAgent.match(/iPad/i) !== null;
+    $("#chart").append("ua: " + (navigator.userAgent) + "<br>is_ipad: " + (is_ipad));
     WIDTH = canvas.width();
     HEIGHT = canvas.height();
     update_canvas_width();
