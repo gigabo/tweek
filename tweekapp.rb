@@ -27,11 +27,8 @@ class TweekApp < Sinatra::Base
   end
 
   get '/punch' do
-    if params[:handle]
-      redirect "/punch/#{params[:handle]}"
-    else
-      pass
-    end
+    params[:handle] ||= 'gigabo'
+    redirect "/punch/#{params[:handle]}"
   end
 
   get '/punch/:handle' do
