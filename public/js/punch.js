@@ -1,5 +1,5 @@
 (function() {
-  var HEIGHT, Halo, WIDTH, api_go, canvas, circle, clear, ctx, dates, draw, draw_grid, draw_halos, draw_key, draw_punchcard, frame, grid, grid_x, grid_y, halo_life, halos, init, init_handle_input, initial_ratio, interval, is_ipad_3, line, max_encountered, new_halo, step, text, update_canvas_width, user;
+  var HEIGHT, Halo, WIDTH, api_go, canvas, circle, clear, ctx, dates, day_label, draw, draw_grid, draw_halos, draw_key, draw_punchcard, frame, grid, grid_x, grid_y, halo_life, halos, hour_label, init, init_handle_input, initial_ratio, interval, is_ipad_3, line, max_encountered, new_halo, step, text, update_canvas_width, user;
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
@@ -16,7 +16,9 @@
   max_encountered = 0;
   frame = 0;
   halos = [];
-  halo_life = 10;
+  halo_life = 14;
+  day_label = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  hour_label = ['12am', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, '12pm', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   init = function() {
     init_handle_input();
     canvas = $("#chart_canvas");
@@ -25,6 +27,8 @@
     WIDTH = canvas.width();
     HEIGHT = canvas.height();
     update_canvas_width();
+    draw_grid();
+    draw_key();
     interval = setInterval(update_canvas_width, 50);
     return api_go();
   };
@@ -103,9 +107,6 @@
     }, this));
   };
   draw_key = function() {
-    var day_label, hour_label;
-    day_label = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    hour_label = ['12am', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, '12pm', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     ctx.font = "14pt Verdana";
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";

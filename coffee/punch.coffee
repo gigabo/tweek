@@ -11,7 +11,13 @@ is_ipad_3       = false
 max_encountered = 0
 frame           = 0
 halos           = []
-halo_life       = 10
+halo_life       = 14
+
+day_label = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
+hour_label = [
+  '12am', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+  '12pm', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+]
 
 init = () ->
   init_handle_input()
@@ -24,6 +30,8 @@ init = () ->
   WIDTH = canvas.width()
   HEIGHT = canvas.height()
   update_canvas_width()
+  draw_grid()
+  draw_key()
 
   interval      = setInterval(update_canvas_width, 50)
 
@@ -91,11 +99,6 @@ draw_grid = () ->
     line(i+1,6.75,i+1,6.85)
 
 draw_key = () ->
-  day_label = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
-  hour_label = [
-    '12am', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-    '12pm', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-  ]
   ctx.font         = "14pt Verdana"
   ctx.textAlign    = "right"
   ctx.textBaseline = "middle"

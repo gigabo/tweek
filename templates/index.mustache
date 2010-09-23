@@ -7,19 +7,23 @@
     </p>
   </div>
   <div id="toc">
-    <h1>Toys</h1>
-    <ul id="toys">
-      {{#toys}} <li><a href="{{link}}">{{name}}</a></li> {{/toys}}
-    </ul>
-    <h1>Tools</h1>
-    <ul id="tools">
-      {{#tools}} <li><a href="{{link}}">{{name}}</a></li> {{/tools}}
-    </ul>
+    <div>
+      <h1>Toys</h1>
+      <ul id="toys">
+        {{#toys}} <li><a href="{{link}}">{{name}}</a></li> {{/toys}}
+      </ul>
+    </div>
+    <div>
+      <h1>Tools</h1>
+      <ul id="tools">
+        {{#tools}} <li><a href="{{link}}">{{name}}</a></li> {{/tools}}
+      </ul>
+    </div>
   </div>
   <div id="contact">
-    <h1>Me</h1>
+    <h1>Links</h1>
     <ul id="links">
-      
+      {{#links}} <li><a href="{{link}}">{{name}}</a></li>{{/links}}
     </ul>
   </div>
 </div>

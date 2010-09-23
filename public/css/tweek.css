@@ -2,51 +2,66 @@ body {
   font-size: 12pt;
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
-  background-color: #c0c0b5;
-  color: #262624; }
+  background-color: #babaab;
+  color: #1c1c17; }
+
+.section {
+  padding-top: 1em; }
 
 .container {
-  background-color: #999990;
-  width: 88%;
-  height: 88%;
-  margin: 1% 1%;
-  padding: 1% 5%;
-  height: auto;
-  -moz-border-radius: 25px;
-  -webkit-border-radius: 25px;
-  border-radius: 25px; }
+  background-color: #babaab;
+  width: 98%;
+  margin: 0%;
+  padding: 0% 1%; }
   .container .container {
-    background-color: #7c7c75;
+    width: 98%;
+    background-color: #969881;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px; }
+    .container .container .container {
+      background-color: #7e7e67; }
 
 a {
   text-decoration: none;
-  color: #43433f; }
+  color: #464639; }
+  a:hover {
+    color: #2a2a22; }
+
+p {
+  padding: 1em; }
+
+ul, ol {
+  padding: 1em; }
+
+li {
+  padding-bottom: .5em; }
 
 .canvas_container {
   background-color: inherit;
   text-align: center; }
 
 canvas {
-  /* @include highlight(); */ }
+  /*
+    @include highlight();
+  */ }
 
 input {
   font-size: 150%;
-  color: #e6e6d9;
-  border: 0px solid #999990;
-  background-color: #60605a;
+  color: black;
+  border: 0px solid #d1d1c7;
+  background-color: #70705c;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px; }
   input[type='text'] {
-    color: #999990;
-    background: #cdcdc1; }
+    color: #8c8c73;
+    background: #d1d1c7; }
     input[type='text']:focus {
-      color: #4c4c48; }
+      color: #545445;
+      background: #e8e8e3; }
   input[type='button']:hover, input[type='submit']:hover {
-    color: #4c4c48; }
+    color: #a3a38f; }
 
 h1 {
   font-size: 150%; }
@@ -55,15 +70,14 @@ pre {
   font-size: 150%; }
 
 .control_container {
-  padding-top: 30px;
   padding-right: 0%;
   text-align: right; }
 
 ::selection {
-  background: #acaca2; }
+  background: #8c8c73; }
 
 :focus {
-  outline: 4px solid #999990; }
+  outline: 4px solid #8c8c73; }
 
 .unit {
   white-space: nowrap; }

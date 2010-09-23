@@ -1,6 +1,8 @@
 
-$image_bg: #c0c0b5;
-$vertical_padding: 30px;
+$container_color: hsl(60, 10%, 70%);
+$body_color: $container_color;
+$text_color: hsl(60, 10%, 10%);
+$vertical_padding: 1em;
 
 @mixin rounded_corners ($radius: 5px) {
   -moz-border-radius: $radius;
@@ -16,27 +18,50 @@ body {
   font-size: 12pt;
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
-  background-color: $image_bg;
-  color: $image_bg * .2;
+  background-color: $body_color;
+  color: $text_color;
+}
+
+.section {
+  padding-top: 1em;
 }
 
 .container {
-  background-color: $image_bg * .8;
-  width: 88%;
-  height: 88%;
-  margin: 1% 1%;
-  padding: 1% 5%;
-  height: auto;
-  @include rounded_corners(25px);
+  background-color: $container_color;
+  width: 98%;
+  margin: 0%;
+  padding: 0% 1%;
+
   & .container {
-    background-color: $image_bg * .65;
+    width: 98%;
+    background-color: adjust_hue(darken($container_color, 15%), 5);
     @include rounded_corners(10px);
+
+    & .container {
+      background-color: darken($container_color, 25%);
+    }
   }
 }
 
+
+
 a {
   text-decoration: none;
-  color: $image_bg * .35;
+  color: lighten($text_color, 15%);
+  &:hover {
+    color: lighten($text_color, 5%);
+  }
+}
+
+p {
+  padding: 1em;
+}
+
+ul, ol {
+  padding: 1em;
+}
+li {
+  padding-bottom: .5em;
 }
 
 .canvas_container {
@@ -44,23 +69,28 @@ a {
   text-align: center;
 }
 canvas {
-  /* @include highlight(); */
+/*
+  @include highlight();
+*/
 }
 
 input {
   font-size: 150%;
-  color: $image_bg * 1.2;
-  border: 0px solid ($image_bg * .8);
-  background-color: $image_bg * .5;
+  color: darken($text_color, 20%);
+  border: 0px solid lighten($text_color, 70%);
+  background-color: darken($container_color, 30%);
   @include rounded_corners(5px);
   &[type='text'] {
-    color: $image_bg * .8;
-    background: $image_bg * 1.07;
-    &:focus { color: $image_bg * .4; }
+    color: lighten($text_color, 40%);
+    background: lighten($container_color, 10%);
+    &:focus {
+      color: lighten($text_color, 20%);
+      background: lighten($container_color, 20%);
+    }
 
   }
   &[type='button']:hover, &[type='submit']:hover {
-    color: $image_bg * .4;
+    color: lighten($text_color, 50%);
   }
 }
 
@@ -73,17 +103,16 @@ pre {
 }
 
 .control_container {
-  padding-top: $vertical_padding;
   padding-right: 0%;
   text-align: right;
 }
 
 ::selection {
-  background: $image_bg * .9;
+  background: darken($container_color, 20%);
 }
 
 :focus {
-  outline: 4px solid ($image_bg * .8);
+  outline: 4px solid darken($container_color, 20%);
 }
 
 .unit {
