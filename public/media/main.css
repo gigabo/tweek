@@ -1,0 +1,233 @@
+/* BEGIN RESET CSS */
+/*
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-weight: inherit;
+        font-style: inherit;
+        font-size: 100%;
+        font-family: inherit;
+        vertical-align: baseline;
+} */
+
+/* remember to define focus styles! */
+:focus {
+        outline: 0;
+}
+body {
+        line-height: 1;
+        color: black;
+        background: white;
+}
+/*
+ol, ul {
+        list-style: none;
+}
+*/
+/* tables still need 'cellspacing="0"' in the markup */
+
+ul {
+    line-height: 1.6;
+}
+
+table {
+        border-collapse: separate;
+        border-spacing: 40;
+}
+caption, th, td {
+        text-align: left;
+        font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+        content: "";
+}
+blockquote, q {
+        quotes: "" "";
+}
+
+/* END RESET CSS */
+
+body {
+        margin: 0px;
+        background: #E2F2FB;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+img {
+        border: 0px;
+}
+
+td {
+        vertical-align:top;
+}
+
+#container {
+        margin: 0px auto;
+        width: 960px;
+}
+
+
+#content-standard-pad {
+        padding:20px;
+}
+
+.submitbutton {
+  -moz-border-radius:6px 6px 6px 6px;
+  background:none repeat scroll 0 0 #999999;
+  border:1;
+  font-weight:bold;
+  color:#FFFFFF;
+  font-size:20px;
+  padding:5px;
+  cursor: pointer;
+}
+
+#counterbox {
+  float: right;
+  padding: 10px;
+  width: 60px;
+}
+
+#counter {
+  font-weight:bold;  
+  line-height: 1.6;
+  font-size:20px;
+}
+
+#centerbutton {
+  padding:20px;
+  text-align: center;
+}
+
+#header {
+        width: 660px;
+}
+
+#logo {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 30px;
+    line-height: 1.6;
+/*    border-bottom: 1px solid #444; */
+    width: 140px;
+    float: left;
+}
+
+#buttons {
+    float: right;
+    line-height: 1.6;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 14px;
+}
+
+.link {
+    border-bottom: 1px solid #444;
+    display: inline;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#twit_hover {
+    text-decoration: none;
+}
+
+#done {
+    background-color: #efefef;
+    padding: 5px 10px 10px 10px;
+    margin: 10px 0 10px 0;
+    -moz-border-radius: 5px; border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.link:visited {
+    color: black;
+}
+
+h1 {
+    font-size: 20px;
+    line-height: 1.6;
+    border-bottom: 1px solid #444;
+}
+
+.form-label {
+        font-size:18px;
+        font-weight:bold;
+        color:#2e3132;
+        padding:0 0 10 0;
+}
+
+.fancy-input {
+        -moz-border-radius: 5px; border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px #b2b2b2 solid;
+    padding: 5px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 14px;
+    color: #222222;
+}
+
+
+#arrow-spacer {
+        background-image: url('/media/arrow-spacer.png');
+        background-repeat: no-repeat;
+        height: 13px;
+        margin-left: 55px;
+}
+
+
+#content {
+        width: 660px;
+        background-color: #ffffff;
+        -moz-border-radius: 7px;
+        border-radius: 7px;
+        -webkit-border-radius: 7px;
+}
+
+#content .error-msg {
+        text-align: center;
+        padding: 30px;
+        font-size: 18px;
+}
+
+#footer {
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+}
+
+#footer-tag {
+        width: 300px;
+        float: left;
+        color: #8fc8e8;
+        font-weight: bold;
+        font-size: 11px;
+}
+
+#footer-links {
+        width: 400px;
+        float: right;
+        text-align: right;
+}
+
+a.footer-link {
+        font-size: 12px;
+        font-weight: bold;
+        color: #8fc8e8;
+        text-decoration: none;
+}
+
+a:hover.footer-link {
+        text-decoration: underline;
+}
+
+
+
