@@ -13,7 +13,7 @@ function rollImage(img_name, img_src) {
 }
  
 twttr.anywhere(function (T) {
-    T("#twit_hover").hovercards({ linkify: false });
+    T(".twit_hover").hovercards({ linkify: false });
 });
  
  
@@ -28,7 +28,8 @@ twttr.anywhere(function (T) {
       <div id="logo"> 
           <a href="/" class="link">1400chars</a> 
       </div> 
-      <div id="buttons"><div class="link">About</div>|<div id="twit_hover" class="link">@1400chars</div>|by <div id="twit_hover" class="link">@borisraskin</div></div> 
+      <div id="buttons"><div class="link">About</div>|<div class="twit_hover
+      link">@1400chars</div>|by <div class="twit_hover link">@borisraskin</div></div> 
   </div> 
   <div style="clear:both;"></div> 
     
@@ -42,7 +43,6 @@ twttr.anywhere(function (T) {
   <form action="/" method="post"> 
   <div> 
   <table> 
-<tr><th><label for="id_twitter_text">Message:</label></th><td><input id="id_twitter_text" size="52" type="text" name="twitter_text" maxlength="110" /></td></tr> 
 <tr><th><label for="id_img_content">Text in Image:</label></th><td><textarea wrap="on" id="id_img_content" rows="12" cols="60" name="img_content"></textarea></td></tr> 
   </table> 
   <div id="centerbutton"> 

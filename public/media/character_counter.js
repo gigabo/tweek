@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
   //set max length
-  var max_length = 110;
+  var max_length = 1400;
 
   //load in max characters when page loads
   $("#counter").html(max_length);
@@ -12,10 +12,10 @@ $(document).ready(function()
 
 whenkeydown = function(max_length)
 {
-  $("#id_twitter_text").unbind().keyup(function()
+  $("#id_img_content").unbind().keyup(function()
   {
     //check if the appropriate text area is being typed into
-    if(document.activeElement.id === "id_twitter_text")
+    if(document.activeElement.id === "id_img_content")
     {
       //get the data in the field
       var text = $(this).val();
