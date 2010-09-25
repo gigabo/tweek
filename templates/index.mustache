@@ -2,8 +2,7 @@
   <div id="summary">
     <h1>Bo's Playground</h1>
     <p>
-      Hi, my name is Bo.  I like to build toys and tools.  This is my
-      playground.
+      Hi, my name is Bo.  This is my playground.
     </p>
   </div>
   <div id="toc">
@@ -13,12 +12,14 @@
         {{#toys}} <li><a href="{{link}}">{{name}}</a></li> {{/toys}}
       </ul>
     </div>
+    {{#no_tools_yet}}
     <div>
       <h1>Tools</h1>
       <ul id="tools">
         {{#tools}} <li><a href="{{link}}">{{name}}</a></li> {{/tools}}
       </ul>
     </div>
+    {{/no_tools_yet}}
   </div>
   <div id="contact">
     <h1>Links</h1>

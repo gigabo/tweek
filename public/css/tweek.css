@@ -5,6 +5,27 @@ body {
   background-color: #babaab;
   color: #1c1c17; }
 
+.header {
+  position: absolute;
+  top: -1em;
+  width: 100%;
+  text-align: right;
+  margin: 0px;
+  padding: 0px; }
+  .header a {
+    color: #1c1c17; }
+  .header ol {
+    float: right; }
+  .header li {
+    float: left;
+    margin: 0px;
+    margin-right: 5px;
+    padding: 3px;
+    background-color: #8c8c73;
+    border: 1px solid #1c1c17;
+    border-top: 0px;
+    font-size: 80%; }
+
 .section {
   padding-top: 1em; }
 

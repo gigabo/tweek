@@ -1,5 +1,5 @@
 (function() {
-  var HEIGHT, Halo, WIDTH, api_go, canvas, circle, clear, ctx, dates, day_label, draw, draw_grid, draw_halos, draw_key, draw_punchcard, frame, grid, grid_x, grid_y, halo_life, halos, hour_label, init, init_handle_input, initial_ratio, interval, is_ipad_3, line, max_encountered, new_halo, step, text, update_canvas_width, user;
+  var HEIGHT, Halo, WIDTH, api_go, canvas, circle, clear, ctx, dates, day_label, draw, draw_grid, draw_halos, draw_key, draw_punchcard, frame, grid, grid_x, grid_y, halo_life, halos, hour_label, init, init_handle_input, interval, is_ipad_3, line, max_encountered, new_halo, step, text, update_canvas_width, user;
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
@@ -8,7 +8,6 @@
   user = undefined;
   dates = undefined;
   grid = undefined;
-  initial_ratio = undefined;
   interval = undefined;
   WIDTH = undefined;
   HEIGHT = undefined;
@@ -87,7 +86,7 @@
       return h.ttl--;
     }, this));
     _a = [];
-    while (halos[0].ttl === 0) {
+    while ((halos[0] == null ? undefined : halos[0].ttl) === 0) {
       _a.push(halos.shift());
     }
     return _a;

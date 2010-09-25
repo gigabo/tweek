@@ -1,11 +1,10 @@
 class TweekApp
   module Views
     class Index < Layout
-      attr_reader :scripts
       def toys
         [
           { :name => 'Twitter Punch Card', :link => '/punch' },
-          { :name => 'Hanoi 200', :link => '/play/hanoi' },
+          { :name => 'Hanoi 400', :link => '/play/hanoi' },
         ]
       end
       def tools
@@ -16,7 +15,7 @@ class TweekApp
       def links
         [
           { :name => 'twitter', :link => 'http://twitter.com/gigabo' },
-          { :name => 'github', :link => 'http://github.com/gigabo' },
+          { :name => 'github',  :link => 'http://github.com/gigabo' },
         ]
       end
     end

@@ -3,7 +3,6 @@ ctx             = undefined
 user            = undefined
 dates           = undefined
 grid            = undefined
-initial_ratio   = undefined
 interval        = undefined
 WIDTH           = undefined
 HEIGHT          = undefined
@@ -83,7 +82,7 @@ draw_halos = () ->
     circle(h.x, h.y, h.r + (halo_life - h.ttl)*.6, false)
     h.ttl--
 
-  while halos[0].ttl == 0
+  while halos[0]?.ttl == 0
     halos.shift()
 
 new_halo = (x, y, r) ->

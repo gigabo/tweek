@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>
-      {{title}}
-    </title>
+    <title>{{title}}</title>
+    {{#styles}}
+    <link rel="stylesheet" href="/css/{{name}}.css" type="text/css">
+    {{/styles}}
     <script type="text/javascript"
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
     </script>
-    <script type="text/javascript" src="/js/underscore.js"></script>
-    <link rel="stylesheet" href="/css/reset.css" type="text/css">
-    <link rel="stylesheet" href="/css/tweek.css" type="text/css">
     {{# scripts}}
-    <script type="text/javascript" src="{{name}}"></script>
+    <script type="text/javascript" src="/js/{{name}}.js"></script>
     {{/ scripts}}
-    <script type="text/javascript" src="/js/ga.js"></script>
   </head>
   <body>
+    <div id="header" class="header">
+      <ol id="menu">
+        <li><a href="/">Home</a></li>
+      </ol>
+    </div>
     <div id="main" class="container">
       {{{yield}}}
     </div>

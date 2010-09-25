@@ -22,6 +22,32 @@ body {
   color: $text_color;
 }
 
+.header {
+  position: absolute;
+  top: -1em;
+  width: 100%;
+  text-align: right;
+  margin: 0px;
+  padding: 0px;
+
+  & a {
+    color: $text_color;
+  }
+  & ol {
+    float: right;
+  }
+  & li {
+    float: left;
+    margin: 0px;
+    margin-right: 5px;
+    padding: 3px;
+    background-color: adjust_hue(darken($body_color, 20%), 0);
+    border: 1px solid $text_color;
+    border-top: 0px;
+    font-size: 80%;
+  }
+}
+
 .section {
   padding-top: 1em;
 }
@@ -42,8 +68,6 @@ body {
     }
   }
 }
-
-
 
 a {
   text-decoration: none;
