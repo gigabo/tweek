@@ -1,5 +1,5 @@
 (function() {
-  var HEIGHT, Halo, WIDTH, api_go, canvas, circle, clear, ctx, dates, day_label, draw, draw_grid, draw_halos, draw_key, draw_punchcard, frame, grid, grid_x, grid_y, halo_life, halos, hour_label, init, init_handle_input, interval, is_ipad_3, line, max_encountered, new_halo, step, text, update_canvas_width, user;
+  var HEIGHT, Halo, WIDTH, api_go, canvas, circle, clear, ctx, dates, day_label, draw, draw_grid, draw_halos, draw_key, draw_punchcard, frame, grid, grid_x, grid_y, halo_life, halos, hour_label, init, init_handle_input, interval, is_ipad_3, line, main_interval, max_encountered, new_halo, step, text, update_canvas_width, user;
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
@@ -11,6 +11,7 @@
   interval = undefined;
   WIDTH = undefined;
   HEIGHT = undefined;
+  main_interval = undefined;
   is_ipad_3 = false;
   max_encountered = 0;
   frame = 0;
@@ -48,7 +49,7 @@
         return 0;
       }, this));
     }, this));
-    return setInterval(step, 100);
+    return (main_interval = setInterval(step, 100));
   };
   clear = function() {
     return ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -171,6 +172,8 @@
         max_encountered = grid[wday][hour];
       }
       frame++;
+    } else if (halos.length === 0) {
+      clearInterval(main_interval);
     }
     return draw();
   };

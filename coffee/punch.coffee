@@ -6,6 +6,7 @@ grid            = undefined
 interval        = undefined
 WIDTH           = undefined
 HEIGHT          = undefined
+main_interval   = undefined
 is_ipad_3       = false
 max_encountered = 0
 frame           = 0
@@ -52,7 +53,7 @@ draw_punchcard = (data) ->
     _.map _.range(0,24), (j) =>
       0
 
-  setInterval(step, 100)
+  main_interval = setInterval(step, 100)
 
 clear = () ->
   ctx.clearRect(0, 0, WIDTH, HEIGHT)
@@ -157,6 +158,8 @@ step = () ->
     new_halo(hour, wday, grid[wday][hour])
     max_encountered = grid[wday][hour] if grid[wday][hour] > max_encountered
     frame++
+  else if halos.length == 0
+    clearInterval(main_interval)
 
 
   draw()
