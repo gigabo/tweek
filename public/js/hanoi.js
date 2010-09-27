@@ -34,7 +34,7 @@
     HEIGHT = canvas.height();
     MAX_HEIGHT = HEIGHT / 2;
     update_canvas_width();
-    return setInterval(update_canvas_width, 100);
+    return $(window).resize(update_canvas_width);
   };
   update_canvas_width = function() {
     var width;
@@ -139,7 +139,5 @@
     }
     return draw();
   };
-  $(document).ready(__bind(function() {
-    return init();
-  }, this));
+  $(document).ready(init);
 })();

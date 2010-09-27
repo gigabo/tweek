@@ -32,7 +32,7 @@ init_canvas = () ->
   MAX_HEIGHT = HEIGHT / 2
   update_canvas_width()
 
-  setInterval(update_canvas_width, 100)
+  $(window).resize update_canvas_width
 
 update_canvas_width = () ->
   width = canvas.parent().innerWidth()
@@ -109,7 +109,6 @@ get_move = (move) ->
 
   move >>= 1; # Now the Nth move *for this disk*
 
-
   direction = [
     [ 0, 1, 2 ],
     [ 0, 2, 1 ],
@@ -126,4 +125,4 @@ step = () ->
 
   draw()
 
-$(document).ready () => init()
+$(document).ready init

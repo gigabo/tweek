@@ -32,7 +32,7 @@ init = () ->
   draw_grid()
   draw_key()
 
-  interval      = setInterval(update_canvas_width, 50)
+  $(window).resize update_canvas_width
 
   api_go()
 
@@ -174,5 +174,3 @@ init_handle_input = () ->
       hi.val(user)
 
 $(document).ready init
-#$(document).ready () =>
-#  $.getScript "/js/jquery.tweekdump.js", init

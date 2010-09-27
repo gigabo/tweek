@@ -28,7 +28,7 @@
     update_canvas_width();
     draw_grid();
     draw_key();
-    interval = setInterval(update_canvas_width, 50);
+    $(window).resize(update_canvas_width);
     return api_go();
   };
   update_canvas_width = function() {
