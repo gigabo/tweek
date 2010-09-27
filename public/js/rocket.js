@@ -34,7 +34,7 @@
     if (++this.frame_count === this.check_frames) {
       now = (new Date()).getTime();
       elapsed = now - this.base_time;
-      shrink_threshold = (this.check_frames * this.step_time) * 1.75;
+      shrink_threshold = (this.check_frames * this.step_time) * 1.5;
       grow_threshold = (this.check_frames * this.step_time) * 1.1;
       if (elapsed > shrink_threshold) {
         this.res *= .99;
@@ -52,7 +52,6 @@
           this.check_frames++;
         }
       }
-      debug("check_frames " + (global_i++) + ": " + (this.check_frames));
       return this.init();
     }
   };

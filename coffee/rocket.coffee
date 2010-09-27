@@ -29,7 +29,7 @@ class Performance
     if (++@frame_count == @check_frames)
       now = (new Date).getTime()
       elapsed = now - @base_time
-      shrink_threshold = (@check_frames * @step_time) * 1.75
+      shrink_threshold = (@check_frames * @step_time) * 1.5
       grow_threshold   = (@check_frames * @step_time) * 1.1
       if (elapsed > shrink_threshold)
         @res *= .99
@@ -42,8 +42,6 @@ class Performance
       else
         if @check_frames < 50
           @check_frames ++
-
-      debug ("check_frames #{global_i++}: #{@check_frames}")
 
       this.init()
 
