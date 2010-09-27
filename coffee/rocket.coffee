@@ -6,11 +6,38 @@ main_interval   = undefined
 protagonist     = undefined
 trail           = undefined
 controls        = undefined
+performance     = undefined
 running         = false
 
 debug = (v) ->
   $("#debug").empty()
   $("#debug").append(v)
+
+class Performance
+  constructor: () ->
+    @res = 1
+    this.init()
+
+  init: () ->
+    @frame_count  = 0
+    @step_time    = 50
+    @check_frames = 25
+    @base_time    = (new Date).getTime()
+
+  check: () ->
+    if (++@frame_count == @check_frames)
+      now = (new Date).getTime()
+      elapsed = now - @base_time
+      shrink_threshold = (@check_frames * @step_time) * 2
+      grow_threshold   = (@check_frames * @step_time) * 1.1
+      if (elapsed > shrink_threshold)
+        @res *= .99
+        update_canvas_width()
+      else if elapsed < grow_threshold and @res < 1
+        @res *= 1.01
+        if @res > 1 then res = 1
+
+      this.init()
 
 class Controls
   constructor: () ->
@@ -151,15 +178,17 @@ init = () ->
   canvas.css("background-color", "black")
   canvas.css("margin-top", "1em")
 
-  $("#canvas_container").append("Arrows steer.")
+  $("#canvas_container").append("<br>Arrows steer.")
 
   WIDTH = canvas.width()
   HEIGHT = canvas.height()
+
+  controls = new Controls
+  performance = new Performance
+
   update_canvas_width()
 
   $(window).resize update_canvas_width
-
-  controls = new Controls
 
   start_level()
 
@@ -171,7 +200,7 @@ start_level = () ->
   trail.owner = protagonist
 
 start = () ->
-  main_interval = setInterval step, 50
+  main_interval = setInterval step, performance.step_time
   running = true
 
 stop = () ->
@@ -181,7 +210,7 @@ stop = () ->
 
 
 update_canvas_width = () ->
-  width = canvas.parent().innerWidth()
+  width = canvas.parent().innerWidth() * performance.res
   canvas.width(width)
   canvas.height(width/2)
 
@@ -210,5 +239,6 @@ step = () ->
   protagonist.step()
   trail.step()
   draw()
+  performance.check()
 
 $(document).ready init

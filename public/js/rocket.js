@@ -1,5 +1,5 @@
 (function() {
-  var Controls, HEIGHT, Rocket, Trail, WIDTH, canvas, circle, clear, controls, ctx, debug, draw, init, line, main_interval, protagonist, running, start, start_level, step, stop, trail, update_canvas_width;
+  var Controls, HEIGHT, Performance, Rocket, Trail, WIDTH, canvas, circle, clear, controls, ctx, debug, draw, init, line, main_interval, performance, protagonist, running, start, start_level, step, stop, trail, update_canvas_width;
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
@@ -11,10 +11,41 @@
   protagonist = undefined;
   trail = undefined;
   controls = undefined;
+  performance = undefined;
   running = false;
   debug = function(v) {
     $("#debug").empty();
     return $("#debug").append(v);
+  };
+  Performance = function() {
+    this.res = 1;
+    this.init();
+    return this;
+  };
+  Performance.prototype.init = function() {
+    this.frame_count = 0;
+    this.step_time = 50;
+    this.check_frames = 25;
+    return (this.base_time = (new Date()).getTime());
+  };
+  Performance.prototype.check = function() {
+    var elapsed, grow_threshold, now, res, shrink_threshold;
+    if (++this.frame_count === this.check_frames) {
+      now = (new Date()).getTime();
+      elapsed = now - this.base_time;
+      shrink_threshold = (this.check_frames * this.step_time) * 2;
+      grow_threshold = (this.check_frames * this.step_time) * 1.1;
+      if (elapsed > shrink_threshold) {
+        this.res *= .99;
+        update_canvas_width();
+      } else if (elapsed < grow_threshold && this.res < 1) {
+        this.res *= 1.01;
+        if (this.res > 1) {
+          res = 1;
+        }
+      }
+      return this.init();
+    }
   };
   Controls = function() {
     this.thrust_on = true;
@@ -180,12 +211,13 @@
     ctx = canvas[0].getContext("2d");
     canvas.css("background-color", "black");
     canvas.css("margin-top", "1em");
-    $("#canvas_container").append("Arrows steer.");
+    $("#canvas_container").append("<br>Arrows steer.");
     WIDTH = canvas.width();
     HEIGHT = canvas.height();
+    controls = new Controls();
+    performance = new Performance();
     update_canvas_width();
     $(window).resize(update_canvas_width);
-    controls = new Controls();
     start_level();
     return start();
   };
@@ -195,7 +227,7 @@
     return (trail.owner = protagonist);
   };
   start = function() {
-    main_interval = setInterval(step, 50);
+    main_interval = setInterval(step, performance.step_time);
     return (running = true);
   };
   stop = function() {
@@ -204,7 +236,7 @@
   };
   update_canvas_width = function() {
     var width;
-    width = canvas.parent().innerWidth();
+    width = canvas.parent().innerWidth() * performance.res;
     canvas.width(width);
     return canvas.height(width / 2);
   };
@@ -232,7 +264,8 @@
   step = function() {
     protagonist.step();
     trail.step();
-    return draw();
+    draw();
+    return performance.check();
   };
   $(document).ready(init);
 })();
