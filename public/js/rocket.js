@@ -1,5 +1,5 @@
 (function() {
-  var Controls, HEIGHT, Performance, Rocket, Trail, WIDTH, canvas, circle, clear, controls, ctx, debug, draw, init, line, main_interval, performance, protagonist, running, start, start_level, step, stop, trail, update_canvas_width;
+  var Controls, HEIGHT, Performance, Rocket, Trail, WIDTH, canvas, circle, clear, controls, ctx, debug, draw, global_i, init, line, main_interval, performance, protagonist, running, start, start_level, step, stop, trail, update_canvas_width;
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
@@ -17,15 +17,19 @@
     $("#debug").empty();
     return $("#debug").append(v);
   };
+  global_i = 0;
   Performance = function() {
     this.res = 1;
+    this.check_frames = 2;
     this.init();
     return this;
   };
   Performance.prototype.init = function() {
+    if (this.check_frames < 50) {
+      this.check_frames++;
+    }
     this.frame_count = 0;
     this.step_time = 50;
-    this.check_frames = 25;
     return (this.base_time = (new Date()).getTime());
   };
   Performance.prototype.check = function() {
@@ -33,11 +37,14 @@
     if (++this.frame_count === this.check_frames) {
       now = (new Date()).getTime();
       elapsed = now - this.base_time;
-      shrink_threshold = (this.check_frames * this.step_time) * 2;
+      shrink_threshold = (this.check_frames * this.step_time) * 1.75;
       grow_threshold = (this.check_frames * this.step_time) * 1.1;
       if (elapsed > shrink_threshold) {
         this.res *= .99;
         update_canvas_width();
+        if (this.check_frames > 2) {
+          this.check_frames -= 2;
+        }
       } else if (elapsed < grow_threshold && this.res < 1) {
         this.res *= 1.01;
         if (this.res > 1) {

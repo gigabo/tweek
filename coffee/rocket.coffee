@@ -13,26 +13,32 @@ debug = (v) ->
   $("#debug").empty()
   $("#debug").append(v)
 
+global_i = 0
 class Performance
   constructor: () ->
     @res = 1
+    @check_frames = 2
     this.init()
 
   init: () ->
+    if @check_frames < 50
+      @check_frames ++
     @frame_count  = 0
     @step_time    = 50
-    @check_frames = 25
     @base_time    = (new Date).getTime()
 
   check: () ->
     if (++@frame_count == @check_frames)
       now = (new Date).getTime()
       elapsed = now - @base_time
-      shrink_threshold = (@check_frames * @step_time) * 2
+      shrink_threshold = (@check_frames * @step_time) * 1.75
       grow_threshold   = (@check_frames * @step_time) * 1.1
       if (elapsed > shrink_threshold)
         @res *= .99
         update_canvas_width()
+        if @check_frames > 2
+          @check_frames -= 2
+
       else if elapsed < grow_threshold and @res < 1
         @res *= 1.01
         if @res > 1 then res = 1
