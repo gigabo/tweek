@@ -43,6 +43,8 @@ class Performance
         @res *= 1.01
         if @res > 1 then res = 1
 
+      debug ("check_frames #{global_i++}: #{@check_frames}")
+
       this.init()
 
 class Controls

@@ -51,6 +51,7 @@
           res = 1;
         }
       }
+      debug("check_frames " + (global_i++) + ": " + (this.check_frames));
       return this.init();
     }
   };
