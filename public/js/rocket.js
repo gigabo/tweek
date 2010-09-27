@@ -34,7 +34,7 @@
     if (++this.frame_count === this.check_frames) {
       now = (new Date()).getTime();
       elapsed = now - this.base_time;
-      shrink_threshold = (this.check_frames * this.step_time) * 1.5;
+      shrink_threshold = (this.check_frames * this.step_time) * 1.05;
       grow_threshold = (this.check_frames * this.step_time) * 1.1;
       if (elapsed > shrink_threshold) {
         this.res *= .99;
@@ -238,6 +238,7 @@
     return (trail.owner = protagonist);
   };
   start = function() {
+    performance.init();
     main_interval = setInterval(step, performance.step_time);
     return (running = true);
   };

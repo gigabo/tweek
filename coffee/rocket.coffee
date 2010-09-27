@@ -29,7 +29,7 @@ class Performance
     if (++@frame_count == @check_frames)
       now = (new Date).getTime()
       elapsed = now - @base_time
-      shrink_threshold = (@check_frames * @step_time) * 1.5
+      shrink_threshold = (@check_frames * @step_time) * 1.05
       grow_threshold   = (@check_frames * @step_time) * 1.1
       if (elapsed > shrink_threshold)
         @res *= .99
@@ -208,6 +208,7 @@ start_level = () ->
   trail.owner = protagonist
 
 start = () ->
+  performance.init()
   main_interval = setInterval step, performance.step_time
   running = true
 
