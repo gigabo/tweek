@@ -21,8 +21,6 @@ class Performance
     this.init()
 
   init: () ->
-    if @check_frames < 50
-      @check_frames ++
     @frame_count  = 0
     @step_time    = 50
     @base_time    = (new Date).getTime()
@@ -36,12 +34,14 @@ class Performance
       if (elapsed > shrink_threshold)
         @res *= .99
         update_canvas_width()
-        if @check_frames > 2
-          @check_frames -= 2
-
+        if @check_frames > 1
+          @check_frames --
       else if elapsed < grow_threshold and @res < 1
         @res *= 1.01
         if @res > 1 then res = 1
+      else
+        if @check_frames < 50
+          @check_frames ++
 
       debug ("check_frames #{global_i++}: #{@check_frames}")
 

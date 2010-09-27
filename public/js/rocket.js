@@ -25,9 +25,6 @@
     return this;
   };
   Performance.prototype.init = function() {
-    if (this.check_frames < 50) {
-      this.check_frames++;
-    }
     this.frame_count = 0;
     this.step_time = 50;
     return (this.base_time = (new Date()).getTime());
@@ -42,13 +39,17 @@
       if (elapsed > shrink_threshold) {
         this.res *= .99;
         update_canvas_width();
-        if (this.check_frames > 2) {
-          this.check_frames -= 2;
+        if (this.check_frames > 1) {
+          this.check_frames--;
         }
       } else if (elapsed < grow_threshold && this.res < 1) {
         this.res *= 1.01;
         if (this.res > 1) {
           res = 1;
+        }
+      } else {
+        if (this.check_frames < 50) {
+          this.check_frames++;
         }
       }
       debug("check_frames " + (global_i++) + ": " + (this.check_frames));
