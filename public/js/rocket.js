@@ -1,5 +1,5 @@
 (function() {
-  var Controls, HEIGHT, Performance, Rocket, Trail, WIDTH, canvas, circle, clear, controls, ctx, debug, draw, global_i, init, line, main_interval, performance, protagonist, running, start, start_level, step, stop, trail, update_canvas_width;
+  var Controls, HEIGHT, Performance, Rocket, Trail, WIDTH, canvas, circle, clear, controls, ctx, debug, draw, global_i, init, line, main_interval, performance, protagonist, running, start, start_level, step, stop, too_slow, trail, update_canvas_width;
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
@@ -38,6 +38,9 @@
       grow_threshold = (this.check_frames * this.step_time) * 1.1;
       if (elapsed > shrink_threshold) {
         this.res *= .99;
+        if (this.res < .2) {
+          too_slow();
+        }
         update_canvas_width();
         if (this.check_frames > 1) {
           this.check_frames--;
@@ -274,6 +277,11 @@
     trail.step();
     draw();
     return performance.check();
+  };
+  too_slow = function() {
+    stop();
+    $("#canvas_container").empty();
+    return $("#canvas_container").append("Sorry, your browser seems to be too slow to play this game.");
   };
   $(document).ready(init);
 })();

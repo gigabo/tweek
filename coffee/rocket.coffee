@@ -33,6 +33,8 @@ class Performance
       grow_threshold   = (@check_frames * @step_time) * 1.1
       if (elapsed > shrink_threshold)
         @res *= .99
+        if @res < .2
+          too_slow()
         update_canvas_width()
         if @check_frames > 1
           @check_frames --
@@ -246,5 +248,12 @@ step = () ->
   trail.step()
   draw()
   performance.check()
+
+too_slow = () ->
+  stop()
+  $("#canvas_container").empty()
+  $("#canvas_container").
+    append("Sorry, your browser seems to be too slow to play this game.")
+
 
 $(document).ready init
