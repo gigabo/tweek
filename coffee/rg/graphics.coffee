@@ -9,6 +9,7 @@ require.def ['rg/debug'], (Debug) =>
 
       @canvas.css("background-color", "black")
       @canvas.css("margin-top", "1em")
+      @canvas.css("margin-bottom", "1em")
 
       this.update_canvas_width()
 
@@ -31,10 +32,19 @@ require.def ['rg/debug'], (Debug) =>
       @ctx.stroke()
       @ctx.closePath()
 
-    circle: (x,y,r) ->
+    circle_fill: (x,y,r) ->
       @ctx.beginPath()
       @ctx.arc(x, y, r, 0, Math.PI*2, true)
       @ctx.closePath()
       @ctx.fill()
+
+    circle_stroke: (x,y,r) ->
+      @ctx.beginPath()
+      @ctx.arc(x, y, r, 0, Math.PI*2, true)
+      @ctx.closePath()
+      @ctx.stroke()
+
+    text: (text, x, y) ->
+      @ctx.fillText(text, x, y)
 
 

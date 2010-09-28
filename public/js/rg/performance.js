@@ -9,6 +9,7 @@
       this.res = 1;
       this.check_frames = 2;
       this.init();
+      this.lock = false;
       return this;
     };
     Performance.prototype.init = function() {
@@ -18,7 +19,7 @@
     };
     Performance.prototype.check = function() {
       var elapsed, grow_threshold, now, shrink_threshold;
-      if (++this.frame_count === this.check_frames) {
+      if (!this.lock && ++this.frame_count === this.check_frames) {
         now = (new Date()).getTime();
         elapsed = now - this.base_time;
         shrink_threshold = (this.check_frames * this.step_time) * 1.1;

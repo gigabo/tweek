@@ -12,6 +12,7 @@
       this.height = this.canvas.height();
       this.canvas.css("background-color", "black");
       this.canvas.css("margin-top", "1em");
+      this.canvas.css("margin-bottom", "1em");
       this.update_canvas_width();
       $(window).resize(__bind(function() {
         return this.update_canvas_width();
@@ -34,11 +35,20 @@
       this.ctx.stroke();
       return this.ctx.closePath();
     };
-    Graphics.prototype.circle = function(x, y, r) {
+    Graphics.prototype.circle_fill = function(x, y, r) {
       this.ctx.beginPath();
       this.ctx.arc(x, y, r, 0, Math.PI * 2, true);
       this.ctx.closePath();
       return this.ctx.fill();
+    };
+    Graphics.prototype.circle_stroke = function(x, y, r) {
+      this.ctx.beginPath();
+      this.ctx.arc(x, y, r, 0, Math.PI * 2, true);
+      this.ctx.closePath();
+      return this.ctx.stroke();
+    };
+    Graphics.prototype.text = function(text, x, y) {
+      return this.ctx.fillText(text, x, y);
     };
     return Graphics;
   }, this));

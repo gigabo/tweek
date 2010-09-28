@@ -5,6 +5,7 @@ require.def () =>
       @res = 1
       @check_frames = 2
       this.init()
+      @lock = false
 
     init: () ->
       @frame_count  = 0
@@ -12,7 +13,7 @@ require.def () =>
       @base_time    = (new Date).getTime()
 
     check: () ->
-      if (++@frame_count == @check_frames)
+      if (!@lock and ++@frame_count == @check_frames)
         now = (new Date).getTime()
         elapsed = now - @base_time
         shrink_threshold = (@check_frames * @step_time) * 1.1

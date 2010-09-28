@@ -51,7 +51,7 @@ require.def ['rg/debug'], (Debug) ->
         this.splode()
 
     splode: () ->
-      @game.start_level()
+      @game.begin_level()
 
     step: () ->
       this.apply_gravity()

@@ -57,7 +57,7 @@
       return !((0 < this.x) && (this.x < this.game.width)) || !((0 < this.y) && (this.y < this.game.height)) ? this.splode() : null;
     };
     Rocket.prototype.splode = function() {
-      return this.game.start_level();
+      return this.game.begin_level();
     };
     Rocket.prototype.step = function() {
       this.apply_gravity();

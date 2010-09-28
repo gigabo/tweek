@@ -14,37 +14,60 @@ require.def [
       @performance = new Performance(this)
       @graphics = new Graphics(this,canvas)
       @controls = new Controls(this)
+      @trail = new Trail(this)
       @width  = @graphics.width
       @height = @graphics.height
-      this.start_level()
+      @level_number = 0
       this.start()
 
     start: () ->
-      @performance.init()
-      @main_interval = setInterval () =>
-        this.step()
-      , @performance.step_time
-      @running = true
+      if !@running
+        @performance.init()
+        @main_interval = setInterval () =>
+          this.step()
+        , @performance.step_time
+        @running = true
 
     stop: () ->
-      clearInterval @main_interval
-      @running = false
+      if @running
+        clearInterval @main_interval
+        @running = false
 
     step: () ->
-      @protagonist.step()
-      @trail.step()
-      this.draw()
-      @performance.check()
+      if @level_running
+        @protagonist.step()
+        @trail.step()
+        @level.step()
+        this.draw()
+        @performance.check()
+        if @level.won()
+          this.advance_level()
+      else
+        this.init_level()
 
-    start_level: () ->
-      @protagonist = new Rocket(this, @width/2, @height/2)
-      @trail ||= new Trail(this)
+    begin_level: () ->
+      @level.begin()
+      [x, y] = @level.starting_position()
+      @protagonist = new Rocket(this, x, y)
       @trail.owner = @protagonist
+      @level_running = true
+
+    advance_level: () ->
+      @level_number += 1
+      this.init_level()
+
+    init_level: () ->
+      this.stop()
+      require ["rg/level/#{@level_number}"], (Level) =>
+        @level = new Level(this)
+        this.begin_level()
+        this.start()
 
     draw: () ->
       @graphics.clear()
       @protagonist.draw(@graphics)
       @trail.draw(@graphics)
+      @level.draw(@graphics)
 
 
 
