@@ -12,6 +12,8 @@
       this.barriers = [];
       this.objects = [];
       this.messages = [];
+      this.success_message = "Success!";
+      this.done = true;
       this.init();
       this.set_message();
       this.bundle_objects();
@@ -71,14 +73,18 @@
     };
     Level.prototype.won = function() {
       var _a, _b, _c, goal;
-      _b = this.goals;
-      for (_a = 0, _c = _b.length; _a < _c; _a++) {
-        goal = _b[_a];
-        if (!goal.done()) {
-          return false;
+      if (this.done) {
+        _b = this.goals;
+        for (_a = 0, _c = _b.length; _a < _c; _a++) {
+          goal = _b[_a];
+          if (!goal.done()) {
+            return false;
+          }
         }
+        this.messages = [this.success_message];
+        this.set_message();
+        return true;
       }
-      return true;
     };
     Level.prototype.begin = function() {
       var _a, _b, _c, _d, _e, _f, _g, barrier, goal;

@@ -4,18 +4,11 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
     init: () ->
       @messages = ["Calibrating...."]
-      @ready = false
+      @success_message = ["Ready!"]
       @done  = false
 
     step: () ->
       if !@game.performance.lock and @game.performance.check_frames > 10
         @game.performance.lock = true
-        @messages = ["Ready!", "(Crash to continue...)"]
-        @ready = true
+        @done = true
       super
-
-    begin: () ->
-      if @ready then @done = true
-      super
-
-    won: () -> @done

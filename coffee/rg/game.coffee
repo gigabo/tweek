@@ -11,6 +11,7 @@ require.def [
   class Game
     constructor: (canvas) ->
       @running = false
+      @advancing = false
       @performance = new Performance(this)
       @graphics = new Graphics(this,canvas)
       @controls = new Controls(this)
@@ -18,6 +19,7 @@ require.def [
       @width  = @graphics.width
       @height = @graphics.height
       @level_number = 0
+      @max_level = 2
       this.start()
 
     start: () ->
@@ -35,22 +37,26 @@ require.def [
 
     step: () ->
       if @level_running
+        if !@advancing and @level.won()
+          @advancing = true
         @protagonist.step()
         @trail.step()
         @level.step()
         this.draw()
         @performance.check()
-        if @level.won()
-          this.advance_level()
       else
         this.init_level()
 
     begin_level: () ->
-      @level.begin()
-      [x, y] = @level.starting_position()
-      @protagonist = new Rocket(this, x, y)
-      @trail.owner = @protagonist
-      @level_running = true
+      if @advancing
+        @advancing = false
+        this.advance_level()
+      else
+        @level.begin()
+        [x, y] = @level.starting_position()
+        @protagonist = new Rocket(this, x, y)
+        @trail.owner = @protagonist
+        @level_running = true
 
     advance_level: () ->
       @level_number += 1
@@ -58,6 +64,8 @@ require.def [
 
     init_level: () ->
       this.stop()
+      if @level_number > @max_level
+        @level_number = "last"
       require ["rg/level/#{@level_number}"], (Level) =>
         @level = new Level(this)
         this.begin_level()

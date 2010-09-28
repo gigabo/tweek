@@ -12,6 +12,8 @@ require.def [
       @barriers = []
       @objects = []
       @messages = []
+      @success_message = "Success!"
+      @done = true
       this.init()
       this.set_message()
       this.bundle_objects()
@@ -50,9 +52,12 @@ require.def [
         @message_banner.draw(graphics)
 
     won: () ->
-      for goal in @goals
-        if !goal.done() then return false
-      return true
+      if @done
+        for goal in @goals
+          if !goal.done() then return false
+        @messages = [@success_message]
+        this.set_message()
+        return true
 
     begin: () ->
       for goal in @goals

@@ -17,25 +17,15 @@
     __extends(Level_0, Level);
     Level_0.prototype.init = function() {
       this.messages = ["Calibrating...."];
-      this.ready = false;
+      this.success_message = ["Ready!"];
       return (this.done = false);
     };
     Level_0.prototype.step = function() {
       if (!this.game.performance.lock && this.game.performance.check_frames > 10) {
         this.game.performance.lock = true;
-        this.messages = ["Ready!", "(Crash to continue...)"];
-        this.ready = true;
-      }
-      return Level_0.__super__.step.apply(this, arguments);
-    };
-    Level_0.prototype.begin = function() {
-      if (this.ready) {
         this.done = true;
       }
-      return Level_0.__super__.begin.apply(this, arguments);
-    };
-    Level_0.prototype.won = function() {
-      return this.done;
+      return Level_0.__super__.step.apply(this, arguments);
     };
     return Level_0;
   }, this));

@@ -7,7 +7,7 @@ require.def () =>
       @controls = @game.controls
 
     step: () ->
-      if @controls.thrust_on
+      if @controls.thrust_on()
         ox = @owner.x
         oy = @owner.y
         oa = @owner.a

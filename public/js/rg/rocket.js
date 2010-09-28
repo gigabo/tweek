@@ -17,13 +17,13 @@
       return this.dy += .2;
     };
     Rocket.prototype.apply_rotation = function() {
-      if (this.controls.rot_l) {
+      if (this.controls.rotate_l()) {
         this.a -= Math.PI / 24;
       }
-      return this.controls.rot_r ? this.a += Math.PI / 24 : null;
+      return this.controls.rotate_r() ? this.a += Math.PI / 24 : null;
     };
     Rocket.prototype.apply_thrust = function() {
-      if (this.controls.thrust_on) {
+      if (this.controls.thrust_on()) {
         this.dx -= .5 * Math.cos(this.a);
         return this.dy -= .5 * Math.sin(this.a);
       }

@@ -6,6 +6,7 @@
     var Game;
     Game = function(canvas) {
       this.running = false;
+      this.advancing = false;
       this.performance = new Performance(this);
       this.graphics = new Graphics(this, canvas);
       this.controls = new Controls(this);
@@ -13,6 +14,7 @@
       this.width = this.graphics.width;
       this.height = this.graphics.height;
       this.level_number = 0;
+      this.max_level = 2;
       this.start();
       return this;
     };
@@ -33,25 +35,32 @@
     };
     Game.prototype.step = function() {
       if (this.level_running) {
+        if (!this.advancing && this.level.won()) {
+          this.advancing = true;
+        }
         this.protagonist.step();
         this.trail.step();
         this.level.step();
         this.draw();
-        this.performance.check();
-        return this.level.won() ? this.advance_level() : null;
+        return this.performance.check();
       } else {
         return this.init_level();
       }
     };
     Game.prototype.begin_level = function() {
       var _a, x, y;
-      this.level.begin();
-      _a = this.level.starting_position();
-      x = _a[0];
-      y = _a[1];
-      this.protagonist = new Rocket(this, x, y);
-      this.trail.owner = this.protagonist;
-      return (this.level_running = true);
+      if (this.advancing) {
+        this.advancing = false;
+        return this.advance_level();
+      } else {
+        this.level.begin();
+        _a = this.level.starting_position();
+        x = _a[0];
+        y = _a[1];
+        this.protagonist = new Rocket(this, x, y);
+        this.trail.owner = this.protagonist;
+        return (this.level_running = true);
+      }
     };
     Game.prototype.advance_level = function() {
       this.level_number += 1;
@@ -59,6 +68,9 @@
     };
     Game.prototype.init_level = function() {
       this.stop();
+      if (this.level_number > this.max_level) {
+        this.level_number = "last";
+      }
       return require([("rg/level/" + (this.level_number))], __bind(function(Level) {
         this.level = new Level(this);
         this.begin_level();

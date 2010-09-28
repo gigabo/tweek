@@ -13,7 +13,7 @@
     };
     Trail.prototype.step = function() {
       var _a, _b, _c, _d, i, m, oa, ol, ox, oy, piece, x1, x2, y1, y2;
-      if (this.controls.thrust_on) {
+      if (this.controls.thrust_on()) {
         ox = this.owner.x;
         oy = this.owner.y;
         oa = this.owner.a;

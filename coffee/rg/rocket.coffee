@@ -12,13 +12,13 @@ require.def ['rg/debug'], (Debug) ->
       @dy += .2
 
     apply_rotation: () ->
-      if @controls.rot_l
+      if @controls.rotate_l()
         @a -= Math.PI/24
-      if @controls.rot_r
+      if @controls.rotate_r()
         @a += Math.PI/24
 
     apply_thrust: () ->
-      if @controls.thrust_on
+      if @controls.thrust_on()
         @dx -= .5*Math.cos(@a)
         @dy -= .5*Math.sin(@a)
 

@@ -4,7 +4,8 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
     init: () ->
       @messages = [
-        "Oops."
+        "That's all of the levels for now.",
+        "Thanks for playing."
       ]
 
     won: () -> false

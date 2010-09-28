@@ -16,7 +16,7 @@
     };
     __extends(Level_last, Level);
     Level_last.prototype.init = function() {
-      return (this.messages = ["Oops."]);
+      return (this.messages = ["That's all of the levels for now.", "Thanks for playing."]);
     };
     Level_last.prototype.won = function() {
       return false;
