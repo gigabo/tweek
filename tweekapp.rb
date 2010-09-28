@@ -38,7 +38,6 @@ class TweekApp < Sinatra::Base
   get '/play/:script' do
     @title = "Play (#{params[:script]})"
     @scripts = ['require', params[:script]]
-    @scripts.push 'jquery.tweekdump'
     mustache :play
   end
 
