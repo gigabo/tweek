@@ -2,7 +2,7 @@ class TweekApp
   module Views
     class Layout < Mustache
       BASE_STYLES = [ 'reset', 'tweek' ]
-      BASE_SCRIPTS = [ 'underscore', 'tweek', 'ga' ]
+      BASE_SCRIPTS = [ 'underscore', 'require', 'ga' ]
       def title() @title || "Tweek: Bo's Playground" end
       def scripts
         (BASE_SCRIPTS + (@scripts||[])).collect { |s| { :name => s } }
