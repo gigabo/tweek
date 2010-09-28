@@ -18,12 +18,11 @@
       return (this.base_time = (new Date()).getTime());
     };
     Performance.prototype.check = function() {
-      var elapsed, grow_threshold, now, shrink_threshold;
+      var elapsed, now, shrink_threshold;
       if (!this.lock && ++this.frame_count === this.check_frames) {
         now = (new Date()).getTime();
         elapsed = now - this.base_time;
         shrink_threshold = (this.check_frames * this.step_time) * 1.1;
-        grow_threshold = (this.check_frames * this.step_time) * 1.05;
         if (elapsed > shrink_threshold) {
           this.res *= .99;
           if (this.res < .2) {
@@ -33,15 +32,8 @@
           if (this.check_frames > 1) {
             this.check_frames--;
           }
-        } else if (elapsed < grow_threshold && this.res < 1) {
-          this.res *= 1.001;
-          if (this.res > 1) {
-            this.res = 1;
-          }
         } else {
-          if (this.check_frames < 50) {
-            this.check_frames++;
-          }
+          this.check_frames++;
         }
         return this.init();
       }

@@ -17,7 +17,6 @@ require.def () =>
         now = (new Date).getTime()
         elapsed = now - @base_time
         shrink_threshold = (@check_frames * @step_time) * 1.1
-        grow_threshold   = (@check_frames * @step_time) * 1.05
         if (elapsed > shrink_threshold)
           @res *= .99
           if @res < .2
@@ -25,12 +24,8 @@ require.def () =>
           @game.graphics.update_canvas_width()
           if @check_frames > 1
             @check_frames --
-        else if elapsed < grow_threshold and @res < 1
-          @res *= 1.001
-          if @res > 1 then @res = 1
         else
-          if @check_frames < 50
-            @check_frames ++
+          @check_frames ++
 
         this.init()
 
