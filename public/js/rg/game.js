@@ -2,7 +2,7 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['rg_controls', 'rg_performance', 'rg_graphics', 'rg_rocket', 'rg_trail', 'rg_debug'], __bind(function(Controls, Performance, Graphics, Rocket, Trail, Debug) {
+  require.def(['rg/controls', 'rg/performance', 'rg/graphics', 'rg/rocket', 'rg/trail', 'rg/debug'], __bind(function(Controls, Performance, Graphics, Rocket, Trail, Debug) {
     var Game;
     Game = function(canvas) {
       this.running = false;

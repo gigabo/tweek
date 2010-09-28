@@ -2,7 +2,7 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['rg_debug'], __bind(function(Debug) {
+  require.def(['rg/debug'], __bind(function(Debug) {
     var Graphics;
     Graphics = function(_a, _b) {
       this.canvas = _b;

@@ -1,4 +1,4 @@
-require.def ['rg_debug'], (Debug) ->
+require.def ['rg/debug'], (Debug) ->
   class Rocket
     constructor: (@game, @x, @y) ->
       @thrust = .2

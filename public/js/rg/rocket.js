@@ -1,5 +1,5 @@
 (function() {
-  require.def(['rg_debug'], function(Debug) {
+  require.def(['rg/debug'], function(Debug) {
     var Rocket;
     Rocket = function(_a, _b, _c) {
       this.y = _c;

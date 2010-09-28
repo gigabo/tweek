@@ -1,10 +1,10 @@
 require.def [
-  'rg_controls',
-  'rg_performance',
-  'rg_graphics',
-  'rg_rocket',
-  'rg_trail',
-  'rg_debug'
+  'rg/controls',
+  'rg/performance',
+  'rg/graphics',
+  'rg/rocket',
+  'rg/trail',
+  'rg/debug'
 ],
 (Controls, Performance, Graphics, Rocket, Trail, Debug) =>
 

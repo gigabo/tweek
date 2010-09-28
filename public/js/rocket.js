@@ -7,7 +7,7 @@
     var canvas;
     canvas = $("#play_canvas");
     $("#canvas_container").append("<br>Arrows steer.");
-    return require(['rg_game'], __bind(function(Game) {
+    return require(['rg/game'], __bind(function(Game) {
       return new Game(canvas);
     }, this));
   };
