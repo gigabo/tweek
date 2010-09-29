@@ -24,8 +24,8 @@ require.def ['rg/debug'], (Debug) =>
     reset: () -> @hit = false
 
     check_hit: () ->
-      p = @game.protagonist
-      dx = p.x - @x
-      dy = p.y - @y
-      d = Math.sqrt(dx*dx+dy*dy)
-      if d <= @r then @hit = true
+      for p in [ @game.protagonist.front(), @game.protagonist.back() ]
+        dx = p.x - @x
+        dy = p.y - @y
+        d = Math.sqrt(dx*dx+dy*dy)
+        if d <= @r then @hit = true

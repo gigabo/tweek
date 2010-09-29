@@ -41,12 +41,18 @@
       return (this.hit = false);
     };
     SpaceCircle.prototype.check_hit = function() {
-      var d, dx, dy, p;
-      p = this.game.protagonist;
-      dx = p.x - this.x;
-      dy = p.y - this.y;
-      d = Math.sqrt(dx * dx + dy * dy);
-      return d <= this.r ? (this.hit = true) : null;
+      var _a, _b, _c, _d, d, dx, dy, p;
+      _a = []; _c = [this.game.protagonist.front(), this.game.protagonist.back()];
+      for (_b = 0, _d = _c.length; _b < _d; _b++) {
+        p = _c[_b];
+        _a.push((function() {
+          dx = p.x - this.x;
+          dy = p.y - this.y;
+          d = Math.sqrt(dx * dx + dy * dy);
+          return d <= this.r ? (this.hit = true) : null;
+        }).call(this));
+      }
+      return _a;
     };
     return SpaceCircle;
   }, this));
