@@ -15,12 +15,17 @@ require.def ['rg/level'], (Level) =>
         [x, y, r] = goal
         this.add_goal(x, y, r)
 
-      i = 300
-      w = @game.width
-      h = @game.height
+      i = 50
+      w = @game.width / 2
+      h = @game.height / 2
       r = 30
 
-      for barrier in [ [w / 2, h / 2, r] ]
+      for barrier in [
+        [w - i, h, r],
+        [w + i, h, r],
+        [w, h - i, r],
+        [w, h + i, r],
+      ]
         [x, y, r] = barrier
         this.add_barrier(x, y, r)
 

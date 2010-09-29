@@ -30,11 +30,11 @@
         r = _d[2];
         this.add_goal(x, y, r);
       }
-      i = 300;
-      w = this.game.width;
-      h = this.game.height;
+      i = 50;
+      w = this.game.width / 2;
+      h = this.game.height / 2;
       r = 30;
-      _f = [[w / 2, h / 2, r]];
+      _f = [[w - i, h, r], [w + i, h, r], [w, h - i, r], [w, h + i, r]];
       for (_e = 0, _g = _f.length; _e < _g; _e++) {
         barrier = _f[_e];
         _h = barrier;

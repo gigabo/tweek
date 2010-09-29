@@ -1,42 +1,25 @@
 (function() {
-  var __bind = function(func, context) {
+  var __extends = function(child, parent) {
+    var ctor = function(){};
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor();
+    child.prototype.constructor = child;
+    if (typeof parent.extended === "function") parent.extended(child);
+    child.__super__ = parent.prototype;
+  }, __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['rg/debug'], __bind(function(Debug) {
+  require.def(['rg/debug', 'rg/space_circle'], __bind(function(Debug, SpaceCircle) {
     var Goal;
-    Goal = function(_a, _b, _c, _d) {
-      this.r = _d;
-      this.y = _c;
-      this.x = _b;
-      this.game = _a;
-      this.reset();
-      return this;
+    Goal = function() {
+      return SpaceCircle.apply(this, arguments);
     };
-    Goal.prototype.step = function() {
-      return !this.hit ? this.check_hit() : null;
+    __extends(Goal, SpaceCircle);
+    Goal.prototype.red = function() {
+      return this.hit ? 0 : 255;
     };
-    Goal.prototype.draw = function(graphics) {
-      var ctx, g, r;
-      ctx = graphics.ctx;
-      ctx.lineWidth = 4;
-      r = this.hit ? 0 : 255;
-      g = this.hit ? 255 : 0;
-      ctx.strokeStyle = ("rgba(" + (r) + ", " + (g) + ", 0, 1)");
-      return graphics.circle_stroke(this.x, this.y, this.r);
-    };
-    Goal.prototype.done = function() {
-      return this.hit;
-    };
-    Goal.prototype.reset = function() {
-      return (this.hit = false);
-    };
-    Goal.prototype.check_hit = function() {
-      var d, dx, dy, p;
-      p = this.game.protagonist;
-      dx = p.x - this.x;
-      dy = p.y - this.y;
-      d = Math.sqrt(dx * dx + dy * dy);
-      return d <= this.r ? (this.hit = true) : null;
+    Goal.prototype.green = function() {
+      return this.hit ? 255 : 0;
     };
     return Goal;
   }, this));

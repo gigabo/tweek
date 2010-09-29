@@ -1,23 +1,10 @@
-require.def ['rg/debug'], (Debug) =>
+require.def ['rg/debug', 'rg/space_circle'], (Debug, SpaceCircle) =>
 
-  class Goal
-    constructor: (@game, @x, @y, @r) -> this.reset()
+  class Goal extends SpaceCircle
 
     step: () ->
-      this.check_hit()
+      super
       if @hit then @game.protagonist.splode()
 
-    draw: (graphics) ->
-      ctx = graphics.ctx
-      ctx.lineWidth = 4
-      ctx.strokeStyle = "rgba(0, 0, 255, 1)"
-      graphics.circle_stroke @x, @y, @r
+    blue: () -> 255
 
-    reset: () -> @hit = false
-
-    check_hit: () ->
-      p = @game.protagonist
-      dx = p.x - @x
-      dy = p.y - @y
-      d = Math.sqrt(dx*dx+dy*dy)
-      if d <= @r then @hit = true
