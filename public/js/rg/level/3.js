@@ -41,7 +41,7 @@
         r = _h[2];
         this.add_barrier(x, y, r);
       }
-      return (this.messages = ["Faster is better."]);
+      return (this.messages = ["Be quick."]);
     };
     Level_3.prototype.suppress_score = function(type) {
       return type === 'time' ? false : true;

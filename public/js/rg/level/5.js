@@ -15,13 +15,16 @@
       return Level.apply(this, arguments);
     };
     __extends(Level_5, Level);
+    Level_5.prototype.starting_position = function() {
+      return [this.game.width - 100, this.start_y];
+    };
     Level_5.prototype.init = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, circle, h, i, r, w, x, y;
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 120;
       r = 20;
-      _b = [[w, h - i, r]];
+      _b = [[w - i, h, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
         circle = _b[_a];
         _d = circle;
@@ -41,7 +44,7 @@
         r = _h[2];
         this.add_barrier(x, y, r);
       }
-      return (this.messages = ["You get a bonus for doing loops."]);
+      return (this.messages = ["Loop-the-loop for a bonus."]);
     };
     Level_5.prototype.suppress_score = function(type) {
       return type === 'time' || type === 'finish' || type === 'loops' ? false : true;

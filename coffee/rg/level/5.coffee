@@ -2,13 +2,15 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
   class Level_5 extends Level
 
+    starting_position: () -> [ @game.width - 100, @start_y ]
+
     init: () ->
       w = @game.width / 2
       h = @game.height / 2
       i = 120
       r = 20
       for circle in [
-        [w, h-i, r],
+        [w-i, h, r],
       ]
         [x, y, r] = circle
         this.add_goal(x, y, r)
@@ -23,7 +25,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
         this.add_barrier(x, y, r)
 
       @messages = [
-        "You get a bonus for doing loops.",
+        "Loop-the-loop for a bonus.",
       ]
 
     suppress_score: (type) ->

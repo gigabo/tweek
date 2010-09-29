@@ -22,7 +22,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
         this.add_barrier(x, y, r)
 
       @messages = [
-        "Faster is better.",
+        "Be quick.",
       ]
 
     suppress_score: (type) -> if type == 'time' then false else true

@@ -21,7 +21,7 @@
       h = this.game.height / 2;
       i = 120;
       r = 20;
-      _b = [[w, h - i, r]];
+      _b = [[w - i, h - i, r], [w + i, h - i, r], [w - i, h + i, r], [w + i, h + i, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
         circle = _b[_a];
         _d = circle;
@@ -41,7 +41,7 @@
         r = _h[2];
         this.add_barrier(x, y, r);
       }
-      return (this.messages = ["Low score wins."]);
+      return (this.messages = ["It all adds up."]);
     };
     return Level_6;
   }, this));
