@@ -7,10 +7,10 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
     init: () ->
       w = @game.width / 2
       h = @game.height / 2
-      i = 120
-      r = 20
+      i = 150
+      r = 50
       for circle in [
-        [w-i, h+i, r],
+        [w-2*i, h+i, r],
       ]
         [x, y, r] = circle
         this.add_goal(x, y, r)
@@ -24,7 +24,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
         this.add_barrier(x, y, r)
 
       @messages = [
-        "A nice long finish is important.",
+        "Take your time on the finish.",
       ]
 
     suppress_score: (type) ->

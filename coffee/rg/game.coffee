@@ -18,7 +18,7 @@ require.def [
       @trail = new Trail(this)
       @width  = @graphics.width
       @height = @graphics.height
-      @level_number = 0
+      @level_number = 4
       @max_level = 6
       this.start()
 

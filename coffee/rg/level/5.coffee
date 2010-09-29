@@ -10,7 +10,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       i = 120
       r = 20
       for circle in [
-        [w-i, h, r],
+        [w-i, h+2*i, r],
       ]
         [x, y, r] = circle
         this.add_goal(x, y, r)
@@ -19,13 +19,13 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       r = 90
 
       for circle in [
-        [w, h, r],
+        [w, h+i, r],
       ]
         [x, y, r] = circle
         this.add_barrier(x, y, r)
 
       @messages = [
-        "Loop-the-loop for a bonus.",
+        "Flip upside-down for a bonus.",
       ]
 
     suppress_score: (type) ->

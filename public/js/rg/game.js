@@ -13,7 +13,7 @@
       this.trail = new Trail(this);
       this.width = this.graphics.width;
       this.height = this.graphics.height;
-      this.level_number = 0;
+      this.level_number = 4;
       this.max_level = 6;
       this.start();
       return this;

@@ -12,10 +12,11 @@
       return this;
     };
     ScoreTime.prototype.reset = function() {
-      return (this.value = 0);
+      this.value = 0;
+      return (this.in_finish = false);
     };
     ScoreTime.prototype.step = function() {
-      if (!(this.game.finishing)) {
+      if (!(this.finishing())) {
         return this.value += this.step_time;
       }
     };
@@ -24,6 +25,12 @@
     };
     ScoreTime.prototype.color = function() {
       return "rgba(255, 0, 0, 1)";
+    };
+    ScoreTime.prototype.finishing = function() {
+      if (this.game.finishing) {
+        this.in_finish = true;
+      }
+      return this.in_finish;
     };
     return ScoreTime;
   }, this));

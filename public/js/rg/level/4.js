@@ -22,9 +22,9 @@
       var _a, _b, _c, _d, _e, _f, _g, _h, circle, h, i, r, w, x, y;
       w = this.game.width / 2;
       h = this.game.height / 2;
-      i = 120;
-      r = 20;
-      _b = [[w - i, h + i, r]];
+      i = 150;
+      r = 50;
+      _b = [[w - 2 * i, h + i, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
         circle = _b[_a];
         _d = circle;
@@ -44,7 +44,7 @@
         r = _h[2];
         this.add_barrier(x, y, r);
       }
-      return (this.messages = ["A nice long finish is important."]);
+      return (this.messages = ["Take your time on the finish."]);
     };
     Level_4.prototype.suppress_score = function(type) {
       return type === 'time' || type === 'finish' ? false : true;

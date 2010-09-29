@@ -24,7 +24,7 @@
       h = this.game.height / 2;
       i = 120;
       r = 20;
-      _b = [[w - i, h, r]];
+      _b = [[w - i, h + 2 * i, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
         circle = _b[_a];
         _d = circle;
@@ -35,7 +35,7 @@
       }
       i = 240;
       r = 90;
-      _f = [[w, h, r]];
+      _f = [[w, h + i, r]];
       for (_e = 0, _g = _f.length; _e < _g; _e++) {
         circle = _f[_e];
         _h = circle;
@@ -44,7 +44,7 @@
         r = _h[2];
         this.add_barrier(x, y, r);
       }
-      return (this.messages = ["Loop-the-loop for a bonus."]);
+      return (this.messages = ["Flip upside-down for a bonus."]);
     };
     Level_5.prototype.suppress_score = function(type) {
       return type === 'time' || type === 'finish' || type === 'loops' ? false : true;
