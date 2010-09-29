@@ -9,3 +9,5 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       ]
 
     won: () -> false
+
+    suppress_score: () -> true

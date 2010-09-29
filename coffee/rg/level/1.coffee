@@ -1,4 +1,4 @@
-require.def ['rg/level'], (Level) =>
+require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
   class Level_1 extends Level
     init: () ->
@@ -20,3 +20,4 @@ require.def ['rg/level'], (Level) =>
         "Red circles are goals.",
         "Turn them all green to advance."
       ]
+    suppress_score: () -> true

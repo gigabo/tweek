@@ -10,31 +10,39 @@
     return function(){ return func.apply(context, arguments); };
   };
   require.def(['rg/level', 'rg/debug'], __bind(function(Level, Debug) {
-    var Level_1;
-    Level_1 = function() {
+    var Level_6;
+    Level_6 = function() {
       return Level.apply(this, arguments);
     };
-    __extends(Level_1, Level);
-    Level_1.prototype.init = function() {
-      var _a, _b, _c, _d, goal, h, i, r, w, x, y;
-      i = 100;
+    __extends(Level_6, Level);
+    Level_6.prototype.init = function() {
+      var _a, _b, _c, _d, _e, _f, _g, _h, circle, h, i, r, w, x, y;
       w = this.game.width / 2;
       h = this.game.height / 2;
-      r = 30;
-      _b = [[w + i, h + i, r], [w - i, h + i, r], [w + i, h - i, r], [w - i, h - i, r]];
+      i = 120;
+      r = 20;
+      _b = [[w, h - i, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
-        goal = _b[_a];
-        _d = goal;
+        circle = _b[_a];
+        _d = circle;
         x = _d[0];
         y = _d[1];
         r = _d[2];
         this.add_goal(x, y, r);
       }
-      return (this.messages = ["Arrows steer.", "Red circles are goals.", "Turn them all green to advance."]);
+      i = 240;
+      r = 90;
+      _f = [[w, h, r]];
+      for (_e = 0, _g = _f.length; _e < _g; _e++) {
+        circle = _f[_e];
+        _h = circle;
+        x = _h[0];
+        y = _h[1];
+        r = _h[2];
+        this.add_barrier(x, y, r);
+      }
+      return (this.messages = ["Low score wins."]);
     };
-    Level_1.prototype.suppress_score = function() {
-      return true;
-    };
-    return Level_1;
+    return Level_6;
   }, this));
 })();

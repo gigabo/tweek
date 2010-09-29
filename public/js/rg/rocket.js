@@ -6,7 +6,11 @@
       this.x = _b;
       this.game = _a;
       this.thrust = .2;
-      this.a = Math.PI / 2;
+      this.rot_ticks = 48;
+      this.north = Math.PI / 2;
+      this.slice = 2 * Math.PI / this.rot_ticks;
+      this.dial = 0;
+      this.a = this.north;
       this.dx = 0;
       this.dy = 0;
       this.length = 20;
@@ -18,9 +22,18 @@
     };
     Rocket.prototype.apply_rotation = function() {
       if (this.controls.rotate_l()) {
-        this.a -= Math.PI / 24;
+        this.dial -= 1;
+        if (this.dial === -1) {
+          this.dial = this.rot_ticks - 1;
+        }
       }
-      return this.controls.rotate_r() ? this.a += Math.PI / 24 : null;
+      if (this.controls.rotate_r()) {
+        this.dial += 1;
+        if (this.dial === this.rot_ticks) {
+          this.dial = 0;
+        }
+      }
+      return (this.a = this.north + this.slice * this.dial);
     };
     Rocket.prototype.apply_thrust = function() {
       if (this.controls.thrust_on()) {

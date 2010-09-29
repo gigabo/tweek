@@ -41,10 +41,10 @@
       return this.t_on;
     };
     Controls.prototype.rotate_l = function() {
-      return this.rot_l && !this.game.advancing;
+      return this.rot_l && !this.game.finishing;
     };
     Controls.prototype.rotate_r = function() {
-      return this.rot_r && !this.game.advancing;
+      return this.rot_r && !this.game.finishing;
     };
     return Controls;
   }, this));

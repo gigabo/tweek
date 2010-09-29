@@ -11,7 +11,7 @@ require.def [
   class Game
     constructor: (canvas) ->
       @running = false
-      @advancing = false
+      @finishing = false
       @performance = new Performance(this)
       @graphics = new Graphics(this,canvas)
       @controls = new Controls(this)
@@ -19,7 +19,7 @@ require.def [
       @width  = @graphics.width
       @height = @graphics.height
       @level_number = 0
-      @max_level = 2
+      @max_level = 6
       this.start()
 
     start: () ->
@@ -37,8 +37,8 @@ require.def [
 
     step: () ->
       if @level_running
-        if !@advancing and @level.won()
-          @advancing = true
+        if !@finishing and @level.won()
+          @finishing = true
         @protagonist.step()
         @trail.step()
         @level.step()
@@ -47,10 +47,28 @@ require.def [
       else
         this.init_level()
 
+    outro_stop: () ->
+      clearInterval @outro_interval
+      this.advance_level()
+
+    outro_step: () ->
+      if @level.outro_done()
+        this.outro_stop()
+      else
+        @graphics.clear()
+        @level.outro_step()
+        @level.outro_draw(@graphics)
+
+    outro: () ->
+      this.stop()
+      @outro_interval = setInterval () =>
+        this.outro_step()
+      , @performance.step_time
+
     begin_level: () ->
-      if @advancing
-        @advancing = false
-        this.advance_level()
+      if @finishing
+        @finishing = false
+        this.outro()
       else
         @level.begin()
         [x, y] = @level.starting_position()

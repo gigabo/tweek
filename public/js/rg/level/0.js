@@ -27,6 +27,9 @@
       }
       return Level_0.__super__.step.apply(this, arguments);
     };
+    Level_0.prototype.suppress_score = function() {
+      return true;
+    };
     return Level_0;
   }, this));
 })();

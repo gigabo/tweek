@@ -12,3 +12,5 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
         @game.performance.lock = true
         @done = true
       super
+
+    suppress_score: () -> true

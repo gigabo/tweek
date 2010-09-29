@@ -6,7 +6,7 @@
     var Game;
     Game = function(canvas) {
       this.running = false;
-      this.advancing = false;
+      this.finishing = false;
       this.performance = new Performance(this);
       this.graphics = new Graphics(this, canvas);
       this.controls = new Controls(this);
@@ -14,7 +14,7 @@
       this.width = this.graphics.width;
       this.height = this.graphics.height;
       this.level_number = 0;
-      this.max_level = 2;
+      this.max_level = 6;
       this.start();
       return this;
     };
@@ -35,8 +35,8 @@
     };
     Game.prototype.step = function() {
       if (this.level_running) {
-        if (!this.advancing && this.level.won()) {
-          this.advancing = true;
+        if (!this.finishing && this.level.won()) {
+          this.finishing = true;
         }
         this.protagonist.step();
         this.trail.step();
@@ -47,11 +47,30 @@
         return this.init_level();
       }
     };
+    Game.prototype.outro_stop = function() {
+      clearInterval(this.outro_interval);
+      return this.advance_level();
+    };
+    Game.prototype.outro_step = function() {
+      if (this.level.outro_done()) {
+        return this.outro_stop();
+      } else {
+        this.graphics.clear();
+        this.level.outro_step();
+        return this.level.outro_draw(this.graphics);
+      }
+    };
+    Game.prototype.outro = function() {
+      this.stop();
+      return (this.outro_interval = setInterval(__bind(function() {
+        return this.outro_step();
+      }, this), this.performance.step_time));
+    };
     Game.prototype.begin_level = function() {
       var _a, x, y;
-      if (this.advancing) {
-        this.advancing = false;
-        return this.advance_level();
+      if (this.finishing) {
+        this.finishing = false;
+        return this.outro();
       } else {
         this.level.begin();
         _a = this.level.starting_position();

@@ -2,8 +2,10 @@ require.def [
   'rg/banner',
   'rg/goal',
   'rg/barrier',
+  'rg/score_manager',
+  'rg/score',
   'rg/debug'
-], (Banner, Goal, Barrier, Debug) =>
+], (Banner, Goal, Barrier, ScoreManager, Score, Debug) =>
   class Level
     constructor: (@game) ->
       @start_x = @game.width / 2
@@ -11,10 +13,13 @@ require.def [
       @goals   = []
       @barriers = []
       @objects = []
+      @scores = []
       @messages = []
+      @score_manager = new ScoreManager(@game)
       @success_message = "Success!"
       @done = true
       this.init()
+      this.init_scores()
       this.set_message()
       this.bundle_objects()
 
@@ -28,13 +33,18 @@ require.def [
         @message_banner = undefined
 
     bundle_objects: () ->
-      for goal in @goals
-        @objects.push goal
-      for barrier in @barriers
-        @objects.push barrier
+      for collection in [ @goals, @barriers, @scores ]
+        for item in collection
+          @objects.push item
+
+    init_scores: () ->
+      @score_manager.reset()
+      for type in @score_manager.types()
+        this.add_score(type) unless this.suppress_score(type)
 
     add_goal: (x, y, r) -> @goals.push new Goal(@game, x, y, r)
     add_barrier: (x, y, r) -> @barriers.push new Barrier(@game, x, y, r)
+    add_score: (type) -> @scores.push new Score(@game, type)
 
 
     step: () ->
@@ -60,8 +70,21 @@ require.def [
         return true
 
     begin: () ->
-      for goal in @goals
-        goal.reset()
-      for barrier in @barriers
-        barrier.reset()
+      for collection in [ @goals, @barriers, @scores ]
+        for item in collection
+          item.reset()
 
+    outro_done: () ->
+      for item in @objects
+        return false if item.outro_done and !item.outro_done()
+      return true
+
+    outro_step: () ->
+      for item in @objects
+        item.outro_step() if item.outro_step and !item.outro_done()
+
+    outro_draw: (graphics) ->
+      for item in @objects
+        item.outro_draw(graphics) if item.outro_draw
+
+    suppress_score: () -> false

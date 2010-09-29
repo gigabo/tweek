@@ -2,7 +2,11 @@ require.def ['rg/debug'], (Debug) ->
   class Rocket
     constructor: (@game, @x, @y) ->
       @thrust = .2
-      @a = Math.PI/2
+      @rot_ticks = 48
+      @north = Math.PI/2
+      @slice = 2*Math.PI/@rot_ticks
+      @dial  = 0
+      @a = @north
       @dx = 0
       @dy = 0
       @length = 20
@@ -13,9 +17,13 @@ require.def ['rg/debug'], (Debug) ->
 
     apply_rotation: () ->
       if @controls.rotate_l()
-        @a -= Math.PI/24
+        @dial -= 1
+        if @dial == -1 then @dial = @rot_ticks-1
       if @controls.rotate_r()
-        @a += Math.PI/24
+        @dial += 1
+        if @dial == @rot_ticks then @dial = 0
+
+      @a = @north+@slice*@dial
 
     apply_thrust: () ->
       if @controls.thrust_on()
