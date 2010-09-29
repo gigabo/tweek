@@ -8,6 +8,7 @@ require.def ['rg/debug'], (Debug) =>
     red:    () -> 0
     green:  () -> 0
     blue:   () -> 0
+    fill:   () -> false
 
     draw: (graphics) ->
       ctx = graphics.ctx
@@ -15,8 +16,13 @@ require.def ['rg/debug'], (Debug) =>
       r = this.red()
       g = this.green()
       b = this.blue()
-      ctx.strokeStyle = "rgba(#{r}, #{g}, #{b}, 1)"
-      graphics.circle_stroke @x, @y, @r
+      fill = this.fill()
+      if this.fill()
+        ctx.fillStyle = "rgba(#{r}, #{g}, #{b}, 1)"
+        graphics.circle_fill @x, @y, @r
+      else
+        ctx.strokeStyle = "rgba(#{r}, #{g}, #{b}, 1)"
+        graphics.circle_stroke @x, @y, @r
 
 
     done: () -> @hit

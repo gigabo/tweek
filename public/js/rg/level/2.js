@@ -43,7 +43,7 @@
         r = _h[2];
         this.add_barrier(x, y, r);
       }
-      return (this.messages = ["Blue shapes are barriers.", "Don't hit them."]);
+      return (this.messages = ["Blue circles are barriers.", "Don't hit them."]);
     };
     return Level_1;
   }, this));

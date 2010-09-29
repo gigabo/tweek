@@ -31,6 +31,6 @@ require.def ['rg/level'], (Level) =>
 
 
       @messages = [
-        "Blue shapes are barriers.",
+        "Blue circles are barriers.",
         "Don't hit them."
       ]

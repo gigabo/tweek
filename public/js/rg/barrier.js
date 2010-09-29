@@ -22,6 +22,9 @@
     Goal.prototype.blue = function() {
       return 255;
     };
+    Goal.prototype.fill = function() {
+      return true;
+    };
     return Goal;
   }, this));
 })();

@@ -24,15 +24,24 @@
     SpaceCircle.prototype.blue = function() {
       return 0;
     };
+    SpaceCircle.prototype.fill = function() {
+      return false;
+    };
     SpaceCircle.prototype.draw = function(graphics) {
-      var b, ctx, g, r;
+      var b, ctx, fill, g, r;
       ctx = graphics.ctx;
       ctx.lineWidth = 4;
       r = this.red();
       g = this.green();
       b = this.blue();
-      ctx.strokeStyle = ("rgba(" + (r) + ", " + (g) + ", " + (b) + ", 1)");
-      return graphics.circle_stroke(this.x, this.y, this.r);
+      fill = this.fill();
+      if (this.fill()) {
+        ctx.fillStyle = ("rgba(" + (r) + ", " + (g) + ", " + (b) + ", 1)");
+        return graphics.circle_fill(this.x, this.y, this.r);
+      } else {
+        ctx.strokeStyle = ("rgba(" + (r) + ", " + (g) + ", " + (b) + ", 1)");
+        return graphics.circle_stroke(this.x, this.y, this.r);
+      }
     };
     SpaceCircle.prototype.done = function() {
       return this.hit;
