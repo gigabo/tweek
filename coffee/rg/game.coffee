@@ -8,10 +8,16 @@ require.def [
 ],
 (Controls, Performance, Graphics, Rocket, Trail, Debug) =>
 
+  UNINITIALIZED = -1
+  IN_LEVEL = 0
+  FINISHING = 1
+  OUTRO = 2
+  ADVANCING = 3
+
   class Game
     constructor: (canvas) ->
       @running = false
-      @finishing = false
+      @state = UNINITIALIZED
       @performance = new Performance(this)
       @graphics = new Graphics(this,canvas)
       @controls = new Controls(this)
@@ -21,6 +27,8 @@ require.def [
       @level_number = 0
       @max_level = 6
       this.start()
+
+    finishing: () -> @state == FINISHING
 
     start: () ->
       if !@running
@@ -35,46 +43,38 @@ require.def [
         clearInterval @main_interval
         @running = false
 
-    step: () ->
-      if @level_running
-        if !@finishing and @level.won()
-          @finishing = true
-        @protagonist.step()
-        @trail.step()
-        @level.step()
-        this.draw()
-        @performance.check()
-      else
-        this.init_level()
+    level_step: () ->
+      if @level.won() then @state = FINISHING
+      @protagonist.step()
+      @trail.step()
+      @level.step()
+      this.draw()
+      @performance.check()
 
-    outro_stop: () ->
-      clearInterval @outro_interval
-      this.advance_level()
+
+    step: () ->
+      switch @state
+        when OUTRO then this.outro_step()
+        when IN_LEVEL, FINISHING then this.level_step()
+        when ADVANCING then this.advance_level()
+        else this.init_level()
 
     outro_step: () ->
       if @level.outro_done()
-        this.outro_stop()
+        @state = ADVANCING
       else
         @graphics.clear()
         @level.outro_step()
         @level.outro_draw(@graphics)
 
-    outro: () ->
-      this.stop()
-      @outro_interval = setInterval () =>
-        this.outro_step()
-      , @performance.step_time
-
     begin_level: () ->
-      if @finishing
-        @finishing = false
-        this.outro()
+      if @state == FINISHING then @state = OUTRO
       else
         @level.begin()
         [x, y] = @level.starting_position()
         @protagonist = new Rocket(this, x, y)
         @trail.owner = @protagonist
-        @level_running = true
+        @state = IN_LEVEL
 
     advance_level: () ->
       @level_number += 1
@@ -82,8 +82,7 @@ require.def [
 
     init_level: () ->
       this.stop()
-      if @level_number > @max_level
-        @level_number = "last"
+      @level_number = "last" if @level_number > @max_level
       require ["rg/level/#{@level_number}"], (Level) =>
         @level = new Level(this)
         this.begin_level()
@@ -94,7 +93,3 @@ require.def [
       @protagonist.draw(@graphics)
       @trail.draw(@graphics)
       @level.draw(@graphics)
-
-
-
-

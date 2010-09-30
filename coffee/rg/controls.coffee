@@ -24,5 +24,5 @@ require.def () =>
             if @game.running then @game.stop() else @game.start()
 
     thrust_on: () -> @t_on
-    rotate_l: () -> @rot_l and !@game.finishing
-    rotate_r: () -> @rot_r and !@game.finishing
+    rotate_l: () -> @rot_l and !@game.finishing()
+    rotate_r: () -> @rot_r and !@game.finishing()

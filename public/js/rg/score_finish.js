@@ -15,7 +15,7 @@
       return (this.value = 0);
     };
     ScoreTime.prototype.step = function() {
-      if (this.game.finishing) {
+      if (this.game.finishing()) {
         return this.value -= this.step_time;
       }
     };

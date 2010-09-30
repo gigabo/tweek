@@ -27,7 +27,7 @@
       return "rgba(255, 0, 0, 1)";
     };
     ScoreTime.prototype.finishing = function() {
-      if (this.game.finishing) {
+      if (this.game.finishing()) {
         this.in_finish = true;
       }
       return this.in_finish;

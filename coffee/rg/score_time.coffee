@@ -13,5 +13,5 @@ require.def ['rg/debug'], (Debug) =>
     color:  () -> "rgba(255, 0, 0, 1)"
 
     finishing: () ->
-      if @game.finishing then @in_finish = true
+      if @game.finishing() then @in_finish = true
       @in_finish
