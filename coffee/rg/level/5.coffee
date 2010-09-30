@@ -8,9 +8,9 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       w = @game.width / 2
       h = @game.height / 2
       i = 120
-      r = 20
+      r = 40
       for circle in [
-        [w-i, h+2*i, r],
+        [w-i-20, h+2*i, r],
       ]
         [x, y, r] = circle
         this.add_goal(x, y, r)

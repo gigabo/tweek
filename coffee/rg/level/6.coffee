@@ -6,7 +6,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       w = @game.width / 2
       h = @game.height / 2
       i = 120
-      r = 20
+      r = 30
       for circle in [
         [w-i, h-i, r],
         [w+i, h-i, r],

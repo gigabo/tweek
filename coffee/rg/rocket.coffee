@@ -1,19 +1,26 @@
-require.def ['rg/debug'], (Debug) ->
+require.def ['rg/trail', 'rg/debug'], (Trail, Debug) ->
   class Rocket
-    constructor: (@game, @x, @y) ->
+    constructor: (@game, @init_x, @init_y) ->
       @thrust = .2
+      @gravity = .2
+      @length = 20
       @rot_ticks = 48
       @north = Math.PI/2
       @slice = 2*Math.PI/@rot_ticks
-      @dial  = 0
+      @controls = @game.controls
+      @trail = new Trail(@game, this)
+      this.reset()
+
+    reset: () ->
+      @x = @init_x
+      @y = @init_y
       @a = @north
+      @dial = 0
       @dx = 0
       @dy = 0
-      @length = 20
-      @controls = @game.controls
 
     apply_gravity: () ->
-      @dy += .2
+      @dy += @gravity
 
     apply_rotation: () ->
       if @controls.rotate_l()
@@ -49,6 +56,7 @@ require.def ['rg/debug'], (Debug) ->
       ctx.strokeStyle = "rgba(255, 255, 255, 1)"
       ctx.lineWidth = @length/5
       graphics.line front.x, front.y, back.x, back.y
+      @trail.draw(graphics)
 
     move: () ->
       @x += @dx
@@ -67,5 +75,6 @@ require.def ['rg/debug'], (Debug) ->
       this.apply_thrust()
       this.move()
       this.check_bounds()
+      @trail.step()
 
 

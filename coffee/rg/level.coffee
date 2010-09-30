@@ -1,11 +1,12 @@
 require.def [
+  'rg/rocket',
   'rg/banner',
   'rg/goal',
   'rg/barrier',
   'rg/score_manager',
   'rg/score',
   'rg/debug'
-], (Banner, Goal, Barrier, ScoreManager, Score, Debug) =>
+], (Rocket, Banner, Goal, Barrier, ScoreManager, Score, Debug) =>
   class Level
     constructor: (@game) ->
       @start_x = @game.width / 2
@@ -19,11 +20,16 @@ require.def [
       @success_message = "Success!"
       @done = true
       this.init()
+      this.init_protagonist()
       this.init_scores()
       this.set_message()
       this.bundle_objects()
 
     starting_position: () -> [ @start_x, @start_y ]
+
+    init_protagonist: () ->
+      [x, y] = this.starting_position()
+      @protagonist = new Rocket(@game, x, y)
 
     set_message: () ->
       if @messages and @messages.length
@@ -33,7 +39,7 @@ require.def [
         @message_banner = undefined
 
     bundle_objects: () ->
-      for collection in [ @goals, @barriers, @scores ]
+      for collection in [ @goals, @barriers, @scores, [@protagonist] ]
         for item in collection
           @objects.push item
 
@@ -70,7 +76,7 @@ require.def [
         return true
 
     begin: () ->
-      for collection in [ @goals, @barriers, @scores ]
+      for collection in [ @goals, @barriers, @scores, [@protagonist] ]
         for item in collection
           item.reset()
 

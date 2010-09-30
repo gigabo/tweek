@@ -1,7 +1,7 @@
 require.def () =>
 
   class Trail
-    constructor: (@game) ->
+    constructor: (@game, @owner) ->
       @pieces = []
       @length = 20
       @controls = @game.controls

@@ -2,11 +2,9 @@ require.def [
   'rg/controls',
   'rg/performance',
   'rg/graphics',
-  'rg/rocket',
-  'rg/trail',
   'rg/debug'
 ],
-(Controls, Performance, Graphics, Rocket, Trail, Debug) =>
+(Controls, Performance, Graphics, Debug) =>
 
   UNINITIALIZED = -1
   IN_LEVEL = 0
@@ -18,10 +16,10 @@ require.def [
     constructor: (canvas) ->
       @running = false
       @state = UNINITIALIZED
+      @previous_state = UNINITIALIZED
       @performance = new Performance(this)
       @graphics = new Graphics(this,canvas)
       @controls = new Controls(this)
-      @trail = new Trail(this)
       @width  = @graphics.width
       @height = @graphics.height
       @level_number = 0
@@ -29,6 +27,10 @@ require.def [
       this.start()
 
     finishing: () -> @state == FINISHING
+
+    change_state: (new_state) ->
+      @previous_state = @state
+      @state = new_state
 
     start: () ->
       if !@running
@@ -44,15 +46,12 @@ require.def [
         @running = false
 
     level_step: () ->
-      if @level.won() then @state = FINISHING
-      @protagonist.step()
-      @trail.step()
+      if @level.won() then this.change_state(FINISHING)
       @level.step()
       this.draw()
-      @performance.check()
-
 
     step: () ->
+      @performance.check()
       switch @state
         when OUTRO then this.outro_step()
         when IN_LEVEL, FINISHING then this.level_step()
@@ -60,29 +59,24 @@ require.def [
         else this.init_level()
 
     outro_step: () ->
-      if @level.outro_done()
-        @state = ADVANCING
+      if @level.outro_done() then this.change_state(ADVANCING)
       else
-        @graphics.clear()
         @level.outro_step()
-        @level.outro_draw(@graphics)
+        this.draw()
 
     begin_level: () ->
-      if @state == FINISHING then @state = OUTRO
+      if @state == FINISHING then this.change_state(OUTRO)
       else
         @level.begin()
-        [x, y] = @level.starting_position()
-        @protagonist = new Rocket(this, x, y)
-        @trail.owner = @protagonist
-        @state = IN_LEVEL
+        this.change_state(IN_LEVEL)
 
     advance_level: () ->
       @level_number += 1
+      @level_number = "last" if @level_number > @max_level
       this.init_level()
 
     init_level: () ->
       this.stop()
-      @level_number = "last" if @level_number > @max_level
       require ["rg/level/#{@level_number}"], (Level) =>
         @level = new Level(this)
         this.begin_level()
@@ -90,6 +84,6 @@ require.def [
 
     draw: () ->
       @graphics.clear()
-      @protagonist.draw(@graphics)
-      @trail.draw(@graphics)
-      @level.draw(@graphics)
+      switch @state
+        when OUTRO then @level.outro_draw(@graphics)
+        else @level.draw(@graphics)

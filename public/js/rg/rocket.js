@@ -1,24 +1,31 @@
 (function() {
-  require.def(['rg/debug'], function(Debug) {
+  require.def(['rg/trail', 'rg/debug'], function(Trail, Debug) {
     var Rocket;
     Rocket = function(_a, _b, _c) {
-      this.y = _c;
-      this.x = _b;
+      this.init_y = _c;
+      this.init_x = _b;
       this.game = _a;
       this.thrust = .2;
+      this.gravity = .2;
+      this.length = 20;
       this.rot_ticks = 48;
       this.north = Math.PI / 2;
       this.slice = 2 * Math.PI / this.rot_ticks;
-      this.dial = 0;
-      this.a = this.north;
-      this.dx = 0;
-      this.dy = 0;
-      this.length = 20;
       this.controls = this.game.controls;
+      this.trail = new Trail(this.game, this);
+      this.reset();
       return this;
     };
+    Rocket.prototype.reset = function() {
+      this.x = this.init_x;
+      this.y = this.init_y;
+      this.a = this.north;
+      this.dial = 0;
+      this.dx = 0;
+      return (this.dy = 0);
+    };
     Rocket.prototype.apply_gravity = function() {
-      return this.dy += .2;
+      return this.dy += this.gravity;
     };
     Rocket.prototype.apply_rotation = function() {
       if (this.controls.rotate_l()) {
@@ -60,7 +67,8 @@
       back = this.back();
       ctx.strokeStyle = "rgba(255, 255, 255, 1)";
       ctx.lineWidth = this.length / 5;
-      return graphics.line(front.x, front.y, back.x, back.y);
+      graphics.line(front.x, front.y, back.x, back.y);
+      return this.trail.draw(graphics);
     };
     Rocket.prototype.move = function() {
       this.x += this.dx;
@@ -77,7 +85,8 @@
       this.apply_rotation();
       this.apply_thrust();
       this.move();
-      return this.check_bounds();
+      this.check_bounds();
+      return this.trail.step();
     };
     return Rocket;
   });

@@ -23,8 +23,8 @@
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 120;
-      r = 20;
-      _b = [[w - i, h + 2 * i, r]];
+      r = 40;
+      _b = [[w - i - 20, h + 2 * i, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
         circle = _b[_a];
         _d = circle;

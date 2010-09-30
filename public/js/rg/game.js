@@ -2,7 +2,7 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['rg/controls', 'rg/performance', 'rg/graphics', 'rg/rocket', 'rg/trail', 'rg/debug'], __bind(function(Controls, Performance, Graphics, Rocket, Trail, Debug) {
+  require.def(['rg/controls', 'rg/performance', 'rg/graphics', 'rg/debug'], __bind(function(Controls, Performance, Graphics, Debug) {
     var ADVANCING, FINISHING, Game, IN_LEVEL, OUTRO, UNINITIALIZED;
     UNINITIALIZED = -1;
     IN_LEVEL = 0;
@@ -12,10 +12,10 @@
     Game = function(canvas) {
       this.running = false;
       this.state = UNINITIALIZED;
+      this.previous_state = UNINITIALIZED;
       this.performance = new Performance(this);
       this.graphics = new Graphics(this, canvas);
       this.controls = new Controls(this);
-      this.trail = new Trail(this);
       this.width = this.graphics.width;
       this.height = this.graphics.height;
       this.level_number = 0;
@@ -25,6 +25,10 @@
     };
     Game.prototype.finishing = function() {
       return this.state === FINISHING;
+    };
+    Game.prototype.change_state = function(new_state) {
+      this.previous_state = this.state;
+      return (this.state = new_state);
     };
     Game.prototype.start = function() {
       if (!this.running) {
@@ -43,15 +47,13 @@
     };
     Game.prototype.level_step = function() {
       if (this.level.won()) {
-        this.state = FINISHING;
+        this.change_state(FINISHING);
       }
-      this.protagonist.step();
-      this.trail.step();
       this.level.step();
-      this.draw();
-      return this.performance.check();
+      return this.draw();
     };
     Game.prototype.step = function() {
+      this.performance.check();
       switch (this.state) {
       case OUTRO:
         return this.outro_step();
@@ -66,36 +68,29 @@
     };
     Game.prototype.outro_step = function() {
       if (this.level.outro_done()) {
-        return (this.state = ADVANCING);
+        return this.change_state(ADVANCING);
       } else {
-        this.graphics.clear();
         this.level.outro_step();
-        return this.level.outro_draw(this.graphics);
+        return this.draw();
       }
     };
     Game.prototype.begin_level = function() {
-      var _a, x, y;
       if (this.state === FINISHING) {
-        return (this.state = OUTRO);
+        return this.change_state(OUTRO);
       } else {
         this.level.begin();
-        _a = this.level.starting_position();
-        x = _a[0];
-        y = _a[1];
-        this.protagonist = new Rocket(this, x, y);
-        this.trail.owner = this.protagonist;
-        return (this.state = IN_LEVEL);
+        return this.change_state(IN_LEVEL);
       }
     };
     Game.prototype.advance_level = function() {
       this.level_number += 1;
+      if (this.level_number > this.max_level) {
+        this.level_number = "last";
+      }
       return this.init_level();
     };
     Game.prototype.init_level = function() {
       this.stop();
-      if (this.level_number > this.max_level) {
-        this.level_number = "last";
-      }
       return require([("rg/level/" + (this.level_number))], __bind(function(Level) {
         this.level = new Level(this);
         this.begin_level();
@@ -104,9 +99,12 @@
     };
     Game.prototype.draw = function() {
       this.graphics.clear();
-      this.protagonist.draw(this.graphics);
-      this.trail.draw(this.graphics);
-      return this.level.draw(this.graphics);
+      switch (this.state) {
+      case OUTRO:
+        return this.level.outro_draw(this.graphics);
+      default:
+        return this.level.draw(this.graphics);
+      }
     };
     return Game;
   }, this));

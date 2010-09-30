@@ -4,7 +4,8 @@
   };
   require.def(__bind(function() {
     var Trail;
-    Trail = function(_a) {
+    Trail = function(_a, _b) {
+      this.owner = _b;
       this.game = _a;
       this.pieces = [];
       this.length = 20;

@@ -25,7 +25,7 @@
         shrink_threshold = (this.check_frames * this.step_time) * 1.1;
         if (elapsed > shrink_threshold) {
           this.res *= .99;
-          if (this.res < .2) {
+          if (this.res < .3) {
             this.too_slow();
           }
           this.game.graphics.update_canvas_width();

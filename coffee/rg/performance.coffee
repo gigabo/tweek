@@ -19,8 +19,7 @@ require.def () =>
         shrink_threshold = (@check_frames * @step_time) * 1.1
         if (elapsed > shrink_threshold)
           @res *= .99
-          if @res < .2
-            this.too_slow()
+          if @res < .3 then this.too_slow()
           @game.graphics.update_canvas_width()
           if @check_frames > 1
             @check_frames --

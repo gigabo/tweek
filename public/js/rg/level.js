@@ -2,7 +2,7 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['rg/banner', 'rg/goal', 'rg/barrier', 'rg/score_manager', 'rg/score', 'rg/debug'], __bind(function(Banner, Goal, Barrier, ScoreManager, Score, Debug) {
+  require.def(['rg/rocket', 'rg/banner', 'rg/goal', 'rg/barrier', 'rg/score_manager', 'rg/score', 'rg/debug'], __bind(function(Rocket, Banner, Goal, Barrier, ScoreManager, Score, Debug) {
     var Level;
     Level = function(_a) {
       this.game = _a;
@@ -17,6 +17,7 @@
       this.success_message = "Success!";
       this.done = true;
       this.init();
+      this.init_protagonist();
       this.init_scores();
       this.set_message();
       this.bundle_objects();
@@ -24,6 +25,13 @@
     };
     Level.prototype.starting_position = function() {
       return [this.start_x, this.start_y];
+    };
+    Level.prototype.init_protagonist = function() {
+      var _a, x, y;
+      _a = this.starting_position();
+      x = _a[0];
+      y = _a[1];
+      return (this.protagonist = new Rocket(this.game, x, y));
     };
     Level.prototype.set_message = function() {
       if (this.messages && this.messages.length) {
@@ -35,7 +43,7 @@
     };
     Level.prototype.bundle_objects = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, collection, item;
-      _a = []; _c = [this.goals, this.barriers, this.scores];
+      _a = []; _c = [this.goals, this.barriers, this.scores, [this.protagonist]];
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
         collection = _c[_b];
         _a.push((function() {
@@ -110,7 +118,7 @@
     };
     Level.prototype.begin = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, collection, item;
-      _a = []; _c = [this.goals, this.barriers, this.scores];
+      _a = []; _c = [this.goals, this.barriers, this.scores, [this.protagonist]];
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
         collection = _c[_b];
         _a.push((function() {

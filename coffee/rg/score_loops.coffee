@@ -10,8 +10,8 @@ require.def ['rg/debug'], (Debug) =>
       @value = 0
       @flipflop = true
     step:   () ->
-      dial = @game.protagonist.dial
-      upside_down = @game.protagonist.rot_ticks / 2
+      dial = @game.level.protagonist.dial
+      upside_down = @game.level.protagonist.rot_ticks / 2
       if dial == 0
         @flipflop = true
       else if dial == upside_down and @flipflop

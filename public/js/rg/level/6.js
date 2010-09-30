@@ -20,7 +20,7 @@
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 120;
-      r = 20;
+      r = 30;
       _b = [[w - i, h - i, r], [w + i, h - i, r], [w - i, h + i, r], [w + i, h + i, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
         circle = _b[_a];

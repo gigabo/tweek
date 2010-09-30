@@ -17,7 +17,7 @@
     __extends(Goal, SpaceCircle);
     Goal.prototype.step = function() {
       Goal.__super__.step.apply(this, arguments);
-      return this.hit ? this.game.protagonist.splode() : null;
+      return this.hit ? this.game.level.protagonist.splode() : null;
     };
     Goal.prototype.blue = function() {
       return 255;
