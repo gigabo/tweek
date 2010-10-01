@@ -10,22 +10,18 @@
     return function(){ return func.apply(context, arguments); };
   };
   require.def(['rg/level', 'rg/debug'], __bind(function(Level, Debug) {
-    var Level_last;
-    Level_last = function() {
+    var Level_oops;
+    Level_oops = function() {
       return Level.apply(this, arguments);
     };
-    __extends(Level_last, Level);
-    Level_last.prototype.init = function() {
-      this.title = "That's all of the levels for now.";
-      this.messages = ["Thanks for playing."];
+    __extends(Level_oops, Level);
+    Level_oops.prototype.init = function() {
+      this.title = "Oops. Something went wrong... :(";
       return (this.no_score = true);
     };
-    Level_last.prototype.won = function() {
+    Level_oops.prototype.won = function() {
       return false;
     };
-    Level_last.prototype.suppress_score = function() {
-      return true;
-    };
-    return Level_last;
+    return Level_oops;
   }, this));
 })();

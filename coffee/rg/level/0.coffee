@@ -3,9 +3,10 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
   class Level_0 extends Level
 
     init: () ->
-      @messages = ["Calibrating...."]
-      @success_message = ["Ready!"]
+      @title = "Calibrating...."
+      @success_message = "Ready!"
       @done  = false
+      @no_score = true
 
     step: () ->
       if !@game.performance.lock and @game.performance.check_frames > 10

@@ -19,7 +19,9 @@
       return [this.game.width - 100, this.start_y];
     };
     Level_5.prototype.init = function() {
-      var _a, _b, _c, _d, _e, _f, _g, _h, circle, h, i, r, w, x, y;
+      var _a, _b, _c, _d, _e, _f, _g, _h, _i, circle, h, i, r, w, x, y;
+      this.title = "Flip upside-down for a bonus.";
+      this.game.player.enable_score('loops');
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 120;
@@ -35,19 +37,18 @@
       }
       i = 240;
       r = 90;
-      _f = [[w, h + i, r]];
-      for (_e = 0, _g = _f.length; _e < _g; _e++) {
-        circle = _f[_e];
-        _h = circle;
-        x = _h[0];
-        y = _h[1];
-        r = _h[2];
-        this.add_barrier(x, y, r);
+      _e = []; _g = [[w, h + i, r]];
+      for (_f = 0, _h = _g.length; _f < _h; _f++) {
+        circle = _g[_f];
+        _e.push((function() {
+          _i = circle;
+          x = _i[0];
+          y = _i[1];
+          r = _i[2];
+          return this.add_barrier(x, y, r);
+        }).call(this));
       }
-      return (this.messages = ["Flip upside-down for a bonus."]);
-    };
-    Level_5.prototype.suppress_score = function(type) {
-      return type === 'time' || type === 'finish' || type === 'loops' ? false : true;
+      return _e;
     };
     return Level_5;
   }, this));

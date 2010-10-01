@@ -20,6 +20,7 @@ require.def [
       @success_message = "Success!"
       @done = true
       this.init()
+      @messages.unshift @title
       this.init_protagonist()
       this.init_scores()
       this.set_message()
@@ -45,12 +46,14 @@ require.def [
 
     init_scores: () ->
       @score_manager.reset()
+      return if @no_score
       for type in @score_manager.types()
-        this.add_score(type) unless this.suppress_score(type)
+        score = this.add_score(type)
+        score.hide() if @game.player.suppress_score(type)
 
-    add_goal: (x, y, r) -> @goals.push new Goal(@game, x, y, r)
-    add_barrier: (x, y, r) -> @barriers.push new Barrier(@game, x, y, r)
-    add_score: (type) -> @scores.push new Score(@game, type)
+    add_goal: (x, y, r) -> i = new Goal(@game, x, y, r); @goals.push i; i
+    add_barrier: (x, y, r) -> i = new Barrier(@game,x,y,r);@barriers.push i; i
+    add_score: (type) -> i = new Score(@game, type); @scores.push i; i
 
 
     step: () ->
@@ -93,4 +96,3 @@ require.def [
       for item in @objects
         item.outro_draw(graphics) if item.outro_draw
 
-    suppress_score: () -> false

@@ -17,6 +17,7 @@
       this.success_message = "Success!";
       this.done = true;
       this.init();
+      this.messages.unshift(this.title);
       this.init_protagonist();
       this.init_scores();
       this.set_message();
@@ -58,27 +59,40 @@
       return _a;
     };
     Level.prototype.init_scores = function() {
-      var _a, _b, _c, _d, type;
+      var _a, _b, _c, _d, score, type;
       this.score_manager.reset();
+      if (this.no_score) {
+        return null;
+      }
       _a = []; _c = this.score_manager.types();
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
         type = _c[_b];
         _a.push((function() {
-          if (!(this.suppress_score(type))) {
-            return this.add_score(type);
+          score = this.add_score(type);
+          if (this.game.player.suppress_score(type)) {
+            return score.hide();
           }
         }).call(this));
       }
       return _a;
     };
     Level.prototype.add_goal = function(x, y, r) {
-      return this.goals.push(new Goal(this.game, x, y, r));
+      var i;
+      i = new Goal(this.game, x, y, r);
+      this.goals.push(i);
+      return i;
     };
     Level.prototype.add_barrier = function(x, y, r) {
-      return this.barriers.push(new Barrier(this.game, x, y, r));
+      var i;
+      i = new Barrier(this.game, x, y, r);
+      this.barriers.push(i);
+      return i;
     };
     Level.prototype.add_score = function(type) {
-      return this.scores.push(new Score(this.game, type));
+      var i;
+      i = new Score(this.game, type);
+      this.scores.push(i);
+      return i;
     };
     Level.prototype.step = function() {
       var _a, _b, _c, obj;
@@ -168,9 +182,6 @@
         })());
       }
       return _a;
-    };
-    Level.prototype.suppress_score = function() {
-      return false;
     };
     return Level;
   }, this));

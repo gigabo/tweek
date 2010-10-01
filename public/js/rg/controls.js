@@ -2,7 +2,7 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(__bind(function() {
+  require.def(['rg/debug'], __bind(function(Debug) {
     var Controls;
     Controls = function(_a) {
       this.game = _a;
@@ -29,6 +29,8 @@
           return (this.rot_l = false);
         case 39:
           return (this.rot_r = false);
+        case 40:
+          return this.game.toggle_hud();
         case 32:
           return (this.t_on = true);
         case 80:

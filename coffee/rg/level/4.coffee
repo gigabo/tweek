@@ -5,6 +5,8 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
     starting_position: () -> [ 100, @start_y ]
 
     init: () ->
+      @title = "Take your time on the finish."
+      @game.player.enable_score('finish')
       w = @game.width / 2
       h = @game.height / 2
       i = 150
@@ -22,13 +24,3 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       ]
         [x, y, r] = circle
         this.add_barrier(x, y, r)
-
-      @messages = [
-        "Take your time on the finish.",
-      ]
-
-    suppress_score: (type) ->
-      if type == 'time' or type == 'finish'
-        false
-      else
-        true

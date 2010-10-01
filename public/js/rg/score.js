@@ -7,9 +7,14 @@
     Score = function(_a, _b) {
       this.type = _b;
       this.game = _a;
+      this.hidden = false;
+      this.off_screen = false;
       this.waiting = 0;
       this.wait = 50;
-      this.y_pos = this.game.height - 20;
+      this.slide_step = 10;
+      this.hud_on_y_pos = this.game.height - 20;
+      this.hud_off_y_pos = this.game.height + 20;
+      this.y_pos = this.game.show_hud() ? this.hud_on_y_pos : this.hud_off_y_pos;
       this.queue = [];
       this.manager = new ScoreManager();
       if (this.type !== 'total') {
@@ -25,6 +30,9 @@
     };
     Score.prototype.value = function() {
       return this.strategy.value;
+    };
+    Score.prototype.hide = function() {
+      return (this.hidden = true);
     };
     Score.prototype.dispatch = function(method) {
       var catchup;
@@ -44,10 +52,25 @@
       return this.dispatch('reset');
     };
     Score.prototype.step = function() {
+      this.off_screen = false;
+      if (this.game.show_hud()) {
+        if (this.y_pos > this.hud_on_y_pos) {
+          this.y_pos -= this.slide_step;
+        }
+      } else {
+        if (this.y_pos < this.hud_off_y_pos) {
+          this.y_pos += this.slide_step;
+        } else {
+          this.off_screen = true;
+        }
+      }
       return this.dispatch('step');
     };
     Score.prototype.draw = function(graphics) {
       var ctx;
+      if (this.hidden || (this.off_screen && !this.game.in_outro())) {
+        return null;
+      }
       ctx = graphics.ctx;
       ctx.font = "20pt Verdana";
       ctx.textAlign = "right";
@@ -60,11 +83,11 @@
         return this.y_pos -= 10;
       }
     };
-    Score.prototype.outro_done = function() {
-      return (this.y_pos < this.game.height / 2) && (++this.waiting >= this.wait);
-    };
     Score.prototype.outro_draw = function(g) {
       return this.draw(g);
+    };
+    Score.prototype.outro_done = function() {
+      return this.hidden || ((this.y_pos < this.game.height / 2) && (++this.waiting >= this.wait));
     };
     return Score;
   }, this));

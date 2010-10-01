@@ -5,6 +5,8 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
     starting_position: () -> [ @game.width - 100, @start_y ]
 
     init: () ->
+      @title = "Flip upside-down for a bonus."
+      @game.player.enable_score('loops')
       w = @game.width / 2
       h = @game.height / 2
       i = 120
@@ -23,13 +25,3 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       ]
         [x, y, r] = circle
         this.add_barrier(x, y, r)
-
-      @messages = [
-        "Flip upside-down for a bonus.",
-      ]
-
-    suppress_score: (type) ->
-      if type == 'time' or type == 'finish' or type == 'loops'
-        false
-      else
-        true

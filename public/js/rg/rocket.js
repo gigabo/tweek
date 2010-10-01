@@ -8,7 +8,7 @@
       this.thrust = .2;
       this.gravity = .2;
       this.length = 20;
-      this.rot_ticks = 48;
+      this.rot_ticks = 40;
       this.north = Math.PI / 2;
       this.slice = 2 * Math.PI / this.rot_ticks;
       this.controls = this.game.controls;

@@ -1,4 +1,4 @@
-require.def () =>
+require.def ['rg/debug'], (Debug) =>
 
   class Controls
     constructor: (@game) ->
@@ -12,6 +12,7 @@ require.def () =>
         switch e.keyCode
           when 37 then @rot_l = true
           when 39 then @rot_r = true
+#          when 40 then @t_on = false
           when 32 then @t_on = false
   #        else debug("keyCode: #{e.keyCode}")
 
@@ -19,6 +20,9 @@ require.def () =>
         switch e.keyCode
           when 37 then @rot_l = false
           when 39 then @rot_r = false
+#          when 38 then @game.toggle_menu()
+          when 40 then @game.toggle_hud()
+#          when 40 then @t_on = true
           when 32 then @t_on = true
           when 80, 81 # P, Q
             if @game.running then @game.stop() else @game.start()

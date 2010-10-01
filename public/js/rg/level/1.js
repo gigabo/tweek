@@ -16,21 +16,25 @@
     };
     __extends(Level_1, Level);
     Level_1.prototype.init = function() {
-      var _a, _b, _c, _d, goal, h, i, r, w, x, y;
+      var _a, _b, _c, _d, _e, goal, h, i, r, w, x, y;
+      this.title = "Arrows steer.";
+      this.messages = ["Turn red circles green to advance."];
       i = 100;
       w = this.game.width / 2;
       h = this.game.height / 2;
       r = 30;
-      _b = [[w + i, h + i, r], [w - i, h + i, r], [w + i, h - i, r], [w - i, h - i, r]];
-      for (_a = 0, _c = _b.length; _a < _c; _a++) {
-        goal = _b[_a];
-        _d = goal;
-        x = _d[0];
-        y = _d[1];
-        r = _d[2];
-        this.add_goal(x, y, r);
+      _a = []; _c = [[w + i, h + i, r], [w - i, h + i, r], [w + i, h - i, r], [w - i, h - i, r]];
+      for (_b = 0, _d = _c.length; _b < _d; _b++) {
+        goal = _c[_b];
+        _a.push((function() {
+          _e = goal;
+          x = _e[0];
+          y = _e[1];
+          r = _e[2];
+          return this.add_goal(x, y, r);
+        }).call(this));
       }
-      return (this.messages = ["Arrows steer.", "Red circles are goals.", "Turn them all green to advance."]);
+      return _a;
     };
     Level_1.prototype.suppress_score = function() {
       return true;

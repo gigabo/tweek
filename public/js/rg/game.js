@@ -2,7 +2,7 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['rg/controls', 'rg/performance', 'rg/graphics', 'rg/debug'], __bind(function(Controls, Performance, Graphics, Debug) {
+  require.def(['rg/controls', 'rg/performance', 'rg/graphics', 'rg/player', 'rg/debug'], __bind(function(Controls, Performance, Graphics, Player, Debug) {
     var ADVANCING, FINISHING, Game, IN_LEVEL, OUTRO, UNINITIALIZED;
     UNINITIALIZED = -1;
     IN_LEVEL = 0;
@@ -16,15 +16,20 @@
       this.performance = new Performance(this);
       this.graphics = new Graphics(this, canvas);
       this.controls = new Controls(this);
+      this.player = new Player(this);
       this.width = this.graphics.width;
       this.height = this.graphics.height;
       this.level_number = 0;
-      this.max_level = 6;
+      this.max_level = 7;
+      this.hud_on = true;
       this.start();
       return this;
     };
     Game.prototype.finishing = function() {
       return this.state === FINISHING;
+    };
+    Game.prototype.in_outro = function() {
+      return this.state === OUTRO;
     };
     Game.prototype.change_state = function(new_state) {
       this.previous_state = this.state;
@@ -105,6 +110,18 @@
       default:
         return this.level.draw(this.graphics);
       }
+    };
+    Game.prototype.show_hud = function() {
+      switch (this.state) {
+      case IN_LEVEL:
+      case FINISHING:
+        return this.hud_on;
+      default:
+        return false;
+      }
+    };
+    Game.prototype.toggle_hud = function() {
+      return (this.hud_on = this.hud_on ? false : true);
     };
     return Game;
   }, this));

@@ -16,9 +16,10 @@
     };
     __extends(Level_0, Level);
     Level_0.prototype.init = function() {
-      this.messages = ["Calibrating...."];
-      this.success_message = ["Ready!"];
-      return (this.done = false);
+      this.title = "Calibrating....";
+      this.success_message = "Ready!";
+      this.done = false;
+      return (this.no_score = true);
     };
     Level_0.prototype.step = function() {
       if (!this.game.performance.lock && this.game.performance.check_frames > 10) {

@@ -4,7 +4,7 @@ require.def ['rg/trail', 'rg/debug'], (Trail, Debug) ->
       @thrust = .2
       @gravity = .2
       @length = 20
-      @rot_ticks = 48
+      @rot_ticks = 40
       @north = Math.PI/2
       @slice = 2*Math.PI/@rot_ticks
       @controls = @game.controls

@@ -16,7 +16,9 @@
     };
     __extends(Level_2, Level);
     Level_2.prototype.init = function() {
-      var _a, _b, _c, _d, _e, _f, _g, _h, barrier, goal, h, i, r, w, x, y;
+      var _a, _b, _c, _d, _e, _f, _g, _h, _i, barrier, goal, h, i, r, w, x, y;
+      this.title = "Blue circles are barriers.";
+      this.messages = ["Don't hit them."];
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 100;
@@ -32,16 +34,18 @@
       }
       i = 50;
       r = 30;
-      _f = [[w - i, h, r], [w + i, h, r], [w, h - i, r], [w, h + i, r]];
-      for (_e = 0, _g = _f.length; _e < _g; _e++) {
-        barrier = _f[_e];
-        _h = barrier;
-        x = _h[0];
-        y = _h[1];
-        r = _h[2];
-        this.add_barrier(x, y, r);
+      _e = []; _g = [[w - i, h, r], [w + i, h, r], [w, h - i, r], [w, h + i, r]];
+      for (_f = 0, _h = _g.length; _f < _h; _f++) {
+        barrier = _g[_f];
+        _e.push((function() {
+          _i = barrier;
+          x = _i[0];
+          y = _i[1];
+          r = _i[2];
+          return this.add_barrier(x, y, r);
+        }).call(this));
       }
-      return (this.messages = ["Blue circles are barriers.", "Don't hit them."]);
+      return _e;
     };
     Level_2.prototype.suppress_score = function() {
       return true;

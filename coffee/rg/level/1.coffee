@@ -2,6 +2,8 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
   class Level_1 extends Level
     init: () ->
+      @title = "Arrows steer."
+      @messages = [ "Turn red circles green to advance." ]
       i = 100
       w = @game.width / 2
       h = @game.height / 2
@@ -15,9 +17,5 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
         [x, y, r] = goal
         this.add_goal(x, y, r)
 
-      @messages = [
-        "Arrows steer.",
-        "Red circles are goals.",
-        "Turn them all green to advance."
-      ]
+
     suppress_score: () -> true

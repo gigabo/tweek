@@ -3,6 +3,8 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
   class Level_6 extends Level
 
     init: () ->
+      @title = "It all adds up."
+      @game.player.enable_score('total')
       w = @game.width / 2
       h = @game.height / 2
       i = 120
@@ -24,7 +26,3 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       ]
         [x, y, r] = circle
         this.add_barrier(x, y, r)
-
-      @messages = [
-        "It all adds up.",
-      ]

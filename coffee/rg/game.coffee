@@ -2,9 +2,10 @@ require.def [
   'rg/controls',
   'rg/performance',
   'rg/graphics',
+  'rg/player',
   'rg/debug'
 ],
-(Controls, Performance, Graphics, Debug) =>
+(Controls, Performance, Graphics, Player, Debug) =>
 
   UNINITIALIZED = -1
   IN_LEVEL = 0
@@ -20,13 +21,16 @@ require.def [
       @performance = new Performance(this)
       @graphics = new Graphics(this,canvas)
       @controls = new Controls(this)
+      @player = new Player(this)
       @width  = @graphics.width
       @height = @graphics.height
       @level_number = 0
-      @max_level = 6
+      @max_level = 7
+      @hud_on = true
       this.start()
 
     finishing: () -> @state == FINISHING
+    in_outro:  () -> @state == OUTRO
 
     change_state: (new_state) ->
       @previous_state = @state
@@ -53,10 +57,10 @@ require.def [
     step: () ->
       @performance.check()
       switch @state
-        when OUTRO then this.outro_step()
-        when IN_LEVEL, FINISHING then this.level_step()
-        when ADVANCING then this.advance_level()
-        else this.init_level()
+        when OUTRO                then this.outro_step()
+        when IN_LEVEL, FINISHING  then this.level_step()
+        when ADVANCING            then this.advance_level()
+        else                           this.init_level()
 
     outro_step: () ->
       if @level.outro_done() then this.change_state(ADVANCING)
@@ -87,3 +91,10 @@ require.def [
       switch @state
         when OUTRO then @level.outro_draw(@graphics)
         else @level.draw(@graphics)
+
+    show_hud: () ->
+      switch @state
+        when IN_LEVEL, FINISHING then @hud_on
+        else false
+
+    toggle_hud: () -> @hud_on = if @hud_on then false else true

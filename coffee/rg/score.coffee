@@ -2,9 +2,14 @@ require.def ['rg/debug', 'rg/score_manager'], (Debug,ScoreManager) =>
 
   class Score
     constructor: (@game, @type) ->
+      @hidden = false
+      @off_screen = false
       @waiting = 0
       @wait    = 50
-      @y_pos = @game.height-20
+      @slide_step = 10
+      @hud_on_y_pos = @game.height-20
+      @hud_off_y_pos = @game.height+20
+      @y_pos = if @game.show_hud() then @hud_on_y_pos else @hud_off_y_pos
       @queue = []
       @manager = new ScoreManager
       @manager.register(this) unless @type == 'total'
@@ -15,6 +20,8 @@ require.def ['rg/debug', 'rg/score_manager'], (Debug,ScoreManager) =>
         @strategy = new Strategy(@game)
 
     value: () -> this.strategy.value
+
+    hide: () -> @hidden = true
 
     dispatch: (method) ->
       if @strategy
@@ -27,8 +34,17 @@ require.def ['rg/debug', 'rg/score_manager'], (Debug,ScoreManager) =>
         @queue.push method
 
     reset: () -> this.dispatch 'reset'
-    step: ()  -> this.dispatch 'step'
+    step: ()  ->
+      @off_screen = false
+      if @game.show_hud()
+        if @y_pos > @hud_on_y_pos then @y_pos-=@slide_step
+      else
+        if @y_pos < @hud_off_y_pos then @y_pos+=@slide_step
+        else @off_screen = true
+      this.dispatch 'step'
+
     draw: (graphics) ->
+      return if @hidden or (@off_screen and not @game.in_outro())
       ctx = graphics.ctx
       ctx.font          = "20pt Verdana"
       ctx.textAlign     = "right"
@@ -37,5 +53,6 @@ require.def ['rg/debug', 'rg/score_manager'], (Debug,ScoreManager) =>
       graphics.text @strategy.value, @strategy.x_pos(), @y_pos
 
     outro_step: ()  -> @y_pos -= 10 if @waiting == 0
-    outro_done: ()  -> (@y_pos < @game.height / 2) and (++@waiting >= @wait)
     outro_draw: (g) -> this.draw(g)
+    outro_done: ()  ->
+      @hidden or ((@y_pos < @game.height / 2) and (++@waiting >= @wait))

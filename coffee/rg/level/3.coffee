@@ -2,6 +2,8 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
   class Level_3 extends Level
     init: () ->
+      @title = "Be quick."
+      @game.player.enable_score('time')
       w = @game.width / 2
       h = @game.height / 2
       i = 120
@@ -20,10 +22,3 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       ]
         [x, y, r] = circle
         this.add_barrier(x, y, r)
-
-      @messages = [
-        "Be quick.",
-      ]
-
-    suppress_score: (type) -> if type == 'time' then false else true
-

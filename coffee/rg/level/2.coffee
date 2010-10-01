@@ -2,6 +2,8 @@ require.def ['rg/level'], (Level) =>
 
   class Level_2 extends Level
     init: () ->
+      @title = "Blue circles are barriers."
+      @messages = [ "Don't hit them." ]
       w = @game.width / 2
       h = @game.height / 2
       i = 100
@@ -28,9 +30,5 @@ require.def ['rg/level'], (Level) =>
         this.add_barrier(x, y, r)
 
 
-      @messages = [
-        "Blue circles are barriers.",
-        "Don't hit them."
-      ]
 
     suppress_score: () -> true
