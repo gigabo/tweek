@@ -69,7 +69,7 @@
         type = _c[_b];
         _a.push((function() {
           score = this.add_score(type);
-          if (this.game.player.suppress_score(type)) {
+          if (this.game.player.suppress_feature("score_" + (type))) {
             return score.hide();
           }
         }).call(this));

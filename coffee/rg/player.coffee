@@ -1,6 +1,6 @@
 require.def () =>
   class Player
     constructor: (@game) ->
-      @enabled_scores = {}
-    suppress_score: (type) -> not @enabled_scores[type]
-    enable_score: (type) -> @enabled_scores[type] = true
+      @enabled_features = {}
+    suppress_feature: (type) -> not @enabled_features[type]
+    enable_feature: (type) -> @enabled_features[type] = true

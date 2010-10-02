@@ -16,6 +16,3 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       ]
         [x, y, r] = goal
         this.add_goal(x, y, r)
-
-
-    suppress_score: () -> true

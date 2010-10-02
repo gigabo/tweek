@@ -28,7 +28,3 @@ require.def ['rg/level'], (Level) =>
       ]
         [x, y, r] = barrier
         this.add_barrier(x, y, r)
-
-
-
-    suppress_score: () -> true

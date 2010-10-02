@@ -6,7 +6,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
     init: () ->
       @title = "Flip upside-down for a bonus."
-      @game.player.enable_score('loops')
+      @game.player.enable_feature('score_loops')
       w = @game.width / 2
       h = @game.height / 2
       i = 120

@@ -18,7 +18,7 @@
     Level_6.prototype.init = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, circle, h, i, r, w, x, y;
       this.title = "It all adds up.";
-      this.game.player.enable_score('total');
+      this.game.player.enable_feature('score_total');
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 120;

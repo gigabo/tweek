@@ -4,7 +4,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
     init: () ->
       @title = "It all adds up."
-      @game.player.enable_score('total')
+      @game.player.enable_feature('score_total')
       w = @game.width / 2
       h = @game.height / 2
       i = 120

@@ -39,7 +39,7 @@
           return (this.up = false);
         case 40:
           this.down = false;
-          return this.game.toggle_hud();
+          return !this.game.player.suppress_feature('toggle_hud') ? this.game.toggle_hud() : null;
         case 32:
           return (this.space = false);
         case 80:

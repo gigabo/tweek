@@ -23,7 +23,10 @@ require.def ['rg/debug'], (Debug) =>
           when 37 then @left  = false
           when 39 then @right = false
           when 38 then @up    = false
-          when 40 then @down  = false; @game.toggle_hud()
+          when 40
+            @down  = false
+            if not @game.player.suppress_feature('toggle_hud')
+              @game.toggle_hud()
           when 32 then @space = false
           when 80, 81 # P, Q
             if @game.running then @game.stop() else @game.start()

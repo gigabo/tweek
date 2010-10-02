@@ -36,9 +36,6 @@
       }
       return _a;
     };
-    Level_1.prototype.suppress_score = function() {
-      return true;
-    };
     return Level_1;
   }, this));
 })();

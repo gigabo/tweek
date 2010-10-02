@@ -3,7 +3,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
   class Level_3 extends Level
     init: () ->
       @title = "Be quick."
-      @game.player.enable_score('time')
+      @game.player.enable_feature('score_time')
       w = @game.width / 2
       h = @game.height / 2
       i = 120

@@ -21,7 +21,7 @@
     Level_5.prototype.init = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, circle, h, i, r, w, x, y;
       this.title = "Flip upside-down for a bonus.";
-      this.game.player.enable_score('loops');
+      this.game.player.enable_feature('score_loops');
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 120;

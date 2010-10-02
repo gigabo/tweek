@@ -49,7 +49,7 @@ require.def [
       return if @no_score
       for type in @score_manager.types()
         score = this.add_score(type)
-        score.hide() if @game.player.suppress_score(type)
+        score.hide() if @game.player.suppress_feature("score_#{type}")
 
     add_goal: (x, y, r) -> i = new Goal(@game, x, y, r); @goals.push i; i
     add_barrier: (x, y, r) -> i = new Barrier(@game,x,y,r);@barriers.push i; i

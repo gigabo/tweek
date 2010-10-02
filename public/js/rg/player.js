@@ -6,14 +6,14 @@
     var Player;
     Player = function(_a) {
       this.game = _a;
-      this.enabled_scores = {};
+      this.enabled_features = {};
       return this;
     };
-    Player.prototype.suppress_score = function(type) {
-      return !this.enabled_scores[type];
+    Player.prototype.suppress_feature = function(type) {
+      return !this.enabled_features[type];
     };
-    Player.prototype.enable_score = function(type) {
-      return (this.enabled_scores[type] = true);
+    Player.prototype.enable_feature = function(type) {
+      return (this.enabled_features[type] = true);
     };
     return Player;
   }, this));

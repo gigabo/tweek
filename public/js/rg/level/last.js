@@ -23,9 +23,6 @@
     Level_last.prototype.won = function() {
       return false;
     };
-    Level_last.prototype.suppress_score = function() {
-      return true;
-    };
     return Level_last;
   }, this));
 })();
