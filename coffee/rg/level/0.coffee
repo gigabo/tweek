@@ -5,7 +5,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
     init: () ->
       @title = "Calibrating...."
       @success_message = "Ready!"
-      @done  = false
+      @done = @game.performance.lock
       @no_score = true
 
     step: () ->
@@ -13,5 +13,3 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
         @game.performance.lock = true
         @done = true
       super
-
-    suppress_score: () -> true

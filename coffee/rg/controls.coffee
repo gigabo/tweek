@@ -2,31 +2,32 @@ require.def ['rg/debug'], (Debug) =>
 
   class Controls
     constructor: (@game) ->
-      @t_on  = true
-      @rot_l      = false
-      @rot_r      = false
+      @space  = false
+      @left   = false
+      @right  = false
+      @up     = false
+      @down   = false
       this.init()
 
     init: () ->
       $(document).keydown (e) =>
         switch e.keyCode
-          when 37 then @rot_l = true
-          when 39 then @rot_r = true
-#          when 40 then @t_on = false
-          when 32 then @t_on = false
-  #        else debug("keyCode: #{e.keyCode}")
+          when 37 then @left  = true
+          when 39 then @right = true
+          when 38 then @up    = true
+          when 40 then @down  = true
+          when 32 then @space = true
 
       $(document).keyup (e) =>
         switch e.keyCode
-          when 37 then @rot_l = false
-          when 39 then @rot_r = false
-#          when 38 then @game.toggle_menu()
-          when 40 then @game.toggle_hud()
-#          when 40 then @t_on = true
-          when 32 then @t_on = true
+          when 37 then @left  = false
+          when 39 then @right = false
+          when 38 then @up    = false
+          when 40 then @down  = false; @game.toggle_hud()
+          when 32 then @space = false
           when 80, 81 # P, Q
             if @game.running then @game.stop() else @game.start()
 
-    thrust_on: () -> @t_on
-    rotate_l: () -> @rot_l and !@game.finishing()
-    rotate_r: () -> @rot_r and !@game.finishing()
+    thrust_on: () -> !@space
+    rotate_l: () -> @left and !@game.finishing()
+    rotate_r: () -> @right and !@game.finishing()

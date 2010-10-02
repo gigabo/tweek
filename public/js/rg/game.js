@@ -2,12 +2,12 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['rg/controls', 'rg/performance', 'rg/graphics', 'rg/player', 'rg/debug'], __bind(function(Controls, Performance, Graphics, Player, Debug) {
-    var ADVANCING, FINISHING, Game, IN_LEVEL, OUTRO, UNINITIALIZED;
+  require.def(['rg/controls', 'rg/performance', 'rg/graphics', 'rg/player', 'rg/transition', 'rg/debug'], __bind(function(Controls, Performance, Graphics, Player, Transition, Debug) {
+    var ADVANCING, FINISHING, Game, IN_LEVEL, TRANSITION, UNINITIALIZED;
     UNINITIALIZED = -1;
     IN_LEVEL = 0;
     FINISHING = 1;
-    OUTRO = 2;
+    TRANSITION = 2;
     ADVANCING = 3;
     Game = function(canvas) {
       this.running = false;
@@ -20,7 +20,6 @@
       this.width = this.graphics.width;
       this.height = this.graphics.height;
       this.level_number = 0;
-      this.max_level = 7;
       this.hud_on = true;
       this.start();
       return this;
@@ -28,8 +27,8 @@
     Game.prototype.finishing = function() {
       return this.state === FINISHING;
     };
-    Game.prototype.in_outro = function() {
-      return this.state === OUTRO;
+    Game.prototype.in_transition = function() {
+      return this.state === TRANSITION;
     };
     Game.prototype.change_state = function(new_state) {
       this.previous_state = this.state;
@@ -60,39 +59,37 @@
     Game.prototype.step = function() {
       this.performance.check();
       switch (this.state) {
-      case OUTRO:
-        return this.outro_step();
       case IN_LEVEL:
       case FINISHING:
         return this.level_step();
+      case TRANSITION:
+        return this.transition_step();
       case ADVANCING:
-        return this.advance_level();
+        return this.init_level();
       default:
         return this.init_level();
       }
     };
-    Game.prototype.outro_step = function() {
-      if (this.level.outro_done()) {
+    Game.prototype.transition_step = function() {
+      if (!(this.transition)) {
+        this.transition = new Transition(this);
+      }
+      if (this.transition.done) {
+        this.level_number += (this.transition.advance ? 1 : 0);
+        this.transition = undefined;
         return this.change_state(ADVANCING);
       } else {
-        this.level.outro_step();
+        this.transition.step();
         return this.draw();
       }
     };
     Game.prototype.begin_level = function() {
       if (this.state === FINISHING) {
-        return this.change_state(OUTRO);
+        return this.change_state(TRANSITION);
       } else {
         this.level.begin();
         return this.change_state(IN_LEVEL);
       }
-    };
-    Game.prototype.advance_level = function() {
-      this.level_number += 1;
-      if (this.level_number > this.max_level) {
-        this.level_number = "last";
-      }
-      return this.init_level();
     };
     Game.prototype.init_level = function() {
       this.stop();
@@ -105,8 +102,8 @@
     Game.prototype.draw = function() {
       this.graphics.clear();
       switch (this.state) {
-      case OUTRO:
-        return this.level.outro_draw(this.graphics);
+      case TRANSITION:
+        return this.transition.draw(this.graphics);
       default:
         return this.level.draw(this.graphics);
       }

@@ -17,7 +17,7 @@
     __extends(Level_2, Level);
     Level_2.prototype.init = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, barrier, goal, h, i, r, w, x, y;
-      this.title = "Blue circles are barriers.";
+      this.title = "Blue shapes are barriers.";
       this.messages = ["Don't hit them."];
       w = this.game.width / 2;
       h = this.game.height / 2;
@@ -32,7 +32,7 @@
         r = _d[2];
         this.add_goal(x, y, r);
       }
-      i = 50;
+      i = 250;
       r = 30;
       _e = []; _g = [[w - i, h, r], [w + i, h, r], [w, h - i, r], [w, h + i, r]];
       for (_f = 0, _h = _g.length; _f < _h; _f++) {

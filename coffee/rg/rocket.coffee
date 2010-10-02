@@ -4,6 +4,7 @@ require.def ['rg/trail', 'rg/debug'], (Trail, Debug) ->
       @thrust = .2
       @gravity = .2
       @length = 20
+      @init_y -= @length/2
       @rot_ticks = 40
       @north = Math.PI/2
       @slice = 2*Math.PI/@rot_ticks
@@ -63,11 +64,11 @@ require.def ['rg/trail', 'rg/debug'], (Trail, Debug) ->
       @y += @dy
 
     check_bounds: () ->
-      if !(0 < @x < @game.width) or !(0 < @y < @game.height)
-        this.splode()
+      for end in [this.front(), this.back()]
+        if !(0 < end.x < @game.width) or !(0 < end.y < @game.height)
+          return this.splode()
 
-    splode: () ->
-      @game.begin_level()
+    splode: () -> @game.begin_level()
 
     step: () ->
       this.apply_gravity()

@@ -8,6 +8,7 @@
       this.thrust = .2;
       this.gravity = .2;
       this.length = 20;
+      this.init_y -= this.length / 2;
       this.rot_ticks = 40;
       this.north = Math.PI / 2;
       this.slice = 2 * Math.PI / this.rot_ticks;
@@ -75,7 +76,15 @@
       return this.y += this.dy;
     };
     Rocket.prototype.check_bounds = function() {
-      return !((0 < this.x) && (this.x < this.game.width)) || !((0 < this.y) && (this.y < this.game.height)) ? this.splode() : null;
+      var _a, _b, _c, _d, end;
+      _a = []; _c = [this.front(), this.back()];
+      for (_b = 0, _d = _c.length; _b < _d; _b++) {
+        end = _c[_b];
+        if (!((0 < end.x) && (end.x < this.game.width)) || !((0 < end.y) && (end.y < this.game.height))) {
+          return this.splode();
+        }
+      }
+      return _a;
     };
     Rocket.prototype.splode = function() {
       return this.game.begin_level();

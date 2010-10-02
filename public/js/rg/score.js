@@ -11,7 +11,8 @@
       this.off_screen = false;
       this.waiting = 0;
       this.wait = 50;
-      this.slide_step = 10;
+      this.slide_stride = 10;
+      this.outro_stride = 20;
       this.hud_on_y_pos = this.game.height - 20;
       this.hud_off_y_pos = this.game.height + 20;
       this.y_pos = this.game.show_hud() ? this.hud_on_y_pos : this.hud_off_y_pos;
@@ -55,11 +56,11 @@
       this.off_screen = false;
       if (this.game.show_hud()) {
         if (this.y_pos > this.hud_on_y_pos) {
-          this.y_pos -= this.slide_step;
+          this.y_pos -= this.slide_stride;
         }
       } else {
         if (this.y_pos < this.hud_off_y_pos) {
-          this.y_pos += this.slide_step;
+          this.y_pos += this.slide_stride;
         } else {
           this.off_screen = true;
         }
@@ -68,7 +69,7 @@
     };
     Score.prototype.draw = function(graphics) {
       var ctx;
-      if (this.hidden || (this.off_screen && !this.game.in_outro())) {
+      if (this.hidden || (this.off_screen && !this.game.in_transition())) {
         return null;
       }
       ctx = graphics.ctx;
@@ -80,7 +81,7 @@
     };
     Score.prototype.outro_step = function() {
       if (this.waiting === 0) {
-        return this.y_pos -= 10;
+        return this.y_pos -= this.outro_stride;
       }
     };
     Score.prototype.outro_draw = function(g) {

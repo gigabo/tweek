@@ -3,14 +3,15 @@ require.def [
   'rg/performance',
   'rg/graphics',
   'rg/player',
+  'rg/transition',
   'rg/debug'
 ],
-(Controls, Performance, Graphics, Player, Debug) =>
+(Controls, Performance, Graphics, Player, Transition, Debug) =>
 
   UNINITIALIZED = -1
   IN_LEVEL = 0
   FINISHING = 1
-  OUTRO = 2
+  TRANSITION = 2
   ADVANCING = 3
 
   class Game
@@ -25,12 +26,11 @@ require.def [
       @width  = @graphics.width
       @height = @graphics.height
       @level_number = 0
-      @max_level = 7
       @hud_on = true
       this.start()
 
     finishing: () -> @state == FINISHING
-    in_outro:  () -> @state == OUTRO
+    in_transition:  () -> @state == TRANSITION
 
     change_state: (new_state) ->
       @previous_state = @state
@@ -55,29 +55,31 @@ require.def [
       this.draw()
 
     step: () ->
+#      Debug.clear()
+#      Debug.out("State: #{@state}, pstate: #{@previous_state}")
       @performance.check()
       switch @state
-        when OUTRO                then this.outro_step()
         when IN_LEVEL, FINISHING  then this.level_step()
-        when ADVANCING            then this.advance_level()
+        when TRANSITION           then this.transition_step()
+        when ADVANCING            then this.init_level()
         else                           this.init_level()
 
-    outro_step: () ->
-      if @level.outro_done() then this.change_state(ADVANCING)
+    transition_step: () ->
+      @transition = new Transition(this) unless @transition
+      if @transition.done
+        @level_number += if @transition.advance then 1 else 0
+        @transition = undefined
+        this.change_state(ADVANCING)
       else
-        @level.outro_step()
+        @transition.step()
         this.draw()
 
+
     begin_level: () ->
-      if @state == FINISHING then this.change_state(OUTRO)
+      if @state == FINISHING then this.change_state(TRANSITION)
       else
         @level.begin()
         this.change_state(IN_LEVEL)
-
-    advance_level: () ->
-      @level_number += 1
-      @level_number = "last" if @level_number > @max_level
-      this.init_level()
 
     init_level: () ->
       this.stop()
@@ -89,7 +91,7 @@ require.def [
     draw: () ->
       @graphics.clear()
       switch @state
-        when OUTRO then @level.outro_draw(@graphics)
+        when TRANSITION then @transition.draw(@graphics)
         else @level.draw(@graphics)
 
     show_hud: () ->

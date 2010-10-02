@@ -18,7 +18,7 @@
     Level_0.prototype.init = function() {
       this.title = "Calibrating....";
       this.success_message = "Ready!";
-      this.done = false;
+      this.done = this.game.performance.lock;
       return (this.no_score = true);
     };
     Level_0.prototype.step = function() {
@@ -27,9 +27,6 @@
         this.done = true;
       }
       return Level_0.__super__.step.apply(this, arguments);
-    };
-    Level_0.prototype.suppress_score = function() {
-      return true;
     };
     return Level_0;
   }, this));
