@@ -9,7 +9,7 @@ require.def () =>
 
     init: () ->
       @frame_count  = 0
-      @step_time    = 50
+      @step_time    = 33
       @base_time    = (new Date).getTime()
 
     check: () ->

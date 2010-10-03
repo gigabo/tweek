@@ -9,18 +9,10 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
       @game.player.enable_feature('score_finish')
       w = @game.width / 2
       h = @game.height / 2
-      i = 150
-      r = 50
+      i = 50
+      r = 20
       for circle in [
-        [w-2*i, h+i, r],
+        [w, h+i, r],
       ]
         [x, y, r] = circle
         this.add_goal(x, y, r)
-
-      i = 240
-      r = 90
-
-      for circle in [
-      ]
-        [x, y, r] = circle
-        this.add_barrier(x, y, r)

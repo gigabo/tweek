@@ -3,23 +3,21 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
   class Level_6 extends Level
 
     init: () ->
-      @title = "It all adds up."
+      @title = "It adds up."
       @game.player.enable_feature('score_total')
       w = @game.width / 2
       h = @game.height / 2
-      i = 120
+      i = 240
       r = 30
       for circle in [
-        [w-i, h-i, r],
-        [w+i, h-i, r],
-        [w-i, h+i, r],
-        [w+i, h+i, r],
+        [w-i, h, r],
+        [w+i, h, r],
       ]
         [x, y, r] = circle
         this.add_goal(x, y, r)
 
       i = 240
-      r = 90
+      r = 120
 
       for circle in [
         [w, h, r],

@@ -3,7 +3,7 @@ require.def ['rg/debug', 'rg/dialog'], (Debug, Dialog) =>
   class Transition
     constructor: (@game) ->
       @advance = @done = false
-      @dialog = new Dialog(@game, 1200, 600)
+      @dialog = new Dialog(@game, @game.width * .75, @game.height * .75)
       unless @game.level.no_score
         @dialog.label('left', "Try Again")
       @dialog.label('right', "On to Level #{@game.level_number + 1}")

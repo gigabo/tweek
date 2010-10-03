@@ -7,7 +7,7 @@
     Transition = function(_a) {
       this.game = _a;
       this.advance = (this.done = false);
-      this.dialog = new Dialog(this.game, 1200, 600);
+      this.dialog = new Dialog(this.game, this.game.width * .75, this.game.height * .75);
       if (!(this.game.level.no_score)) {
         this.dialog.label('left', "Try Again");
       }

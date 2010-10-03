@@ -22,6 +22,9 @@
     Graphics.prototype.update_canvas_width = function() {
       var width;
       width = this.canvas.parent().innerWidth() * this.game.performance.res;
+      if (width > 1000) {
+        width = 1000;
+      }
       this.canvas.width(width);
       return this.canvas.height(width / 2);
     };

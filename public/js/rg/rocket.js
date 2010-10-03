@@ -5,11 +5,11 @@
       this.init_y = _c;
       this.init_x = _b;
       this.game = _a;
-      this.thrust = .2;
-      this.gravity = .2;
-      this.length = 20;
+      this.thrust = this.game.width / 7000;
+      this.gravity = this.thrust * .5;
+      this.length = this.game.width / 56;
       this.init_y -= this.length / 2;
-      this.rot_ticks = 40;
+      this.rot_ticks = 60;
       this.north = Math.PI / 2;
       this.slice = 2 * Math.PI / this.rot_ticks;
       this.controls = this.game.controls;
@@ -45,8 +45,8 @@
     };
     Rocket.prototype.apply_thrust = function() {
       if (this.controls.thrust_on()) {
-        this.dx -= .5 * Math.cos(this.a);
-        return this.dy -= .5 * Math.sin(this.a);
+        this.dx -= this.thrust * Math.cos(this.a);
+        return this.dy -= this.thrust * Math.sin(this.a);
       }
     };
     Rocket.prototype.front = function() {

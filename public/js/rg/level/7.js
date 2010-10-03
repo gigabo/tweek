@@ -20,8 +20,11 @@
     };
     Level_7.prototype.init = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, circle, h, i, r, w, x, y;
-      this.title = "Down arrow cleans things up.";
-      this.game.player.enable_feature('toggle_hud');
+      this.title = "Down-arrow shows your score.";
+      if (this.game.player.suppress_feature('toggle_hud')) {
+        this.game.player.enable_feature('toggle_hud');
+        this.game.toggle_hud();
+      }
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 60;

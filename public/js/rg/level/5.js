@@ -26,7 +26,7 @@
       h = this.game.height / 2;
       i = 120;
       r = 40;
-      _b = [[w - i - 20, h + 2 * i, r]];
+      _b = [[w - i - 20, 2 * h - i, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
         circle = _b[_a];
         _d = circle;
@@ -35,9 +35,9 @@
         r = _d[2];
         this.add_goal(x, y, r);
       }
-      i = 240;
+      i = 120;
       r = 90;
-      _e = []; _g = [[w, h + i, r]];
+      _e = []; _g = [[w, 2 * h - i, r]];
       for (_f = 0, _h = _g.length; _f < _h; _f++) {
         circle = _g[_f];
         _e.push((function() {

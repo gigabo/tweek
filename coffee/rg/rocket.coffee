@@ -1,11 +1,11 @@
 require.def ['rg/trail', 'rg/debug'], (Trail, Debug) ->
   class Rocket
     constructor: (@game, @init_x, @init_y) ->
-      @thrust = .2
-      @gravity = .2
-      @length = 20
+      @thrust = @game.width/7000
+      @gravity = @thrust*.5
+      @length = @game.width/56
       @init_y -= @length/2
-      @rot_ticks = 40
+      @rot_ticks = 60
       @north = Math.PI/2
       @slice = 2*Math.PI/@rot_ticks
       @controls = @game.controls
@@ -35,8 +35,8 @@ require.def ['rg/trail', 'rg/debug'], (Trail, Debug) ->
 
     apply_thrust: () ->
       if @controls.thrust_on()
-        @dx -= .5*Math.cos(@a)
-        @dy -= .5*Math.sin(@a)
+        @dx -= @thrust*Math.cos(@a)
+        @dy -= @thrust*Math.sin(@a)
 
     front: () ->
       {

@@ -19,6 +19,7 @@ require.def ['rg/debug'], (Debug) =>
 
     update_canvas_width: () ->
       width = @canvas.parent().innerWidth() * @game.performance.res
+      width = 1000 if width > 1000
       @canvas.width(width)
       @canvas.height(width/2)
 

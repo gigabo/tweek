@@ -17,13 +17,13 @@
     __extends(Level_6, Level);
     Level_6.prototype.init = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, circle, h, i, r, w, x, y;
-      this.title = "It all adds up.";
+      this.title = "It adds up.";
       this.game.player.enable_feature('score_total');
       w = this.game.width / 2;
       h = this.game.height / 2;
-      i = 120;
+      i = 240;
       r = 30;
-      _b = [[w - i, h - i, r], [w + i, h - i, r], [w - i, h + i, r], [w + i, h + i, r]];
+      _b = [[w - i, h, r], [w + i, h, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
         circle = _b[_a];
         _d = circle;
@@ -33,7 +33,7 @@
         this.add_goal(x, y, r);
       }
       i = 240;
-      r = 90;
+      r = 120;
       _e = []; _g = [[w, h, r]];
       for (_f = 0, _h = _g.length; _f < _h; _f++) {
         circle = _g[_f];

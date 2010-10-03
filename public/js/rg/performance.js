@@ -14,7 +14,7 @@
     };
     Performance.prototype.init = function() {
       this.frame_count = 0;
-      this.step_time = 50;
+      this.step_time = 33;
       return (this.base_time = (new Date()).getTime());
     };
     Performance.prototype.check = function() {

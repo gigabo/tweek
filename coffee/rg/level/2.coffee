@@ -2,12 +2,11 @@ require.def ['rg/level'], (Level) =>
 
   class Level_2 extends Level
     init: () ->
-      @title = "Blue shapes are barriers."
-      @messages = [ "Don't hit them." ]
+      @title = "Avoid blue."
       w = @game.width / 2
       h = @game.height / 2
-      i = 100
-      r = 30
+      i = 50
+      r = 20
       for goal in [
         [w + i, h + i, r],
         [w - i, h + i, r],
@@ -17,7 +16,7 @@ require.def ['rg/level'], (Level) =>
         [x, y, r] = goal
         this.add_goal(x, y, r)
 
-      i = 250
+      i = 150
       r = 30
 
       for barrier in [
