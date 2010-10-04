@@ -3,24 +3,24 @@ require.def ['rg/debug', 'rg/dialog'], (Debug, Dialog) =>
   class Transition
     constructor: (@game) ->
       @advance = @done = false
-      @dialog = new Dialog(@game, @game.width * .75, @game.height * .75)
+      @dialog = new Dialog(@game, @game.width*.75, @game.height*.75, 'top')
       unless @game.level.no_score
-        @dialog.label('left', "Try Again")
-      @dialog.label('right', "On to Level #{@game.level_number + 1}")
+        @dialog.option('left', "Try Again")
+      @dialog.option('right', "On to Level #{@game.level_number + 1}")
 #      @dialog.label('up', "Menu")
 #      @dialog.label('down', "Instant Replay")
       @l_was_up = @r_was_up = false
       @finishing = false
 
     step: () ->
-      this.get_controls()
-      if @dialog.finishing then @done = @dialog.done()
-      else
-        if @l_down then @dialog.finishing = true
-        else if @r_down then @advance = @dialog.finishing = true
-
       if @game.level.outro_done() then @dialog.step()
       else @game.level.outro_step()
+
+      @done = @dialog.selected and (@dialog.done() or !@dialog.started())
+      if @dialog.selected
+        if @dialog.selected == 'right' then @advance = true
+
+
 
     draw: (graphics) ->
       if @game.level.outro_done() then @dialog.draw(graphics)

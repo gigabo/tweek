@@ -103,7 +103,10 @@
       this.graphics.clear();
       switch (this.state) {
       case TRANSITION:
-        return this.transition.draw(this.graphics);
+        if (this.transition) {
+          return this.transition.draw(this.graphics);
+        }
+        break;
       default:
         return this.level.draw(this.graphics);
       }
@@ -118,7 +121,7 @@
       }
     };
     Game.prototype.toggle_hud = function() {
-      return (this.hud_on = this.hud_on ? false : true);
+      return !this.player.suppress_feature('toggle_hud') ? (this.hud_on = this.hud_on ? false : true) : null;
     };
     return Game;
   }, this));

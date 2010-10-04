@@ -2,35 +2,50 @@ require.def ['rg/debug'], (Debug) =>
 
   class Controls
     constructor: (@game) ->
+      this.init()
+
+    add_listener: (f) ->
+      id = @listener_id_seq++
+      @listeners[id] = f
+      id
+
+    remove_listener: (id) -> delete @listeners[id]
+
+    handle_event: (key, down) ->
+      mapped = @map[key]
+      this[mapped] = down
+      unless down
+        switch mapped
+          when 'down' then @game.toggle_hud()
+          when 'p', 'q'
+            if @game.running then @game.stop() else @game.start()
+      listener() for listener in _(@listeners).values()
+
+    thrust_on: () -> !@space
+    rotate_l: () -> @left and !@game.finishing()
+    rotate_r: () -> @right and !@game.finishing()
+
+    init: () ->
+      this.init_map()
+      @listeners = {}
+      @listener_id_seq = 0
+      $(document).keydown (e) => this.handle_event(e.keyCode, true)
+      $(document).keyup   (e) => this.handle_event(e.keyCode, false)
+
+    init_map: () ->
       @space  = false
       @left   = false
       @right  = false
       @up     = false
       @down   = false
-      this.init()
+      @p = @q = false
 
-    init: () ->
-      $(document).keydown (e) =>
-        switch e.keyCode
-          when 37 then @left  = true
-          when 39 then @right = true
-          when 38 then @up    = true
-          when 40 then @down  = true
-          when 32 then @space = true
+      @map =
+        37: 'left'
+        39: 'right'
+        38: 'up'
+        40: 'down'
+        32: 'space'
+        80: 'p'
+        81: 'q'
 
-      $(document).keyup (e) =>
-        switch e.keyCode
-          when 37 then @left  = false
-          when 39 then @right = false
-          when 38 then @up    = false
-          when 40
-            @down  = false
-            if not @game.player.suppress_feature('toggle_hud')
-              @game.toggle_hud()
-          when 32 then @space = false
-          when 80, 81 # P, Q
-            if @game.running then @game.stop() else @game.start()
-
-    thrust_on: () -> !@space
-    rotate_l: () -> @left and !@game.finishing()
-    rotate_r: () -> @right and !@game.finishing()

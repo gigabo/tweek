@@ -3,7 +3,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
   class Level_1 extends Level
     init: () ->
       @title = "Arrows steer."
-      @messages = [ "Turn red circles green to advance." ]
+      @messages = [ "Turn red to green." ]
       i = 100
       w = @game.width / 2
       h = @game.height / 2

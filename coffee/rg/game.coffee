@@ -91,7 +91,7 @@ require.def [
     draw: () ->
       @graphics.clear()
       switch @state
-        when TRANSITION then @transition.draw(@graphics)
+        when TRANSITION then @transition.draw(@graphics) if @transition
         else @level.draw(@graphics)
 
     show_hud: () ->
@@ -99,4 +99,6 @@ require.def [
         when IN_LEVEL, FINISHING then @hud_on
         else false
 
-    toggle_hud: () -> @hud_on = if @hud_on then false else true
+    toggle_hud: () ->
+      if not @player.suppress_feature('toggle_hud')
+        @hud_on = if @hud_on then false else true

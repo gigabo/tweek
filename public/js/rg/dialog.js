@@ -3,36 +3,100 @@
     return function(){ return func.apply(context, arguments); };
   };
   require.def(['rg/debug'], __bind(function(Debug) {
-    var Dialog;
-    Dialog = function(_a, _b, _c) {
+    var Dialog, INTRO, MIDRO, OUTRO;
+    INTRO = 0;
+    MIDRO = 1;
+    OUTRO = 2;
+    Dialog = function(_a, _b, _c, _d) {
+      this.start = _d;
       this.height = _c;
       this.width = _b;
       this.game = _a;
-      this.y_hidden = this.height * -1;
-      this.y_shown = this.game.height / 2 - this.height / 2;
-      this.slide_stride = (this.y_shown - this.y_hidden) / 5;
-      this.y_pos = this.y_hidden;
-      this.x_pos = this.game.width / 2 - this.width / 2;
-      this.corner_radius = this.width / 20;
-      this.directions = ['up', 'down', 'left', 'right'];
-      this.labels = {};
+      this.init_dimensions();
+      this.init_controls();
       return this;
     };
-    Dialog.prototype.label = function(direction, value) {
-      return (this.labels[direction] = value);
+    Dialog.prototype.init_controls = function() {
+      var _a, _b, _c, dir;
+      this.directions = ['up', 'down', 'left', 'right'];
+      this.was_up = {};
+      this.options = {};
+      _b = this.directions;
+      for (_a = 0, _c = _b.length; _a < _c; _a++) {
+        dir = _b[_a];
+        this.was_up[dir] = !this.game.controls[dir];
+      }
+      return (this.listener = this.game.controls.add_listener(__bind(function() {
+        return this.check_controls();
+      }, this)));
+    };
+    Dialog.prototype.check_controls = function() {
+      var _a, _b, _c, _d, dir, is_down;
+      _a = []; _c = this.directions;
+      for (_b = 0, _d = _c.length; _b < _d; _b++) {
+        dir = _c[_b];
+        _a.push((function() {
+          is_down = this.game.controls[dir];
+          if (!(is_down)) {
+            this.was_up[dir] = true;
+          }
+          if (is_down && this.options[dir] && this.was_up[dir]) {
+            this.selected = dir;
+            this.end = this.opposite[dir];
+            this.game.controls.remove_listener(this.listener);
+            this.pre_x = (this.pre_y = 99999999);
+            this.phase = OUTRO;
+            return this.game.start();
+          }
+        }).call(this));
+      }
+      return _a;
+    };
+    Dialog.prototype.option = function(direction, value) {
+      return (this.options[direction] = value);
     };
     Dialog.prototype.done = function() {
-      return this.y_pos <= this.y_hidden;
+      return this.x_pos === this.pre_x && this.y_pos === this.pre_y && this.phase === OUTRO;
+    };
+    Dialog.prototype.started = function() {
+      return this.have_stepped;
     };
     Dialog.prototype.step = function() {
-      if (this.finishing) {
-        return this.y_pos > this.y_hidden ? this.y_pos -= this.slide_stride : null;
-      } else if (this.y_pos < this.y_shown) {
-        return this.y_pos += this.slide_stride;
+      this.have_stepped = true;
+      this.pre_x = this.x_pos;
+      this.pre_y = this.y_pos;
+      switch (this.phase) {
+      case INTRO:
+        if (this.x_pos > this.show_x) {
+          this.x_pos -= this.slide_stride[this.start];
+        }
+        if (this.x_pos < this.show_x) {
+          this.x_pos += this.slide_stride[this.start];
+        }
+        if (this.y_pos > this.show_y) {
+          this.y_pos -= this.slide_stride[this.start];
+        }
+        if (this.y_pos < this.show_y) {
+          this.y_pos += this.slide_stride[this.start];
+        }
+        return this.x_pos === this.pre_x && this.y_pos === this.pre_y ? (this.phase = MIDRO) : null;
+      case MIDRO:
+        return this.game.stop();
+      case OUTRO:
+        if (this.x_pos > this.hide_x[this.end]) {
+          this.x_pos -= this.slide_stride[this.end];
+        }
+        if (this.x_pos < this.hide_x[this.end]) {
+          this.x_pos += this.slide_stride[this.end];
+        }
+        if (this.y_pos > this.hide_y[this.end]) {
+          this.y_pos -= this.slide_stride[this.end];
+        }
+        return this.y_pos < this.hide_y[this.end] ? this.y_pos += this.slide_stride[this.end] : null;
       }
     };
     Dialog.prototype.draw = function(graphics) {
-      var _a, _b, _c, _d, align, baseline, ctx, d, direction, label, x, y;
+      var _a, _b, _c, _d, align, baseline, ctx, d, dir, option, x, y;
       ctx = graphics.ctx;
       ctx.lineWidth = 5;
       ctx.strokeStyle = "rgba(255, 255, 255, .5)";
@@ -69,17 +133,54 @@
       };
       _a = []; _c = this.directions;
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
-        direction = _c[_b];
+        dir = _c[_b];
         _a.push((function() {
-          if (label = this.labels[direction]) {
-            ctx.textAlign = align[direction];
-            ctx.textBaseline = baseline[direction];
-            graphics.text(label, this.x_pos + x[direction], this.y_pos + y[direction]);
-            return graphics.arrow(this.x_pos + x[direction], this.y_pos + y[direction], d, direction);
+          if (option = this.options[dir]) {
+            ctx.textAlign = align[dir];
+            ctx.textBaseline = baseline[dir];
+            graphics.text(option, this.x_pos + x[dir], this.y_pos + y[dir]);
+            return graphics.arrow(this.x_pos + x[dir], this.y_pos + y[dir], d, dir);
           }
         }).call(this));
       }
       return _a;
+    };
+    Dialog.prototype.init_dimensions = function() {
+      if (!(this.start)) {
+        this.start = 'top';
+      }
+      this.end = 'top';
+      this.show_y = this.game.height / 2 - this.height / 2;
+      this.show_x = this.game.width / 2 - this.width / 2;
+      this.hide_y = {
+        top: this.height * -1,
+        bottom: this.game.height,
+        left: this.show_y,
+        right: this.show_y
+      };
+      this.hide_x = {
+        top: this.show_x,
+        bottom: this.show_x,
+        left: this.width * -1,
+        right: this.game.width
+      };
+      this.opposite = {
+        top: 'bottom',
+        bottom: 'top',
+        left: 'right',
+        right: 'left'
+      };
+      this.slide_frames = 5;
+      this.slide_stride = {
+        top: (this.show_y - this.hide_y.top) / this.slide_frames,
+        left: (this.show_x - this.hide_x.left) / this.slide_frames
+      };
+      this.slide_stride.bottom = this.slide_stride.top;
+      this.slide_stride.right = this.slide_stride.left;
+      this.phase = INTRO;
+      this.x_pos = this.hide_x[this.start];
+      this.y_pos = this.hide_y[this.start];
+      return (this.corner_radius = this.width / 20);
     };
     return Dialog;
   }, this));

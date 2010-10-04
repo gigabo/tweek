@@ -18,7 +18,7 @@
     Level_1.prototype.init = function() {
       var _a, _b, _c, _d, _e, goal, h, i, r, w, x, y;
       this.title = "Arrows steer.";
-      this.messages = ["Turn red circles green to advance."];
+      this.messages = ["Turn red to green."];
       i = 100;
       w = this.game.width / 2;
       h = this.game.height / 2;
