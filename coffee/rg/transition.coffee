@@ -20,11 +20,9 @@ require.def ['rg/debug', 'rg/dialog'], (Debug, Dialog) =>
       if @dialog.selected
         if @dialog.selected == 'right' then @advance = true
 
-
-
     draw: (graphics) ->
+      @game.level.outro_draw(graphics)
       if @game.level.outro_done() then @dialog.draw(graphics)
-      else @game.level.outro_draw(graphics)
 
     get_controls: () ->
       @l_down = @game.controls.left

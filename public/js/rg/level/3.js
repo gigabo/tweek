@@ -18,7 +18,7 @@
     Level_3.prototype.init = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, circle, h, i, r, w, x, y;
       this.title = "Be quick.";
-      this.game.player.enable_feature('score_time');
+      this.highlight_score = 'time';
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 120;

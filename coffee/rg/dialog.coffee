@@ -6,6 +6,7 @@ require.def ['rg/debug'], (Debug) =>
 
   class Dialog
     constructor: (@game, @width, @height, @start) ->
+      @title = "Use Arrow Keys"
       this.init_dimensions()
       this.init_controls()
 
@@ -28,6 +29,8 @@ require.def ['rg/debug'], (Debug) =>
           @pre_x = @pre_y = 99999999 # Hack much?
           @phase = OUTRO
           @game.start()
+
+    set_title: (@title) ->
 
     option: (direction, value) ->
       @options[direction] = value
@@ -66,7 +69,7 @@ require.def ['rg/debug'], (Debug) =>
       ctx.textAlign     = "center"
       ctx.textBaseline  = "bottom"
 
-      graphics.text "Use Arrow Keys", @x_pos + @width/2, @y_pos - 10
+      graphics.text @title, @x_pos + @width/2, @y_pos - 10
 
       d = 100
       align = {left: "left", right: "right", up: "center", down: "center"}

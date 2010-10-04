@@ -7,15 +7,13 @@
     Score = function(_a, _b) {
       this.type = _b;
       this.game = _a;
-      this.hidden = false;
       this.off_screen = false;
-      this.waiting = 0;
-      this.wait = 50;
       this.slide_stride = 10;
-      this.outro_stride = 20;
+      this.wait = 0;
+      this.outro_wait = 20;
       this.hud_on_y_pos = this.game.height - 20;
       this.hud_off_y_pos = this.game.height + 20;
-      this.y_pos = this.game.show_hud() ? this.hud_on_y_pos : this.hud_off_y_pos;
+      this.y_pos = this.game.hud_on ? this.hud_on_y_pos : this.hud_off_y_pos;
       this.queue = [];
       this.manager = new ScoreManager();
       if (this.type !== 'total') {
@@ -31,9 +29,6 @@
     };
     Score.prototype.value = function() {
       return this.strategy.value;
-    };
-    Score.prototype.hide = function() {
-      return (this.hidden = true);
     };
     Score.prototype.dispatch = function(method) {
       var catchup;
@@ -54,41 +49,40 @@
     };
     Score.prototype.step = function() {
       this.off_screen = false;
-      if (this.game.show_hud()) {
-        if (this.y_pos > this.hud_on_y_pos) {
-          this.y_pos -= this.slide_stride;
-        }
-      } else {
-        if (this.y_pos < this.hud_off_y_pos) {
-          this.y_pos += this.slide_stride;
-        } else {
-          this.off_screen = true;
-        }
+      this.dispatch('step');
+      return this.highlight ? (this.y_pos = this.hud_on_y_pos) : (this.game.show_hud() ? this.raise() : (this.y_pos < this.hud_off_y_pos ? this.y_pos += this.slide_stride : (this.off_screen = true)));
+    };
+    Score.prototype.raise = function() {
+      if (this.y_pos > this.hud_on_y_pos) {
+        this.y_pos -= this.slide_stride;
       }
-      return this.dispatch('step');
+      return this.y_pos < this.hud_on_y_pos ? (this.y_pos = this.hud_on_y_pos) : null;
     };
     Score.prototype.draw = function(graphics) {
       var ctx;
-      if (this.hidden || (this.off_screen && !this.game.in_transition())) {
+      if (this.off_screen && !this.game.in_transition() && !this.highlight) {
         return null;
       }
       ctx = graphics.ctx;
       ctx.font = "20pt Verdana";
-      ctx.textAlign = "right";
+      ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = this.strategy.color();
-      return graphics.text(this.strategy.value, this.strategy.x_pos(), this.y_pos);
+      graphics.text(this.strategy.value, this.strategy.x_pos(), this.y_pos);
+      if (this.highlight) {
+        ctx.strokeStyle = this.strategy.color();
+        ctx.lineWidth = 5;
+        return graphics.rect_stroke_rounded(this.strategy.x_pos() - 100, this.y_pos - 22, 200, 40, 10);
+      }
     };
     Score.prototype.outro_step = function() {
-      if (this.waiting === 0) {
-        return this.y_pos -= this.outro_stride;
-      }
+      return this.raise();
     };
     Score.prototype.outro_draw = function(g) {
       return this.draw(g);
     };
     Score.prototype.outro_done = function() {
-      return this.hidden || ((this.y_pos < this.game.height / 2) && (++this.waiting >= this.wait));
+      return (this.y_pos <= this.hud_on_y_pos) && (this.game.hud_on || this.wait++ > this.outro_wait);
     };
     return Score;
   }, this));

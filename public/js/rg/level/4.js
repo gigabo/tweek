@@ -21,7 +21,7 @@
     Level_4.prototype.init = function() {
       var _a, _b, _c, _d, _e, circle, h, i, r, w, x, y;
       this.title = "Take your time on the finish.";
-      this.game.player.enable_feature('score_finish');
+      this.highlight_score = 'finish';
       w = this.game.width / 2;
       h = this.game.height / 2;
       i = 50;

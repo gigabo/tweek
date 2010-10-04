@@ -21,12 +21,12 @@
     Level_5.prototype.init = function() {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, circle, h, i, r, w, x, y;
       this.title = "Flip upside-down for a bonus.";
-      this.game.player.enable_feature('score_loops');
+      this.highlight_score = 'loops';
       w = this.game.width / 2;
       h = this.game.height / 2;
-      i = 120;
+      i = 140;
       r = 40;
-      _b = [[w - i - 20, 2 * h - i, r]];
+      _b = [[w - i, 2 * h - i, r]];
       for (_a = 0, _c = _b.length; _a < _c; _a++) {
         circle = _b[_a];
         _d = circle;
@@ -35,7 +35,7 @@
         r = _d[2];
         this.add_goal(x, y, r);
       }
-      i = 120;
+      i = 140;
       r = 90;
       _e = []; _g = [[w, 2 * h - i, r]];
       for (_f = 0, _h = _g.length; _f < _h; _f++) {

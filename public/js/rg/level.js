@@ -67,12 +67,7 @@
       _a = []; _c = this.score_manager.types();
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
         type = _c[_b];
-        _a.push((function() {
-          score = this.add_score(type);
-          if (this.game.player.suppress_feature("score_" + (type))) {
-            return score.hide();
-          }
-        }).call(this));
+        _a.push(score = this.add_score(type));
       }
       return _a;
     };
@@ -92,6 +87,9 @@
       var i;
       i = new Score(this.game, type);
       this.scores.push(i);
+      if (this.highlight_score && this.highlight_score === type) {
+        i.highlight = true;
+      }
       return i;
     };
     Level.prototype.step = function() {
@@ -162,11 +160,9 @@
       _a = []; _c = this.objects;
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
         item = _c[_b];
-        _a.push((function() {
-          if (item.outro_step && !item.outro_done()) {
-            return item.outro_step();
-          }
-        })());
+        if (item.outro_step && !item.outro_done()) {
+          return item.outro_step();
+        }
       }
       return _a;
     };

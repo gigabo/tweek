@@ -5,10 +5,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
     starting_position: () -> [ 100, @start_y ]
 
     init: () ->
-      @title = "Down-arrow shows your score."
-      if @game.player.suppress_feature('toggle_hud')
-        @game.player.enable_feature('toggle_hud')
-        @game.toggle_hud()
+      @title = "There's more than one way to do it."
       w = @game.width / 2
       h = @game.height / 2
       i = 60

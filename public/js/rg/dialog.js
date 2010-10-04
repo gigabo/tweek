@@ -12,6 +12,7 @@
       this.height = _c;
       this.width = _b;
       this.game = _a;
+      this.title = "Use Arrow Keys";
       this.init_dimensions();
       this.init_controls();
       return this;
@@ -51,6 +52,9 @@
         }).call(this));
       }
       return _a;
+    };
+    Dialog.prototype.set_title = function(_a) {
+      this.title = _a;
     };
     Dialog.prototype.option = function(direction, value) {
       return (this.options[direction] = value);
@@ -105,7 +109,7 @@
       ctx.fillStyle = "rgba(255, 255, 255, .8)";
       ctx.textAlign = "center";
       ctx.textBaseline = "bottom";
-      graphics.text("Use Arrow Keys", this.x_pos + this.width / 2, this.y_pos - 10);
+      graphics.text(this.title, this.x_pos + this.width / 2, this.y_pos - 10);
       d = 100;
       align = {
         left: "left",

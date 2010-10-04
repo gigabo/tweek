@@ -6,7 +6,7 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
     init: () ->
       @title = "Take your time on the finish."
-      @game.player.enable_feature('score_finish')
+      @highlight_score = 'finish'
       w = @game.width / 2
       h = @game.height / 2
       i = 50

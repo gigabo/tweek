@@ -26,7 +26,8 @@
       return this.dialog.selected ? (this.dialog.selected === 'right' ? (this.advance = true) : null) : null;
     };
     Transition.prototype.draw = function(graphics) {
-      return this.game.level.outro_done() ? this.dialog.draw(graphics) : this.game.level.outro_draw(graphics);
+      this.game.level.outro_draw(graphics);
+      return this.game.level.outro_done() ? this.dialog.draw(graphics) : null;
     };
     Transition.prototype.get_controls = function() {
       this.l_down = this.game.controls.left;

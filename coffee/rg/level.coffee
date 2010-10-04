@@ -49,11 +49,15 @@ require.def [
       return if @no_score
       for type in @score_manager.types()
         score = this.add_score(type)
-        score.hide() if @game.player.suppress_feature("score_#{type}")
 
     add_goal: (x, y, r) -> i = new Goal(@game, x, y, r); @goals.push i; i
     add_barrier: (x, y, r) -> i = new Barrier(@game,x,y,r);@barriers.push i; i
-    add_score: (type) -> i = new Score(@game, type); @scores.push i; i
+    add_score: (type) ->
+      i = new Score(@game, type)
+      @scores.push i
+      if this.highlight_score and this.highlight_score == type
+        i.highlight = true
+      i
 
 
     step: () ->
@@ -90,7 +94,7 @@ require.def [
 
     outro_step: () ->
       for item in @objects
-        item.outro_step() if item.outro_step and !item.outro_done()
+        return item.outro_step() if item.outro_step and !item.outro_done()
 
     outro_draw: (graphics) ->
       for item in @objects

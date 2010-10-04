@@ -26,7 +26,7 @@ require.def [
       @width  = @graphics.width
       @height = @graphics.height
       @level_number = 0
-      @hud_on = true
+      @hud_on = false
       this.start()
 
     finishing: () -> @state == FINISHING
@@ -100,5 +100,6 @@ require.def [
         else false
 
     toggle_hud: () ->
-      if not @player.suppress_feature('toggle_hud')
-        @hud_on = if @hud_on then false else true
+      switch @state
+        when IN_LEVEL, FINISHING
+          @hud_on = if @hud_on then false else true

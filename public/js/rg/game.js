@@ -20,7 +20,7 @@
       this.width = this.graphics.width;
       this.height = this.graphics.height;
       this.level_number = 0;
-      this.hud_on = true;
+      this.hud_on = false;
       this.start();
       return this;
     };
@@ -121,7 +121,11 @@
       }
     };
     Game.prototype.toggle_hud = function() {
-      return !this.player.suppress_feature('toggle_hud') ? (this.hud_on = this.hud_on ? false : true) : null;
+      switch (this.state) {
+      case IN_LEVEL:
+      case FINISHING:
+        return (this.hud_on = this.hud_on ? false : true);
+      }
     };
     return Game;
   }, this));

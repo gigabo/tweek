@@ -6,18 +6,18 @@ require.def ['rg/level', 'rg/debug'], (Level, Debug) =>
 
     init: () ->
       @title = "Flip upside-down for a bonus."
-      @game.player.enable_feature('score_loops')
+      @highlight_score = 'loops'
       w = @game.width / 2
       h = @game.height / 2
-      i = 120
+      i = 140
       r = 40
       for circle in [
-        [w-i-20, 2*h-i, r],
+        [w-i, 2*h-i, r],
       ]
         [x, y, r] = circle
         this.add_goal(x, y, r)
 
-      i = 120
+      i = 140
       r = 90
 
       for circle in [
