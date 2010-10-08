@@ -47,7 +47,6 @@ class TweekApp < Sinatra::Base
     begin
       require "toys/#{@toy}.rb"        
       @about = Toys.method(:"about_#@toy").call()
-      puts ("method: #@about")
     rescue Exception
     end
     @title = "Toy: #{@about ? @about[:title] : @toy}"
