@@ -36,8 +36,22 @@ class TweekApp < Sinatra::Base
   end
 
   get '/play/:script' do
-    @title = "Play (#{params[:script]})"
-    @scripts = [params[:script]]
+    @toy = params[:script]
+    @title = "Play (#{@toy})"
+    @scripts = [@toy]
+    mustache :play
+  end
+
+  get '/toys/:script' do
+    @toy = params[:script]
+    begin
+      require "toys/#{@toy}.rb"        
+      @about = Toys.method(:"about_#@toy").call()
+      puts ("method: #@about")
+    rescue Exception
+    end
+    @title = "Toy: #{@about ? @about[:title] : @toy}"
+    @scripts = ['toy']
     mustache :play
   end
 

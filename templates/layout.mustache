@@ -8,9 +8,13 @@
     <script type="text/javascript"
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
     </script>
+    {{#toys}}
+      <script type="text/javascript">tweek_toy='{{name}}'</script>
+    {{/toys}}
     {{# scripts}}
     <script type="text/javascript" src="/js/{{name}}.js"></script>
     {{/ scripts}}
+
   </head>
   <body>
     <div id="header" class="header">
