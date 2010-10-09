@@ -33,12 +33,14 @@ class TweekApp < Sinatra::Base
     @handle = params[:handle]
     @title = "Punch Card"
     @scripts = ['punch']
+    @about = Tweek.about('punch')
     mustache :punchcard
   end
 
   get '/play/:script' do
     @toy = params[:script]
     @title = "Play (#{@toy})"
+    @about = Tweek.about(@toy)
     @scripts = [@toy]
     mustache :play
   end

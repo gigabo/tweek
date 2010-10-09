@@ -1,12 +1,13 @@
 require.def [
   'toy2d/debug',
-#  'toy/about_pasta',
+  'toy2d/canvas_scale',
   '/js/box2d.js',
 ],
-(Debug) =>
+(Debug, Scale) =>
 
   class Toy
     constructor: (canvas) ->
+      new Scale(canvas)
       @canvas = canvas[0]
       @ctx = @canvas.getContext('2d')
       @width = 40.0

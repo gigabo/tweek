@@ -38,12 +38,11 @@
   };
   update_canvas_width = function() {
     var width;
-    width = canvas.parent().innerWidth();
+    width = canvas.parent().innerWidth() * .5;
     canvas.width(width);
     return canvas.height(width / 2);
   };
   init_controls = function() {
-    $("#play").append("<div id='controls' class='control_container'></div>");
     $("#controls").append("<input type='text' id='tower_height'>");
     $("#controls").append("<input id='tower_refresh' type='button' value='Go'>");
     $("#tower_refresh").click(re_init_towers);

@@ -1,12 +1,14 @@
 require.def [
   'toy2d/debug',
+  'toy2d/canvas_scale',
 ],
-(Debug) =>
+(Debug, Scale) =>
 
   PI = Math.PI
 
   class Toy
     constructor: (canvas) ->
+      new Scale(canvas)
       @canvas = canvas[0]
       @degree = 0
       this.init_canvas(5.0)

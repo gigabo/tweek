@@ -28,13 +28,13 @@ def about_this_toy
       }
     ],
     :tools => [
+      { :name => 'box2d2-js',
+        :url => 'http://github.com/jwagner/box2d2-js'},
       { :name => 'CoffeeScript', :url =>
         'http://jashkenas.github.com/coffee-script/' },
       { :name => 'Underscore.js', :url =>
         'http://documentcloud.github.com/underscore/'},
       { :name => 'RequireJS', :url => 'http://requirejs.org/'},
-      { :name => 'box2d2-js',
-        :url => 'http://github.com/jwagner/box2d2-js'},
     ]
   }
 end

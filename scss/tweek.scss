@@ -14,26 +14,6 @@ $vertical_padding: 1em;
   background-color: red;
 }
 
-#about {
-  margin-top: 1em;
-}
-
-#about_header {
-  float: left;
-  margin-right: 2em;
-}
-
-#about_tools {
-  background-color: darken($body_color, 25%);
-  padding: 1em;
-}
-
-#about_footer {
-  clear: both;
-  text-align: center;
-  width: 100%;
-}
-
 body {
   font-size: 12pt;
   font-weight: bold;
@@ -167,4 +147,30 @@ pre {
   width: 100%;
   @include rounded_corners(10px);
 }
+
+#about {
+  margin-top: 1em;
+}
+
+#about_header {
+  float: left;
+  margin-right: 2em;
+}
+
+#about_tools {
+  background-color: darken($body_color, 25%);
+  padding: 1em;
+}
+
+#about_footer {
+  clear: both;
+  text-align: center;
+  width: 100%;
+}
+
+#summary {
+  padding-bottom: 1em;
+}
+
+
 
