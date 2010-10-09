@@ -1,0 +1,28 @@
+  {{#about}}
+  <div id="about" class="container">
+    <article>
+      <header id="about_header">
+        <h1>{{title}}</h1>
+        <h2>{{subtitle}}</h2>
+        <time datetime={{date}} pubdate>{{date}}</time>
+        <div id="about_tools">
+          <h3>Tools used:</h3>
+          <ul>
+          {{#tools}} <li><a href="{{url}}">{{name}}</a></li> {{/tools}}
+          </ul>
+        </div>
+      </header>
+      <div id="about_description">
+        {{#description}}
+          <p>
+            {{{p}}}
+          </p>
+        {{/description}}
+      </div>
+      <div id="about_footer">
+      &copy; 2010 {{author}}
+      </div>
+    </article>
+  </div>
+  {{/about}}
+
