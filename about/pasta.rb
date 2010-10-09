@@ -21,10 +21,10 @@ def about_this_toy
       {
         :p => <<-EO_P
           So, I made some long, skinny boxes (vaguely rocket-shaped) and let
-          them loose.  This looks pretty promising, although it runs pretty
-          slowly in Firefox on my old Windows machine.  Maybe this weekend
-          I'll make a toy rocket and see how it goes.  Meanwhile, I'm
-          mesmerized by the falling pasta. :)
+          them loose.  This looks promising, although it runs pretty slowly in
+          Firefox on my old Windows machine.  Maybe this weekend I'll make a
+          toy rocket and see how it goes.  Meanwhile, I'm mesmerized by the
+          falling pasta. :)
         EO_P
       }
     ],
