@@ -11,6 +11,7 @@
       $(window).resize(__bind(function() {
         return this.update_canvas_width();
       }, this));
+      this.update_canvas_width();
       return this;
     };
     CanvasScale.prototype.update_canvas_width = function() {

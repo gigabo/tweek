@@ -6,7 +6,7 @@
     var PI, Toy;
     PI = Math.PI;
     Toy = function(canvas) {
-      new Scale(canvas);
+      new Scale(canvas, .8);
       this.canvas = canvas[0];
       this.degree = 0;
       this.init_canvas(5.0);

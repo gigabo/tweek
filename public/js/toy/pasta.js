@@ -6,7 +6,7 @@
     var Toy;
     Toy = function(canvas) {
       var ppm;
-      new Scale(canvas);
+      new Scale(canvas, .8);
       this.canvas = canvas[0];
       this.ctx = this.canvas.getContext('2d');
       this.width = 40.0;

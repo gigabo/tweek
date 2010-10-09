@@ -7,7 +7,7 @@ require.def [
 
   class Toy
     constructor: (canvas) ->
-      new Scale(canvas)
+      new Scale(canvas, .8)
       @canvas = canvas[0]
       @ctx = @canvas.getContext('2d')
       @width = 40.0

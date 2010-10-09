@@ -23,8 +23,8 @@ require.def [
       @graphics = new Graphics(this,canvas)
       @controls = new Controls(this)
       @player = new Player(this)
-      @width  = @graphics.width()
-      @height = @graphics.height()
+      @width  = @graphics.width
+      @height = @graphics.height
       @level_number = 0
       @hud_on = false
       this.start()

@@ -18,8 +18,9 @@
     Controls.prototype.remove_listener = function(id) {
       return delete this.listeners[id];
     };
-    Controls.prototype.handle_event = function(key, down) {
-      var _a, _b, _c, _d, listener, mapped;
+    Controls.prototype.handle_event = function(e, down) {
+      var _a, _b, _c, _d, key, listener, mapped;
+      key = e.keyCode;
       mapped = this.map[key];
       this[mapped] = down;
       if (!(down)) {
@@ -58,10 +59,13 @@
       this.listeners = {};
       this.listener_id_seq = 0;
       $(document).keydown(__bind(function(e) {
-        return this.handle_event(e.keyCode, true);
+        return this.handle_event(e, true);
       }, this));
-      return $(document).keyup(__bind(function(e) {
-        return this.handle_event(e.keyCode, false);
+      $(document).keyup(__bind(function(e) {
+        return this.handle_event(e, false);
+      }, this));
+      return $(document).keydown(__bind(function(e) {
+        return this.map[e.keyCode] === 'down' ? e.preventDefault() : null;
       }, this));
     };
     Controls.prototype.init_map = function() {

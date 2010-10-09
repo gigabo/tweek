@@ -11,7 +11,8 @@ require.def ['rg/debug'], (Debug) =>
 
     remove_listener: (id) -> delete @listeners[id]
 
-    handle_event: (key, down) ->
+    handle_event: (e, down) ->
+      key = e.keyCode
       mapped = @map[key]
       this[mapped] = down
       unless down
@@ -29,8 +30,11 @@ require.def ['rg/debug'], (Debug) =>
       this.init_map()
       @listeners = {}
       @listener_id_seq = 0
-      $(document).keydown (e) => this.handle_event(e.keyCode, true)
-      $(document).keyup   (e) => this.handle_event(e.keyCode, false)
+      $(document).keydown   (e) => this.handle_event(e, true)
+      $(document).keyup     (e) => this.handle_event(e, false)
+      $(document).keydown   (e) =>
+        # Don't let the down arrow scroll the page
+        if @map[e.keyCode] == 'down' then e.preventDefault()
 
     init_map: () ->
       @space  = false
