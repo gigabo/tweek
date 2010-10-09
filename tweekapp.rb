@@ -5,6 +5,7 @@ require 'punchcard'
 require 'mustache/sinatra'
 require 'coffee-script'
 require 'json'
+require 'tweek'
 require 'tweek/api'
 require 'tweek/cache'
 
@@ -44,11 +45,7 @@ class TweekApp < Sinatra::Base
 
   get '/toys/:script' do
     @toy = params[:script]
-    begin
-      require "toys/#{@toy}.rb"        
-      @about = Toys.method(:"about_#@toy").call()
-    rescue Exception
-    end
+    @about = Tweek.about(@toy)
     @title = "Toy: #{@about ? @about[:title] : @toy}"
     @scripts = ['toy']
     mustache :play
