@@ -17,11 +17,9 @@
       var scale;
       this.width = _a;
       this.ctx = this.canvas.getContext('2d');
-      this.c_width = this.canvas.width;
-      this.c_height = this.canvas.height;
-      scale = this.c_width / this.width;
-      this.height = this.c_height / scale;
-      return this.ctx.setTransform(scale, 0, 0, -scale, this.c_width / 2, this.c_height / 2);
+      scale = this.canvas.width / this.width;
+      this.height = this.canvas.height / scale;
+      return this.ctx.setTransform(scale, 0, 0, -scale, this.canvas.width / 2, this.canvas.height / 2);
     };
     Toy.prototype.start = function() {
       return setInterval(__bind(function() {
@@ -30,7 +28,7 @@
     };
     Toy.prototype.step = function() {
       var a, eighth, oa, os, thick, thin, x, y;
-      this.ctx.clearRect(-this.c_width / 2, -this.c_height / 2, this.c_width, this.c_height);
+      this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
       if (++this.degree === 360) {
         this.degree = 0;
       }

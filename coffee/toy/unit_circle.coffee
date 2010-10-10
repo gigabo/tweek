@@ -15,22 +15,21 @@ require.def [
       this.start()
 
     init_canvas: (@width) ->
+
       @ctx = @canvas.getContext('2d')
 
-      @c_width  = @canvas.width
-      @c_height = @canvas.height
+      scale   = @canvas.width/@width
+      @height = @canvas.height/scale
 
-      scale = @c_width/@width
-      @height = @c_height/scale
+      # Origin is at the center.  Y-axis positive is up.
+      # Width is as set explicitly.  Height is scaled proportionately.
 
-      # Origin at center, y-axis positive is up
-      # Width as set explicitly, height twice width
-      @ctx.setTransform(scale, 0, 0, -scale, @c_width/2, @c_height/2)
+      @ctx.setTransform(scale, 0, 0, -scale, @canvas.width/2, @canvas.height/2)
 
     start: () -> setInterval( (() => this.step()), 33)
 
     step: () ->
-      @ctx.clearRect(-@c_width/2, -@c_height/2, @c_width, @c_height)
+      @ctx.clearRect(-@width/2, -@height/2, @width, @height)
 
       if ++@degree == 360 then @degree = 0
 

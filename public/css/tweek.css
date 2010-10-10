@@ -127,3 +127,19 @@ pre {
 
 #summary {
   padding-bottom: 1em; }
+
+aside {
+  font-size: 75%; }
+
+/* Use 'body' here to get more points than original style */
+body .gist {
+  font-size: 10pt;
+  background-color: #d1d1c7; }
+  body .gist .gist-file {
+    background-color: inherit; }
+    body .gist .gist-file .gist-data {
+      background-color: inherit; }
+      body .gist .gist-file .gist-data .gist-highlight {
+        background-color: inherit; }
+        body .gist .gist-file .gist-data .gist-highlight div {
+          background-color: inherit; }

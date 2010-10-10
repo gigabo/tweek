@@ -172,5 +172,24 @@ pre {
   padding-bottom: 1em;
 }
 
+aside {
+  font-size: 75%;
+}
 
-
+/* Use 'body' here to get more points than original style */
+body .gist {
+  font-size: 10pt;
+  background-color: lighten($body_color, 10%);
+  & .gist-file {
+    background-color: inherit;
+    & .gist-data {
+      background-color: inherit;
+      & .gist-highlight {
+        background-color: inherit;
+        & div {
+          background-color: inherit;
+        }
+      }
+    }
+  }
+}
