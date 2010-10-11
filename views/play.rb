@@ -7,7 +7,7 @@ class TweekApp
       def about
         @about
       end
-      def toys
+      def tweek_toys
         if @toy then [ :name => @toy ] end
       end
     end

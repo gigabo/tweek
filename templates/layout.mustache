@@ -2,20 +2,19 @@
 <html>
   <head>
     <title>{{title}}</title>
-    {{#styles}}
-    <link rel="stylesheet" href="/css/{{name}}.css" type="text/css">
-    {{/styles}}
     <script type="text/javascript"
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
     </script>
     <!--[if IE]> <script src="/js/excanvas.js"></script> <![endif]-->
-    {{#toys}}
+    {{#tweek_toys}}
       <script type="text/javascript">tweek_toy='{{name}}'</script>
-    {{/toys}}
+    {{/tweek_toys}}
     {{# scripts}}
     <script type="text/javascript" src="/js/{{name}}.js"></script>
     {{/ scripts}}
-
+    {{#styles}}
+    <link rel="stylesheet" href="/css/{{name}}.css" type="text/css">
+    {{/styles}}
   </head>
   <body>
     <div id="header" class="header">
