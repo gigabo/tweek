@@ -42,15 +42,6 @@
       }
       return _a;
     };
-    Controls.prototype.thrust_on = function() {
-      return !this.space;
-    };
-    Controls.prototype.rotate_l = function() {
-      return this.left && !this.game.finishing();
-    };
-    Controls.prototype.rotate_r = function() {
-      return this.right && !this.game.finishing();
-    };
     Controls.prototype.init = function() {
       this.init_map();
       this.listeners = {};

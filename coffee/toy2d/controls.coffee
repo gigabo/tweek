@@ -21,10 +21,6 @@ require.def ['rg/debug'], (Debug) =>
             if @game.running then @game.stop() else @game.start()
       listener() for listener in _(@listeners).values()
 
-    thrust_on: () -> !@space
-    rotate_l: () -> @left and !@game.finishing()
-    rotate_r: () -> @right and !@game.finishing()
-
     init: () ->
       this.init_map()
       @listeners = {}

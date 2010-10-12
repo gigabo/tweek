@@ -35,13 +35,13 @@ require.def [
       shapeDef.SetAsBox(w, h)
       body.w = w
       body.h = h
-      shapeDef.restitution = 1.0
+      shapeDef.restitution = 0.4
       shapeDef.density = 0.01
-      shapeDef.friction = 0.0
+      shapeDef.friction = 0.6
       body.CreateShape(shapeDef)
       body.SetMassFromShapes()
       thrust = 30
-      rand = (Math.random()-.5)
+      rand = .5*(Math.random()-.5)
       lv = rocket.body.GetLinearVelocity()
       t_x = Math.cos(ra+rand)*thrust-lv.x
       t_y = Math.sin(ra+rand)*thrust-lv.y
@@ -62,12 +62,9 @@ require.def [
         ctx.fillStyle = "rgba(255,#{tff},#{tff},#{div})"
         t = body.m_xf
         ctx.translate(t.position.x, t.position.y)
-        ctx.rotate(body.GetAngle())
         mult = 0.4*(5-(4*i/@sparks.length))
-#        ctx.fillRect(-body.w*mult, -body.h*mult, body.w*2*mult, body.h*2*mult)
         ctx.beginPath()
         ctx.arc(0,0,mult,2*Math.PI,false)
-        ctx.rotate(-body.GetAngle())
         ctx.translate(-t.position.x, -t.position.y)
         ctx.closePath()
         ctx.fill()
