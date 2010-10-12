@@ -36,7 +36,7 @@
       body.h = h;
       shapeDef.restitution = 0.4;
       shapeDef.density = 0.01;
-      shapeDef.friction = 0.6;
+      shapeDef.friction = 0.3;
       body.CreateShape(shapeDef);
       body.SetMassFromShapes();
       thrust = 30;
@@ -112,8 +112,8 @@
       l_x = t.position.x - this.length / 2 * Math.cos(a);
       l_y = t.position.y - this.length / 2 * Math.sin(a);
       this.body.ApplyForce(new b2Vec2(t_x, t_y), new b2Vec2(l_x, l_y));
-      this.body.SetAngularVelocity(this.body.GetAngularVelocity() * 0.95);
-      torque = 8;
+      this.body.SetAngularVelocity(this.body.GetAngularVelocity() * 0.925);
+      torque = 10;
       if (this.game.controls.left) {
         this.body.ApplyTorque(torque);
       }

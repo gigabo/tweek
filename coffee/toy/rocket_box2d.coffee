@@ -37,7 +37,7 @@ require.def [
       body.h = h
       shapeDef.restitution = 0.4
       shapeDef.density = 0.01
-      shapeDef.friction = 0.6
+      shapeDef.friction = 0.3
       body.CreateShape(shapeDef)
       body.SetMassFromShapes()
       thrust = 30
@@ -102,8 +102,8 @@ require.def [
       l_x = t.position.x - @length/2*Math.cos(a)
       l_y = t.position.y - @length/2*Math.sin(a)
       @body.ApplyForce(new b2Vec2(t_x,t_y),new b2Vec2(l_x,l_y))
-      @body.SetAngularVelocity(@body.GetAngularVelocity()*0.95)
-      torque = 8
+      @body.SetAngularVelocity(@body.GetAngularVelocity()*0.925)
+      torque = 10
       if @game.controls.left  then @body.ApplyTorque(torque)
       if @game.controls.right then @body.ApplyTorque(-torque)
       @trail.step()
