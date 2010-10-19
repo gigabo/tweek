@@ -17,9 +17,10 @@ def about_this_toy
       {
         :p => <<-EO_P
           I like it!  Unfortunately the performance isn't quite where I need
-          it to be for the rocket game.  I have all kinds of ideas for taking
-          advantage of it.  I want bad guys to shoot bullets at the rocket
-          that knock it off course and send it spinning.  I want the rocket to
+          it to be for the rocket game.  Also, I haven't managed to get it
+          working in Firefox.  I have all kinds of ideas for taking advantage
+          of it, though.  I want bad guys to shoot bullets at the rocket that
+          knock it off course and send it spinning.  I want the rocket to
           blast through walls with bricks flying everywhere.  I want awesome
           explosions!
         EO_P
@@ -40,6 +41,6 @@ def about_this_toy
       { :name => 'Underscore.js', :url =>
         'http://documentcloud.github.com/underscore/'},
       { :name => 'RequireJS', :url => 'http://requirejs.org/'},
-    ]
+    ],
   }
 end

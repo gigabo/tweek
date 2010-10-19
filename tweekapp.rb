@@ -31,6 +31,7 @@ class TweekApp < Sinatra::Base
     @about = Tweek.about(@toy)
     @title = "#{@about ? @about[:title] : @toy}"
     @scripts = ['toy']
+    @about[:code] ||= [{:item => "toy/#{@toy}"}] if @about
     mustache :play
   end
 end

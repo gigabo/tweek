@@ -22,6 +22,6 @@ def about_this_toy
         'http://jashkenas.github.com/coffee-script/' },
       { :name => 'Underscore.js', :url =>
         'http://documentcloud.github.com/underscore/'},
-    ]
+    ],
   }
 end

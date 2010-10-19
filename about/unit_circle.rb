@@ -46,6 +46,9 @@ def about_this_toy
       { :name => 'CoffeeScript', :url =>
         'http://jashkenas.github.com/coffee-script/' },
       { :name => 'RequireJS', :url => 'http://requirejs.org/'},
+    ],
+    :code => [
+      { :item => 'toy/unit_circle' },
     ]
   }
 end

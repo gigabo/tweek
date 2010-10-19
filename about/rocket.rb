@@ -16,6 +16,6 @@ def about_this_toy
       { :name => 'Underscore.js', :url =>
         'http://documentcloud.github.com/underscore/'},
       { :name => 'RequireJS', :url => 'http://requirejs.org/'},
-    ]
+    ],
   }
 end
