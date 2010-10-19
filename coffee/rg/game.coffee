@@ -4,9 +4,10 @@ require.def [
   'rg/graphics',
   'rg/player',
   'rg/transition',
-  'rg/debug'
+  'rg/debug',
+  'toy2d/canvas'
 ],
-(Controls, Performance, Graphics, Player, Transition, Debug) =>
+(Controls, Performance, Graphics, Player, Transition, Debug, Canvas) =>
 
   UNINITIALIZED = -1
   IN_LEVEL = 0
@@ -15,10 +16,11 @@ require.def [
   ADVANCING = 3
 
   class Game
-    constructor: (canvas) ->
+    constructor: () ->
       @running = false
       @state = UNINITIALIZED
       @previous_state = UNINITIALIZED
+      canvas = (new Canvas).jquery()
       @performance = new Performance(this)
       @graphics = new Graphics(this,canvas)
       @controls = new Controls(this)

@@ -2,17 +2,19 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['rg/controls', 'rg/performance', 'rg/graphics', 'rg/player', 'rg/transition', 'rg/debug'], __bind(function(Controls, Performance, Graphics, Player, Transition, Debug) {
+  require.def(['rg/controls', 'rg/performance', 'rg/graphics', 'rg/player', 'rg/transition', 'rg/debug', 'toy2d/canvas'], __bind(function(Controls, Performance, Graphics, Player, Transition, Debug, Canvas) {
     var ADVANCING, FINISHING, Game, IN_LEVEL, TRANSITION, UNINITIALIZED;
     UNINITIALIZED = -1;
     IN_LEVEL = 0;
     FINISHING = 1;
     TRANSITION = 2;
     ADVANCING = 3;
-    Game = function(canvas) {
+    Game = function() {
+      var canvas;
       this.running = false;
       this.state = UNINITIALIZED;
       this.previous_state = UNINITIALIZED;
+      canvas = (new Canvas()).jquery();
       this.performance = new Performance(this);
       this.graphics = new Graphics(this, canvas);
       this.controls = new Controls(this);

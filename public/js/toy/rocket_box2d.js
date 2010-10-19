@@ -2,7 +2,7 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['toy2d/debug', 'toy2d/canvas_scale', 'toy2d/controls', '/js/box2d.js'], __bind(function(Debug, Scale, Controls) {
+  require.def(['toy2d/debug', 'toy2d/canvas', 'toy2d/canvas_scale', 'toy2d/controls', '/js/box2d.js'], __bind(function(Debug, Canvas, CanvasScale, Controls) {
     var Rocket, Toy, Trail;
     Trail = function(_a) {
       this.game = _a;
@@ -134,9 +134,14 @@
       ctx.translate(-t.position.x, -t.position.y);
       return this.trail.draw(graphics);
     };
-    Toy = function(canvas) {
-      var ppm;
-      new Scale(canvas, .8);
+    Toy = function() {
+      var canvas, ppm;
+      if ($.browser.mozilla) {
+        $("#canvas_container").html('Sorry, this toy doesn\'t work in Firefox. Not sure why. :(');
+        return null;
+      }
+      canvas = (new Canvas()).jquery();
+      new CanvasScale(canvas, .8);
       this.canvas = canvas[0];
       this.ctx = this.canvas.getContext('2d');
       this.width = 100.0;

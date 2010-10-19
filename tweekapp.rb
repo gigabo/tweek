@@ -1,9 +1,6 @@
 require 'rubygems'
 require 'sinatra/base'
-require 'tweetdates'
-require 'punchcard'
 require 'mustache/sinatra'
-require 'coffee-script'
 require 'json'
 require 'tweek'
 require 'tweek/api'
@@ -24,34 +21,16 @@ class TweekApp < Sinatra::Base
     Tweek::API.response(params).to_json
   end
 
-  get '/punch' do
-    params[:handle] ||= 'gigabo'
-    redirect "/punch/#{params[:handle]}"
-  end
+  # Legacy
+  get '/play/*' do redirect "/#{params[:splat].join('/')}" end
+  get '/toy/*'  do redirect "/#{params[:splat].join('/')}" end
 
-  get '/punch/:handle' do
-    @handle = params[:handle]
-    @title = "Punch Card"
-    @scripts = ['punch']
-    @about = Tweek.about('punch')
-    mustache :punchcard
-  end
-
-  get '/play/:script' do
-    @toy = params[:script]
-    @title = "Play (#{@toy})"
+  # This is the main bit
+  get '/*' do
+    @toy = params[:splat][0].split(/\//)[0]
     @about = Tweek.about(@toy)
-    @scripts = [@toy]
-    mustache :play
-  end
-
-  get '/toys/:script' do
-    @toy = params[:script]
-    @about = Tweek.about(@toy)
-    @title = "Toy: #{@about ? @about[:title] : @toy}"
+    @title = "#{@about ? @about[:title] : @toy}"
     @scripts = ['toy']
     mustache :play
   end
-
-  get '/*' do mustache :coming_soon end
 end

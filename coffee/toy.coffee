@@ -1,2 +1,2 @@
-if t = tweek_toy
-  $(document).ready () => require ["toy/#{t}"], (T) => new T $("#play_canvas")
+if tweek_toy
+  $(document).ready () => require ["toy/#{tweek_toy}"], (T) => new T

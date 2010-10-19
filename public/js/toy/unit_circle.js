@@ -2,11 +2,13 @@
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
-  require.def(['toy2d/debug', 'toy2d/canvas_scale'], __bind(function(Debug, Scale) {
+  require.def(['toy2d/debug', 'toy2d/canvas', 'toy2d/canvas_scale'], __bind(function(Debug, Canvas, CanvasScale) {
     var PI, Toy;
     PI = Math.PI;
-    Toy = function(canvas) {
-      new Scale(canvas, .8);
+    Toy = function() {
+      var canvas;
+      canvas = (new Canvas()).jquery();
+      new CanvasScale(canvas, .8);
       this.canvas = canvas[0];
       this.degree = 0;
       this.init_canvas(5.0);

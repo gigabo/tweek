@@ -30,6 +30,7 @@ def about_this_toy
     ],
     :tools => [
       { :name => 'Twitter API', :url => 'http://dev.twitter.com/'},
+      { :name => 'mustache.js', :url => 'http://github.com/janl/mustache.js'},
       { :name => 'CoffeeScript', :url =>
         'http://jashkenas.github.com/coffee-script/' },
       { :name => 'Underscore.js', :url =>

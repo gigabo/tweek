@@ -11,7 +11,8 @@ body {
   width: 100%;
   text-align: right;
   margin: 0px;
-  padding: 0px; }
+  padding: 0px;
+  z-index: 0; }
   .header a {
     color: #1c1c17; }
   .header ol {

@@ -3,11 +3,11 @@ class TweekApp
     class Index < Layout
       def toys
         [
-          { :name => 'Box2D Rocket', :link => '/toys/rocket_box2d' },
-          { :name => 'Unit Circle', :link => '/toys/unit_circle' },
-          { :name => 'Pasta Box', :link => '/toys/pasta' },
-          { :name => 'Rocket Game', :link => '/play/rocket' },
-          { :name => 'Hanoi', :link => '/play/hanoi' },
+          { :name => 'Box2D Rocket', :link => '/rocket_box2d' },
+          { :name => 'Unit Circle', :link => '/unit_circle' },
+          { :name => 'Pasta Box', :link => '/pasta' },
+          { :name => 'Rocket Game', :link => '/rocket' },
+          { :name => 'Hanoi', :link => '/hanoi' },
           { :name => 'Twitter Punch Card', :link => '/punch' },
         ]
       end

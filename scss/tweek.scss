@@ -29,6 +29,7 @@ body {
   text-align: right;
   margin: 0px;
   padding: 0px;
+  z-index: 0;
 
   & a {
     color: $text_color;

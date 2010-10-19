@@ -1,10 +1,11 @@
 require.def [
   'toy2d/debug',
+  'toy2d/canvas',
   'toy2d/canvas_scale',
   'toy2d/controls',
   '/js/box2d.js',
 ],
-(Debug, Scale, Controls) =>
+(Debug, Canvas, CanvasScale, Controls) =>
 
   class Trail
     constructor: (@game) ->
@@ -121,8 +122,14 @@ require.def [
 
 
   class Toy
-    constructor: (canvas) ->
-      new Scale(canvas, .8)
+    constructor: () ->
+      if $.browser.mozilla
+        $("#canvas_container").html '''
+          Sorry, this toy doesn't work in Firefox. Not sure why. :(
+        '''
+        return
+      canvas = (new Canvas).jquery()
+      new CanvasScale(canvas, .8)
       @canvas = canvas[0]
       @ctx = @canvas.getContext('2d')
       @width = 100.0
