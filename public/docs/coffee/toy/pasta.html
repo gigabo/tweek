@@ -1,0 +1,108 @@
+<!DOCTYPE html>  <html> <head>   <title>pasta.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="hanoi.html">                 hanoi.coffee               </a>                                           <a class="source" href="pasta.html">                 pasta.coffee               </a>                                           <a class="source" href="punch.html">                 punch.coffee               </a>                                           <a class="source" href="rocket.html">                 rocket.coffee               </a>                                           <a class="source" href="rocket_box2d.html">                 rocket_box2d.coffee               </a>                                           <a class="source" href="unit_circle.html">                 unit_circle.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               pasta.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span>
+  <span class="s1">&#39;toy2d/debug&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;toy2d/canvas&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;toy2d/canvas_scale&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;/js/box2d.js&#39;</span><span class="p">,</span>
+<span class="p">],</span>
+<span class="p">(</span><span class="nx">Debug</span><span class="p">,</span> <span class="nx">Canvas</span><span class="p">,</span> <span class="nx">CanvasScale</span><span class="p">)</span> <span class="o">=&gt;</span>
+
+  <span class="k">class</span> <span class="nx">Toy</span>
+    <span class="nv">constructor: </span><span class="nf">() -&gt;</span>
+      <span class="nv">canvas = </span><span class="p">(</span><span class="k">new</span> <span class="nx">Canvas</span><span class="p">).</span><span class="nx">jquery</span><span class="p">()</span>
+      <span class="k">new</span> <span class="nx">CanvasScale</span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span> <span class="p">.</span><span class="mi">8</span><span class="p">)</span>
+      <span class="vi">@canvas = </span><span class="nx">canvas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="vi">@ctx = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;2d&#39;</span><span class="p">)</span>
+      <span class="vi">@width = </span><span class="mf">40.0</span>
+      <span class="nv">ppm = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">width</span><span class="o">/</span><span class="nx">@width</span>
+      <span class="vi">@height = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">height</span><span class="o">/</span><span class="nx">ppm</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">setTransform</span><span class="p">(</span><span class="nx">ppm</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="nx">ppm</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
+      <span class="vi">@tick = </span><span class="mi">0</span>
+      <span class="vi">@bodies = </span><span class="p">[]</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_world</span><span class="p">()</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_walls</span><span class="p">()</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
+
+    <span class="nv">start: </span><span class="nf">() -&gt;</span>
+      <span class="k">if</span> <span class="o">!</span><span class="nx">@running</span>
+        <span class="vi">@main_interval = </span><span class="nx">setInterval</span> <span class="p">()</span> <span class="o">=&gt;</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
+        <span class="p">,</span> <span class="mi">20</span>
+        <span class="vi">@running = </span><span class="kc">true</span>
+
+    <span class="nv">step: </span><span class="nf">() -&gt;</span>
+        <span class="k">if</span> <span class="nx">@bodies</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">200</span> <span class="o">and</span> <span class="o">++</span><span class="nx">@tick</span> <span class="o">==</span> <span class="mi">10</span>
+          <span class="vi">@tick = </span><span class="mi">0</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">spawn_random_box</span><span class="p">()</span>
+
+        <span class="nx">@world</span><span class="p">.</span><span class="nx">Step</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">60.0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">draw_bodies</span><span class="p">()</span>
+
+    <span class="nv">draw_bodies: </span><span class="nf">() -&gt;</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
+      <span class="k">for</span> <span class="nx">body</span> <span class="k">in</span> <span class="nx">@bodies</span>
+        <span class="vi">@ctx.fillStyle = </span><span class="nx">body</span><span class="p">.</span><span class="nx">color</span> <span class="o">||</span> <span class="s1">&#39;black&#39;</span>
+        <span class="nv">t = </span><span class="nx">body</span><span class="p">.</span><span class="nx">m_xf</span>
+        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
+        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">rotate</span><span class="p">(</span><span class="nx">body</span><span class="p">.</span><span class="nx">GetAngle</span><span class="p">())</span>
+        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="o">-</span><span class="nx">body</span><span class="p">.</span><span class="nx">w</span><span class="p">,</span> <span class="o">-</span><span class="nx">body</span><span class="p">.</span><span class="nx">h</span><span class="p">,</span> <span class="nx">body</span><span class="p">.</span><span class="nx">w</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="nx">body</span><span class="p">.</span><span class="nx">h</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">rotate</span><span class="p">(</span><span class="o">-</span><span class="nx">body</span><span class="p">.</span><span class="nx">GetAngle</span><span class="p">())</span>
+        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="o">-</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="o">-</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
+
+
+
+    <span class="nv">init_world: </span><span class="nf">() -&gt;</span>
+      <span class="nv">worldAABB = </span><span class="k">new</span> <span class="nx">b2AABB</span><span class="p">()</span>
+      <span class="nx">worldAABB</span><span class="p">.</span><span class="nx">lowerBound</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="o">-</span><span class="mf">10000.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">10000.0</span><span class="p">)</span>
+      <span class="nx">worldAABB</span><span class="p">.</span><span class="nx">upperBound</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="mf">10000.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">)</span>
+      <span class="nv">gravity = </span><span class="k">new</span> <span class="nx">b2Vec2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.8</span><span class="p">)</span>
+      <span class="vi">@world = </span><span class="k">new</span> <span class="nx">b2World</span><span class="p">(</span><span class="nx">worldAABB</span><span class="p">,</span> <span class="nx">gravity</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+    <span class="nv">init_walls: </span><span class="nf">() -&gt;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="nx">@width</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="nx">@height</span><span class="p">)</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="nx">@height</span><span class="p">)</span>
+
+    <span class="nv">init_static: </span><span class="nf">(x, y, w, h) -&gt;</span>
+      <span class="nv">groundBodyDef = </span><span class="k">new</span> <span class="nx">b2BodyDef</span><span class="p">()</span>
+      <span class="nx">groundBodyDef</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
+      <span class="nv">body = </span><span class="nx">@world</span><span class="p">.</span><span class="nx">CreateBody</span><span class="p">(</span><span class="nx">groundBodyDef</span><span class="p">)</span>
+      <span class="nv">groundShapeDef = </span><span class="k">new</span> <span class="nx">b2PolygonDef</span><span class="p">()</span>
+      <span class="nv">groundShapeDef.restitution = </span><span class="mf">0.0</span>
+      <span class="nv">groundShapeDef.friction = </span><span class="mf">0.5</span>
+      <span class="nv">groundShapeDef.density = </span><span class="mf">1.0</span>
+      <span class="nv">body.w = </span><span class="nx">w</span>
+      <span class="nv">body.h = </span><span class="nx">h</span>
+      <span class="nx">groundShapeDef</span><span class="p">.</span><span class="nx">SetAsBox</span><span class="p">(</span><span class="nx">body</span><span class="p">.</span><span class="nx">w</span><span class="p">,</span> <span class="nx">body</span><span class="p">.</span><span class="nx">h</span><span class="p">)</span>
+      <span class="nx">body</span><span class="p">.</span><span class="nx">CreateShape</span><span class="p">(</span><span class="nx">groundShapeDef</span><span class="p">)</span>
+      <span class="nx">body</span><span class="p">.</span><span class="nx">SynchronizeShapes</span><span class="p">()</span>
+      <span class="nx">@bodies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
+      <span class="nx">body</span>
+
+    <span class="nv">spawn_random_box: </span><span class="nf">() -&gt;</span>
+      <span class="nv">x = </span><span class="mi">5</span><span class="o">+</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="nx">@width</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+      <span class="nv">y = </span><span class="nx">@height</span> <span class="o">+</span> <span class="mf">10.0</span>
+      <span class="nv">w = </span><span class="mf">0.1</span>
+      <span class="nv">h = </span><span class="mf">2.0</span><span class="o">+</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mf">5.5</span>
+      <span class="nv">a = </span><span class="mf">2.0</span><span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mf">4.0</span>
+      <span class="nv">bodyDef = </span><span class="k">new</span> <span class="nx">b2BodyDef</span><span class="p">()</span>
+      <span class="nx">bodyDef</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
+      <span class="nv">body = </span><span class="nx">@world</span><span class="p">.</span><span class="nx">CreateBody</span><span class="p">(</span><span class="nx">bodyDef</span><span class="p">)</span>
+      <span class="nv">shapeDef = </span><span class="k">new</span> <span class="nx">b2PolygonDef</span><span class="p">()</span>
+      <span class="nx">shapeDef</span><span class="p">.</span><span class="nx">SetAsBox</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
+      <span class="nv">body.w = </span><span class="nx">w</span>
+      <span class="nv">body.h = </span><span class="nx">h</span>
+      <span class="nv">shapeDef.restitution = </span><span class="mf">0.4</span>
+      <span class="nv">shapeDef.density = </span><span class="mf">1.0</span>
+      <span class="nv">shapeDef.friction = </span><span class="mf">0.5</span>
+      <span class="nx">body</span><span class="p">.</span><span class="nx">CreateShape</span><span class="p">(</span><span class="nx">shapeDef</span><span class="p">)</span>
+      <span class="nx">body</span><span class="p">.</span><span class="nx">SetMassFromShapes</span><span class="p">()</span>
+      <span class="nx">body</span><span class="p">.</span><span class="nx">SetAngularVelocity</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+      <span class="nv">base = </span><span class="mi">20</span>
+      <span class="nv">r = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="nx">base</span>
+      <span class="nv">g = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="nx">base</span>
+      <span class="nv">b = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="nx">base</span>
+      <span class="nv">body.color = </span><span class="s2">&quot;rgba(#{r}, #{g}, #{b}, 1.0)&quot;</span>
+      <span class="nx">@bodies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 

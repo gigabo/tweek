@@ -1,0 +1,201 @@
+<!DOCTYPE html>  <html> <head>   <title>punch.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="hanoi.html">                 hanoi.coffee               </a>                                           <a class="source" href="pasta.html">                 pasta.coffee               </a>                                           <a class="source" href="punch.html">                 punch.coffee               </a>                                           <a class="source" href="rocket.html">                 rocket.coffee               </a>                                           <a class="source" href="rocket_box2d.html">                 rocket_box2d.coffee               </a>                                           <a class="source" href="unit_circle.html">                 unit_circle.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               punch.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span>
+  <span class="s1">&#39;toy2d/debug&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;toy2d/canvas&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;toy2d/canvas_scale&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;/js/mustache.js&#39;</span>
+<span class="p">],</span> <span class="p">(</span><span class="nx">Debug</span><span class="p">,</span> <span class="nx">Canvas</span><span class="p">,</span> <span class="nx">CanvasScale</span><span class="p">)</span> <span class="o">=&gt;</span>
+  <span class="nv">WIDTH           = </span><span class="kc">undefined</span>
+  <span class="nv">HEIGHT          = </span><span class="kc">undefined</span>
+
+  <span class="k">class</span> <span class="nx">Halo</span>
+    <span class="nv">constructor: </span><span class="nf">(@x, @y, @r, @ttl) -&gt;</span>
+
+  <span class="k">class</span> <span class="nx">PunchCard</span>
+    <span class="nv">constructor: </span><span class="nf">() -&gt;</span>
+      <span class="vi">@day_label = </span><span class="p">[</span> <span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="s1">&#39;Mon&#39;</span><span class="p">,</span> <span class="s1">&#39;Tue&#39;</span><span class="p">,</span> <span class="s1">&#39;Wed&#39;</span><span class="p">,</span> <span class="s1">&#39;Thu&#39;</span><span class="p">,</span> <span class="s1">&#39;Fri&#39;</span><span class="p">,</span> <span class="s1">&#39;Sat&#39;</span> <span class="p">]</span>
+      <span class="vi">@hour_label = </span><span class="p">[</span>
+        <span class="s1">&#39;12am&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span>
+        <span class="s1">&#39;12pm&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span>
+      <span class="p">]</span>
+
+      <span class="vi">@canvas = </span><span class="p">(</span><span class="k">new</span> <span class="nx">Canvas</span><span class="p">(</span><span class="mi">1600</span><span class="p">)).</span><span class="nx">jquery</span><span class="p">()</span>
+      <span class="nv">WIDTH = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span>
+      <span class="nv">HEIGHT = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">()</span>
+
+      <span class="k">new</span> <span class="nx">CanvasScale</span><span class="p">(</span><span class="nx">@canvas</span><span class="p">)</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_user</span><span class="p">()</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_handle_input</span><span class="p">()</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_greeting</span><span class="p">()</span>
+
+      <span class="vi">@max_encountered = </span><span class="mi">0</span>
+      <span class="vi">@halos           = </span><span class="p">[]</span>
+      <span class="vi">@halo_life       = </span><span class="mi">14</span>
+      <span class="vi">@ctx             = </span><span class="nx">@canvas</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">)</span>
+
+      <span class="vi">@is_ipad_3 = </span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/iPad[^\)]+OS 3/i</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">null</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">draw_grid</span><span class="p">()</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">draw_key</span><span class="p">()</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">api_go</span><span class="p">()</span>
+
+    <span class="nv">api_go: </span><span class="nf">() -&gt;</span>
+      <span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span> <span class="s2">&quot;/api/json/punch/#{@user}&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">draw_punchcard</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+
+    <span class="nv">draw_punchcard: </span><span class="nf">(data) -&gt;</span>
+      <span class="vi">@dates = </span><span class="nx">data</span><span class="p">.</span><span class="nx">dates</span>
+      <span class="vi">@frame = </span><span class="mi">0</span>
+
+      <span class="vi">@grid = </span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span> <span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="nx">_</span><span class="p">.</span><span class="nx">map</span> <span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="o">=&gt;</span>
+          <span class="mi">0</span>
+
+      <span class="vi">@main_interval = </span><span class="nx">setInterval</span><span class="p">((()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">step</span><span class="p">()),</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="nv">clear: </span><span class="nf">() -&gt;</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">WIDTH</span><span class="p">,</span> <span class="nx">HEIGHT</span><span class="p">)</span>
+
+    <span class="nv">draw: </span><span class="nf">() -&gt;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">clear</span><span class="p">()</span>
+
+      <span class="nv">i = </span><span class="mi">0</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">draw_grid</span><span class="p">()</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">draw_key</span><span class="p">()</span>
+      <span class="k">while</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">@grid</span><span class="p">.</span><span class="nx">length</span>
+        <span class="nv">j = </span><span class="mi">0</span>
+        <span class="k">while</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">@grid</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">length</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">circle</span><span class="p">(</span><span class="nx">j</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">@grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">])</span>
+          <span class="nx">j</span><span class="o">++</span>
+        <span class="nx">i</span><span class="o">++</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">draw_halos</span><span class="p">()</span>
+
+    <span class="nv">draw_halos: </span><span class="nf">() -&gt;</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">@halos</span><span class="p">,</span> <span class="p">(</span><span class="nx">h</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="nv">a = </span><span class="nx">h</span><span class="p">.</span><span class="nx">ttl</span> <span class="o">/</span> <span class="nx">@halo_life</span>
+        <span class="vi">@ctx.strokeStyle = </span><span class="s2">&quot;rgba(0, 0, 0, #{a})&quot;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">circle</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">r</span> <span class="o">+</span> <span class="p">(</span><span class="nx">@halo_life</span> <span class="o">-</span> <span class="nx">h</span><span class="p">.</span><span class="nx">ttl</span><span class="p">)</span><span class="o">*</span><span class="p">.</span><span class="mi">6</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+        <span class="nx">h</span><span class="p">.</span><span class="nx">ttl</span><span class="o">--</span>
+
+      <span class="k">while</span> <span class="nx">@halos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span><span class="p">.</span><span class="nx">ttl</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="nx">@halos</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+
+    <span class="nv">new_halo: </span><span class="nf">(x, y, r) -&gt;</span>
+      <span class="nx">@halos</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Halo</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">@halo_life</span><span class="p">))</span>
+
+    <span class="nv">draw_grid: </span><span class="nf">() -&gt;</span>
+      <span class="vi">@ctx.strokeStyle = </span><span class="s2">&quot;rgba(0, 0, 0, 1)&quot;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">line</span><span class="p">(.</span><span class="mi">25</span><span class="p">,</span><span class="mi">0</span><span class="p">,.</span><span class="mi">25</span><span class="p">,</span><span class="mf">6.75</span><span class="p">)</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">line</span><span class="p">(.</span><span class="mi">25</span><span class="p">,</span><span class="mf">6.75</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mf">6.75</span><span class="p">)</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">line</span><span class="p">(.</span><span class="mi">15</span><span class="p">,</span><span class="nx">i</span><span class="p">,.</span><span class="mi">25</span><span class="p">,</span><span class="nx">i</span><span class="p">)</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">line</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mf">6.75</span><span class="p">,</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mf">6.85</span><span class="p">)</span>
+
+    <span class="nv">draw_key: </span><span class="nf">() -&gt;</span>
+      <span class="vi">@ctx.font         = </span><span class="s2">&quot;14pt Verdana&quot;</span>
+      <span class="vi">@ctx.textAlign    = </span><span class="s2">&quot;right&quot;</span>
+      <span class="vi">@ctx.textBaseline = </span><span class="s2">&quot;middle&quot;</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;#{@day_label[i]}&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+      <span class="vi">@ctx.textAlign    = </span><span class="s2">&quot;center&quot;</span>
+      <span class="vi">@ctx.textBaseline = </span><span class="s2">&quot;top&quot;</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">_</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;#{@hour_label[i]}&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+
+    <span class="nv">grid_x: </span><span class="nf">(x) -&gt;</span> <span class="nx">WIDTH</span><span class="o">/</span><span class="mi">26</span><span class="o">*</span><span class="p">(</span><span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="nv">grid_y: </span><span class="nf">(y) -&gt;</span> <span class="nx">HEIGHT</span><span class="o">/</span><span class="mi">9</span><span class="o">*</span><span class="p">(</span><span class="nx">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="nv">line: </span><span class="nf">(x1, y1, x2, y2) -&gt;</span>
+      <span class="nv">x1 = </span><span class="k">this</span><span class="p">.</span><span class="nx">grid_x</span><span class="p">(</span><span class="nx">x1</span><span class="p">)</span>
+      <span class="nv">y1 = </span><span class="k">this</span><span class="p">.</span><span class="nx">grid_y</span><span class="p">(</span><span class="nx">y1</span><span class="p">)</span>
+      <span class="nv">x2 = </span><span class="k">this</span><span class="p">.</span><span class="nx">grid_x</span><span class="p">(</span><span class="nx">x2</span><span class="p">)</span>
+      <span class="nv">y2 = </span><span class="k">this</span><span class="p">.</span><span class="nx">grid_y</span><span class="p">(</span><span class="nx">y2</span><span class="p">)</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">()</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nx">y1</span><span class="p">)</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x2</span><span class="p">,</span> <span class="nx">y2</span><span class="p">)</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">()</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">()</span>
+
+    <span class="nv">text: </span><span class="nf">(text, x, y) -&gt;</span>
+      <span class="nv">x = </span><span class="k">this</span><span class="p">.</span><span class="nx">grid_x</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+      <span class="nv">y = </span><span class="k">this</span><span class="p">.</span><span class="nx">grid_y</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>fillText seems to be broken on the iPad OS 3</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">fillText</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="nx">unless</span> <span class="nx">@is_ipad_3</span>
+
+    <span class="nv">circle: </span><span class="nf">(x,y,r,fill) -&gt;</span>
+      <span class="nv">fill = </span><span class="kc">true</span> <span class="k">if</span> <span class="nx">fill</span> <span class="o">==</span> <span class="kc">undefined</span>
+
+      <span class="nv">max_circle = </span><span class="p">(</span><span class="nx">WIDTH</span> <span class="sr">/ 25 /</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+      <span class="nv">cur_mult = </span><span class="nx">max_circle</span> <span class="o">/</span> <span class="nx">@max_encountered</span> <span class="o">*</span> <span class="mi">2</span>
+      <span class="nv">cur_mult = </span><span class="mi">2</span> <span class="k">if</span> <span class="nx">@max_encountered</span> <span class="o">&lt;</span> <span class="nx">max_circle</span>
+
+      <span class="nv">x = </span><span class="k">this</span><span class="p">.</span><span class="nx">grid_x</span><span class="p">(</span><span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+      <span class="nv">y = </span><span class="k">this</span><span class="p">.</span><span class="nx">grid_y</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span>
+      <span class="nv">r = </span><span class="nx">r</span> <span class="o">*</span> <span class="nx">cur_mult</span>
+
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">()</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">()</span>
+      <span class="k">if</span> <span class="nx">fill</span>
+        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">()</span>
+      <span class="k">else</span>
+        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">()</span>
+
+    <span class="nv">step: </span><span class="nf">() -&gt;</span>
+      <span class="k">if</span> <span class="nx">@frame</span> <span class="o">&lt;</span> <span class="nx">@dates</span><span class="p">.</span><span class="nx">length</span>
+        <span class="nv">wday = </span><span class="nx">@dates</span><span class="p">[</span><span class="nx">@frame</span><span class="p">].</span><span class="nx">wday</span>
+        <span class="nv">hour = </span><span class="nx">@dates</span><span class="p">[</span><span class="nx">@frame</span><span class="p">].</span><span class="nx">hour</span>
+        <span class="nx">@grid</span><span class="p">[</span><span class="nx">wday</span><span class="p">][</span><span class="nx">hour</span><span class="p">]</span><span class="o">++</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">new_halo</span><span class="p">(</span><span class="nx">hour</span><span class="p">,</span> <span class="nx">wday</span><span class="p">,</span> <span class="nx">@grid</span><span class="p">[</span><span class="nx">wday</span><span class="p">][</span><span class="nx">hour</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nx">@grid</span><span class="p">[</span><span class="nx">wday</span><span class="p">][</span><span class="nx">hour</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">@max_encountered</span>
+          <span class="vi">@max_encountered = </span><span class="nx">@grid</span><span class="p">[</span><span class="nx">wday</span><span class="p">][</span><span class="nx">hour</span><span class="p">]</span>
+        <span class="nx">@frame</span><span class="o">++</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="nx">@halos</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">@main_interval</span><span class="p">)</span>
+
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">draw</span><span class="p">()</span>
+
+    <span class="nv">init_user: </span><span class="nf">() -&gt;</span>
+      <span class="vi">@user = </span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span> <span class="o">||</span> <span class="s1">&#39;gigabo&#39;</span>
+
+    <span class="nv">init_greeting: </span><span class="nf">() -&gt;</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#title&quot;</span><span class="p">).</span><span class="nx">html</span> <span class="nx">Mustache</span><span class="p">.</span><span class="nx">to_html</span> <span class="sh">&#39;&#39;&#39;</span>
+<span class="sh">        &lt;a id=&quot;twit_link&quot; href=&quot;http://twitter.com/{{user}}&quot;&gt;@{{user}}&lt;/a&gt;&#39;s</span>
+<span class="sh">        &lt;span class=&quot;unit&quot;&gt;Punch Card&lt;/span&gt;</span>
+<span class="sh">      &#39;&#39;&#39;</span><span class="p">,</span> <span class="k">this</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#twit_link&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span> <span class="s1">&#39;relative&#39;</span><span class="p">)</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#twit_link&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;z-index&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="nv">init_handle_input: </span><span class="nf">() -&gt;</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#controls&quot;</span><span class="p">).</span><span class="nx">append</span> <span class="nx">Mustache</span><span class="p">.</span><span class="nx">to_html</span> <span class="sh">&#39;&#39;&#39;</span>
+<span class="sh">        &lt;form id=&quot;punch_form&quot; action=&quot;/punch&quot;&gt;</span>
+<span class="sh">          &lt;input type=&quot;text&quot; name=&quot;handle&quot; id=&quot;handle_input&quot;</span>
+<span class="sh">                 value=&quot;{{user}}&quot; spellcheck=false&gt;</span>
+<span class="sh">          &lt;input type=&quot;submit&quot; name=&quot;punch&quot; id=&quot;punch_input&quot;</span>
+<span class="sh">                 class=&quot;input_button&quot; value=&quot;Punch&quot;&gt;</span>
+<span class="sh">        &lt;/form&gt;</span>
+<span class="sh">        &#39;&#39;&#39;</span><span class="p">,</span> <span class="k">this</span>
+
+      <span class="nv">hi = </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#handle_input&quot;</span><span class="p">)</span>
+
+      <span class="vi">@user = </span><span class="nx">hi</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span>
+
+      <span class="nx">hi</span><span class="p">.</span><span class="nx">focus</span> <span class="p">()</span> <span class="o">=&gt;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">hi</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span> <span class="o">==</span> <span class="nx">@user</span><span class="p">)</span>
+          <span class="nx">hi</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+      <span class="nx">hi</span><span class="p">.</span><span class="nx">focusout</span> <span class="p">()</span> <span class="o">=&gt;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">hi</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+          <span class="nx">hi</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="nx">@user</span><span class="p">)</span>
+
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#punch_form&quot;</span><span class="p">).</span><span class="nx">submit</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+        <span class="nv">loc = </span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span>
+        <span class="nv">new_user = </span><span class="nx">hi</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span>
+        <span class="nv">new_loc = </span><span class="s2">&quot;#{loc.protocol}//#{loc.host}/punch/#{new_user}&quot;</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">new_loc</span><span class="p">)</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 

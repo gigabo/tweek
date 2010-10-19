@@ -1,0 +1,103 @@
+<!DOCTYPE html>  <html> <head>   <title>level.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="banner.html">                 banner.coffee               </a>                                           <a class="source" href="barrier.html">                 barrier.coffee               </a>                                           <a class="source" href="controls.html">                 controls.coffee               </a>                                           <a class="source" href="debug.html">                 debug.coffee               </a>                                           <a class="source" href="dialog.html">                 dialog.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="goal.html">                 goal.coffee               </a>                                           <a class="source" href="graphics.html">                 graphics.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                                           <a class="source" href="performance.html">                 performance.coffee               </a>                                           <a class="source" href="player.html">                 player.coffee               </a>                                           <a class="source" href="rocket.html">                 rocket.coffee               </a>                                           <a class="source" href="score.html">                 score.coffee               </a>                                           <a class="source" href="score_finish.html">                 score_finish.coffee               </a>                                           <a class="source" href="score_loops.html">                 score_loops.coffee               </a>                                           <a class="source" href="score_manager.html">                 score_manager.coffee               </a>                                           <a class="source" href="score_time.html">                 score_time.coffee               </a>                                           <a class="source" href="score_total.html">                 score_total.coffee               </a>                                           <a class="source" href="space_circle.html">                 space_circle.coffee               </a>                                           <a class="source" href="trail.html">                 trail.coffee               </a>                                           <a class="source" href="transition.html">                 transition.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               level.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span>
+  <span class="s1">&#39;rg/rocket&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;rg/banner&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;rg/goal&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;rg/barrier&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;rg/score_manager&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;rg/score&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;rg/debug&#39;</span>
+<span class="p">],</span> <span class="p">(</span><span class="nx">Rocket</span><span class="p">,</span> <span class="nx">Banner</span><span class="p">,</span> <span class="nx">Goal</span><span class="p">,</span> <span class="nx">Barrier</span><span class="p">,</span> <span class="nx">ScoreManager</span><span class="p">,</span> <span class="nx">Score</span><span class="p">,</span> <span class="nx">Debug</span><span class="p">)</span> <span class="o">=&gt;</span>
+  <span class="k">class</span> <span class="nx">Level</span>
+    <span class="nv">constructor: </span><span class="nf">(@game) -&gt;</span>
+      <span class="vi">@start_x = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span>
+      <span class="vi">@start_y = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">height</span>
+      <span class="vi">@goals   = </span><span class="p">[]</span>
+      <span class="vi">@barriers = </span><span class="p">[]</span>
+      <span class="vi">@objects = </span><span class="p">[]</span>
+      <span class="vi">@scores = </span><span class="p">[]</span>
+      <span class="vi">@messages = </span><span class="p">[]</span>
+      <span class="vi">@score_manager = </span><span class="k">new</span> <span class="nx">ScoreManager</span><span class="p">(</span><span class="nx">@game</span><span class="p">)</span>
+      <span class="vi">@success_message = </span><span class="s2">&quot;Success!&quot;</span>
+      <span class="vi">@done = </span><span class="kc">true</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
+      <span class="nx">@messages</span><span class="p">.</span><span class="nx">unshift</span> <span class="nx">@title</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_protagonist</span><span class="p">()</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">init_scores</span><span class="p">()</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">set_message</span><span class="p">()</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">bundle_objects</span><span class="p">()</span>
+
+    <span class="nv">starting_position: </span><span class="nf">() -&gt;</span> <span class="p">[</span> <span class="nx">@start_x</span><span class="p">,</span> <span class="nx">@start_y</span> <span class="p">]</span>
+
+    <span class="nv">init_protagonist: </span><span class="nf">() -&gt;</span>
+      <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">starting_position</span><span class="p">()</span>
+      <span class="vi">@protagonist = </span><span class="k">new</span> <span class="nx">Rocket</span><span class="p">(</span><span class="nx">@game</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
+
+    <span class="nv">set_message: </span><span class="nf">() -&gt;</span>
+      <span class="k">if</span> <span class="nx">@messages</span> <span class="o">and</span> <span class="nx">@messages</span><span class="p">.</span><span class="nx">length</span>
+        <span class="vi">@message_banner = </span><span class="k">new</span> <span class="nx">Banner</span><span class="p">(</span><span class="nx">@game</span><span class="p">,</span> <span class="nx">@messages</span><span class="p">.</span><span class="nx">shift</span><span class="p">())</span>
+        <span class="nx">@message_banner</span><span class="p">.</span><span class="nx">fade</span><span class="p">()</span>
+      <span class="k">else</span>
+        <span class="vi">@message_banner = </span><span class="kc">undefined</span>
+
+    <span class="nv">bundle_objects: </span><span class="nf">() -&gt;</span>
+      <span class="k">for</span> <span class="nx">collection</span> <span class="k">in</span> <span class="p">[</span> <span class="nx">@goals</span><span class="p">,</span> <span class="nx">@barriers</span><span class="p">,</span> <span class="nx">@scores</span><span class="p">,</span> <span class="p">[</span><span class="nx">@protagonist</span><span class="p">]</span> <span class="p">]</span>
+        <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">collection</span>
+          <span class="nx">@objects</span><span class="p">.</span><span class="nx">push</span> <span class="nx">item</span>
+
+    <span class="nv">init_scores: </span><span class="nf">() -&gt;</span>
+      <span class="nx">@score_manager</span><span class="p">.</span><span class="nx">reset</span><span class="p">()</span>
+      <span class="k">return</span> <span class="k">if</span> <span class="nx">@no_score</span>
+      <span class="k">for</span> <span class="nx">type</span> <span class="k">in</span> <span class="nx">@score_manager</span><span class="p">.</span><span class="nx">types</span><span class="p">()</span>
+        <span class="nv">score = </span><span class="k">this</span><span class="p">.</span><span class="nx">add_score</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span>
+
+    <span class="nv">add_goal: </span><span class="nf">(x, y, r) -&gt;</span> <span class="nv">i = </span><span class="k">new</span> <span class="nx">Goal</span><span class="p">(</span><span class="nx">@game</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">r</span><span class="p">);</span> <span class="nx">@goals</span><span class="p">.</span><span class="nx">push</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span>
+    <span class="nv">add_barrier: </span><span class="nf">(x, y, r) -&gt;</span> <span class="nv">i = </span><span class="k">new</span> <span class="nx">Barrier</span><span class="p">(</span><span class="nx">@game</span><span class="p">,</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">,</span><span class="nx">r</span><span class="p">);</span><span class="nx">@barriers</span><span class="p">.</span><span class="nx">push</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span>
+    <span class="nv">add_score: </span><span class="nf">(type) -&gt;</span>
+      <span class="nv">i = </span><span class="k">new</span> <span class="nx">Score</span><span class="p">(</span><span class="nx">@game</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span>
+      <span class="nx">@scores</span><span class="p">.</span><span class="nx">push</span> <span class="nx">i</span>
+      <span class="k">if</span> <span class="k">this</span><span class="p">.</span><span class="nx">highlight_score</span> <span class="o">and</span> <span class="k">this</span><span class="p">.</span><span class="nx">highlight_score</span> <span class="o">==</span> <span class="nx">type</span>
+        <span class="nv">i.highlight = </span><span class="kc">true</span>
+      <span class="nx">i</span>
+
+
+    <span class="nv">step: </span><span class="nf">() -&gt;</span>
+      <span class="k">for</span> <span class="nx">obj</span> <span class="k">in</span> <span class="nx">@objects</span>
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
+      <span class="k">if</span> <span class="nx">@message_banner</span>
+        <span class="nx">@message_banner</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nx">@message_banner</span><span class="p">.</span><span class="nx">done</span><span class="p">()</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">set_message</span><span class="p">()</span>
+
+    <span class="nv">draw: </span><span class="nf">(graphics) -&gt;</span>
+      <span class="k">for</span> <span class="nx">obj</span> <span class="k">in</span> <span class="nx">@objects</span>
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">graphics</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">@message_banner</span>
+        <span class="nx">@message_banner</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">graphics</span><span class="p">)</span>
+
+    <span class="nv">won: </span><span class="nf">() -&gt;</span>
+      <span class="k">if</span> <span class="nx">@done</span>
+        <span class="k">for</span> <span class="nx">goal</span> <span class="k">in</span> <span class="nx">@goals</span>
+          <span class="k">if</span> <span class="o">!</span><span class="nx">goal</span><span class="p">.</span><span class="nx">done</span><span class="p">()</span> <span class="k">then</span> <span class="k">return</span> <span class="kc">false</span>
+        <span class="vi">@messages = </span><span class="p">[</span><span class="nx">@success_message</span><span class="p">]</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">set_message</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">true</span>
+
+    <span class="nv">begin: </span><span class="nf">() -&gt;</span>
+      <span class="k">for</span> <span class="nx">collection</span> <span class="k">in</span> <span class="p">[</span> <span class="nx">@goals</span><span class="p">,</span> <span class="nx">@barriers</span><span class="p">,</span> <span class="nx">@scores</span><span class="p">,</span> <span class="p">[</span><span class="nx">@protagonist</span><span class="p">]</span> <span class="p">]</span>
+        <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">collection</span>
+          <span class="nx">item</span><span class="p">.</span><span class="nx">reset</span><span class="p">()</span>
+
+    <span class="nv">outro_done: </span><span class="nf">() -&gt;</span>
+      <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">@objects</span>
+        <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">item</span><span class="p">.</span><span class="nx">outro_done</span> <span class="o">and</span> <span class="o">!</span><span class="nx">item</span><span class="p">.</span><span class="nx">outro_done</span><span class="p">()</span>
+      <span class="k">return</span> <span class="kc">true</span>
+
+    <span class="nv">outro_step: </span><span class="nf">() -&gt;</span>
+      <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">@objects</span>
+        <span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">outro_step</span><span class="p">()</span> <span class="k">if</span> <span class="nx">item</span><span class="p">.</span><span class="nx">outro_step</span> <span class="o">and</span> <span class="o">!</span><span class="nx">item</span><span class="p">.</span><span class="nx">outro_done</span><span class="p">()</span>
+
+    <span class="nv">outro_draw: </span><span class="nf">(graphics) -&gt;</span>
+      <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">@objects</span>
+        <span class="nx">item</span><span class="p">.</span><span class="nx">outro_draw</span><span class="p">(</span><span class="nx">graphics</span><span class="p">)</span> <span class="k">if</span> <span class="nx">item</span><span class="p">.</span><span class="nx">outro_draw</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 
