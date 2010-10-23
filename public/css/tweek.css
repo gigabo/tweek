@@ -156,7 +156,8 @@ aside {
 /* Use 'body' here to get more points than original style */
 body .gist {
   font-size: 10pt;
-  background-color: #d1d1c7; }
+  background-color: #d1d1c7;
+  margin-top: 1em; }
   body .gist .gist-file {
     background-color: inherit; }
     body .gist .gist-file .gist-data {
