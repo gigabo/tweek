@@ -9,29 +9,18 @@ require.def [
 
   class Toy
     constructor: () ->
-      canvas = (new Canvas).jquery()
-      new CanvasScale(canvas,.8)
-      @canvas = canvas[0]
+      @canvas = new Canvas
+      new CanvasScale(@canvas.jquery(),.8)
+      @canvas.init_centered(5.0)
+      @width  = @canvas.draw_width
+      @height = @canvas.draw_height
       @degree = 0
-      this.init_canvas(5.0)
       this.start()
-
-    init_canvas: (@width) ->
-
-      @ctx = @canvas.getContext('2d')
-
-      scale   = @canvas.width/@width
-      @height = @canvas.height/scale
-
-      # Origin is at the center.  Y-axis positive is up.
-      # Width is as set explicitly.  Height is scaled proportionately.
-
-      @ctx.setTransform(scale, 0, 0, -scale, @canvas.width/2, @canvas.height/2)
 
     start: () -> setInterval( (() => this.step()), 33)
 
     step: () ->
-      @ctx.clearRect(-@width/2, -@height/2, @width, @height)
+      @canvas.clear()
 
       if ++@degree == 360 then @degree = 0
 
@@ -42,78 +31,46 @@ require.def [
       x = Math.cos(a)
       y = Math.sin(a)
 
-      @ctx.lineWidth = thin
+      @canvas.ctx.lineWidth = thin
 
       # Axes
-      @ctx.strokeStyle = "black"
-      this.draw_at 0, 0, 0,  () => this.line(-@width/2,0,@width/2,0)
-      this.draw_at 0, 0, 0,  () => this.line(0,-@height/2,0,@height/2)
+      @canvas.set_color(0,0,0,1)
+      @canvas.draw_at 0, 0, 0,  () => @canvas.line(-@width/2,0,@width/2,0)
+      @canvas.draw_at 0, 0, 0,  () => @canvas.line(0,-@height/2,0,@height/2)
 
-      @ctx.lineWidth = thick
+      @canvas.ctx.lineWidth = thick
 
       # Main circle
-      this.draw_at 0, 0, 0,  () => this.arc(1, 2*PI)
+      @canvas.draw_at 0, 0, 0,  () => @canvas.arc(1, 2*PI)
 
       # Theta arc
-      this.set_color(0.75,0,0,1)
-      this.draw_at 0, 0, 0,  () => this.arc(.25, a)
+      @canvas.set_color(0.75,0,0,1)
+      @canvas.draw_at 0, 0, 0,  () => @canvas.arc(.25, a)
 
-      this.label "Ѳ", Math.cos(a/2)*.35, Math.sin(a/2)*.35
+      @canvas.label "Ѳ", Math.cos(a/2)*.35, Math.sin(a/2)*.35
 
       # Unit vector
-      this.set_color(0,0.5,0,1)
-      this.draw_at 0, 0, 0,  () => this.line(0,0,x,y)
+      @canvas.set_color(0,0.5,0,1)
+      @canvas.draw_at 0, 0, 0,  () => @canvas.line(0,0,x,y)
 
       oa = -0.15
       eighth = Math.floor(@degree/(360/8))
       if eighth % 2 == 1 then oa *= -1
-      this.label "1", Math.cos(a+oa)*.5, Math.sin(a+oa)*.5
+      @canvas.label "1", Math.cos(a+oa)*.5, Math.sin(a+oa)*.5
 
       # Cosine
-      this.set_color(0,0,0.75,1)
-      this.draw_at 0, 0, 0,  () => this.line(0,y,x,y)
+      @canvas.set_color(0,0,0.75,1)
+      @canvas.draw_at 0, 0, 0,  () => @canvas.line(0,y,x,y)
 
       os = .1
       os = -os if y < 0
-      this.label "cos(Ѳ)", x/2, y+os
+      @canvas.label "cos(Ѳ)", x/2, y+os
 
       # Sine
-      this.set_color(0.5,0,0.5,1)
-      this.draw_at 0, 0, 0,  () => this.line(x,0,x,y)
+      @canvas.set_color(0.5,0,0.5,1)
+      @canvas.draw_at 0, 0, 0,  () => @canvas.line(x,0,x,y)
 
       os = .1
       os = -os if x < 0
       oa = if x < 0 then PI/2 else -PI/2
-      this.label "sin(Ѳ)", x+os, y/2, oa
-
-    label: (t, x, y, a) ->
-      @ctx.font          = "8pt Verdana"
-      @ctx.textAlign     = "center"
-      @ctx.textBaseline  = "middle"
-      a ||= 0
-      this.draw_at x, y, a,  () =>
-        this.scale 0.01, 0.01, () =>
-          @ctx.transform(1, 0, 0, -1, 0, 0)
-          @ctx.fillText(t, 0, 0)
-
-    set_color: (r,g,b,a) ->
-      r = Math.floor(r*255)
-      g = Math.floor(g*255)
-      b = Math.floor(b*255)
-      c = "rgba(#{r}, #{g}, #{b}, #{a})"
-      @ctx.strokeStyle = @ctx.fillStyle = c
-
-    arc: (r,a) -> @ctx.arc(0, 0, r, 0, a, false)
-
-    line: (x1,y1,x2,y2) -> @ctx.moveTo(x1, y1); @ctx.lineTo(x2, y2)
-
-    draw_at: (x, y, a, f) ->
-      @ctx.save()
-      @ctx.beginPath()
-      @ctx.translate(x, y)
-      @ctx.rotate(a)
-      f()
-      @ctx.stroke()
-      @ctx.restore()
-
-    scale: (x, y, f) -> @ctx.save(); @ctx.scale(x, y); f(); @ctx.restore()
+      @canvas.label "sin(Ѳ)", x+os, y/2, oa

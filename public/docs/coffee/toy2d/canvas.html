@@ -1,4 +1,7 @@
 <!DOCTYPE html>  <html> <head>   <title>canvas.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script>   <script type="text/javascript" src="/js/ga.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="canvas.html">                 canvas.coffee               </a>                                           <a class="source" href="canvas_scale.html">                 canvas_scale.coffee               </a>                                           <a class="source" href="controls.html">                 controls.coffee               </a>                                           <a class="source" href="debug.html">                 debug.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               canvas.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span><span class="s1">&#39;toy2d/debug&#39;</span><span class="p">,</span> <span class="s1">&#39;/js/mustache.js&#39;</span><span class="p">],</span> <span class="p">(</span><span class="nx">Debug</span><span class="p">)</span> <span class="o">=&gt;</span>
+
+  <span class="nv">PI = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span>
+
   <span class="k">class</span> <span class="nx">Canvas</span>
     <span class="nv">constructor: </span><span class="nf">(@width, @container) -&gt;</span>
       <span class="nx">@width</span>      <span class="o">||=</span> <span class="mi">1000</span>
@@ -12,8 +15,70 @@
 <span class="sh">        &lt;/canvas&gt;</span>
 <span class="sh">      &#39;&#39;&#39;</span><span class="p">,</span> <span class="k">this</span>
 
-      <span class="vi">@canvas = </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#play_canvas&quot;</span><span class="p">)</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <pre><code> @canvas.css("background-color", "red")
+      <span class="vi">@canvas = </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#play_canvas&quot;</span><span class="p">)</span>
+      <span class="vi">@ctx = </span><span class="nx">@canvas</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;2d&#39;</span><span class="p">)</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <pre><code> @canvas.css("background-color", "red")
 </code></pre>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nv">jquery: </span><span class="nf">() -&gt;</span> <span class="nx">@canvas</span>
     <span class="nv">dom: </span>   <span class="nf">() -&gt;</span> <span class="nx">@canvas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nv">init_centered: </span><span class="nf">(@draw_width) -&gt;</span>
+
+      <span class="nv">canvas = </span><span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">()</span>
+
+      <span class="nv">scale   = </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="o">/</span><span class="nx">@draw_width</span>
+      <span class="vi">@draw_height = </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="o">/</span><span class="nx">scale</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Origin is at the center.  Y-axis positive is up.
+Width is as set explicitly.  Height is scaled proportionately.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">setTransform</span> <span class="nx">scale</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="nx">scale</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="nv">clear: </span><span class="nf">() -&gt;</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="o">-</span><span class="nx">@draw_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="nx">@draw_height</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nx">@draw_width</span><span class="p">,</span> <span class="nx">@draw_height</span><span class="p">)</span>
+
+    <span class="nv">label: </span><span class="nf">(t, x, y, a) -&gt;</span>
+      <span class="vi">@ctx.font          = </span><span class="s2">&quot;8pt Verdana&quot;</span>
+      <span class="vi">@ctx.textAlign     = </span><span class="s2">&quot;center&quot;</span>
+      <span class="vi">@ctx.textBaseline  = </span><span class="s2">&quot;middle&quot;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">text_at</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+
+    <span class="nv">label_left: </span><span class="nf">(t, x, y, a) -&gt;</span>
+      <span class="vi">@ctx.font          = </span><span class="s2">&quot;8pt Verdana&quot;</span>
+      <span class="vi">@ctx.textAlign     = </span><span class="s2">&quot;left&quot;</span>
+      <span class="vi">@ctx.textBaseline  = </span><span class="s2">&quot;middle&quot;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">text_at</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+
+    <span class="nv">text_at: </span><span class="nf">(t, x, y, a) -&gt;</span>
+      <span class="nx">a</span> <span class="o">||=</span> <span class="mi">0</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">draw_at</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span>  <span class="p">()</span> <span class="o">=&gt;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">scale</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>
+          <span class="nx">@ctx</span><span class="p">.</span><span class="nx">transform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+          <span class="nx">@ctx</span><span class="p">.</span><span class="nx">fillText</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="nv">set_color: </span><span class="nf">(r,g,b,a) -&gt;</span>
+      <span class="nv">r = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">r</span><span class="o">*</span><span class="mi">255</span><span class="p">)</span>
+      <span class="nv">g = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">g</span><span class="o">*</span><span class="mi">255</span><span class="p">)</span>
+      <span class="nv">b = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">b</span><span class="o">*</span><span class="mi">255</span><span class="p">)</span>
+      <span class="nv">c = </span><span class="s2">&quot;rgba(#{r}, #{g}, #{b}, #{a})&quot;</span>
+      <span class="vi">@ctx.strokeStyle = @ctx.fillStyle = </span><span class="nx">c</span>
+
+    <span class="nv">arc: </span><span class="nf">(r,a) -&gt;</span> <span class="nx">@ctx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+
+    <span class="nv">line: </span><span class="nf">(x1,y1,x2,y2) -&gt;</span> <span class="nx">@ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nx">y1</span><span class="p">);</span> <span class="nx">@ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x2</span><span class="p">,</span> <span class="nx">y2</span><span class="p">)</span>
+
+    <span class="nv">draw_at: </span><span class="nf">(x, y, a, f) -&gt;</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">()</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">rotate</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+      <span class="nx">f</span><span class="p">()</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">()</span>
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span>
+
+    <span class="nv">scale: </span><span class="nf">(x, y, f) -&gt;</span> <span class="nx">@ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span> <span class="nx">@ctx</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span> <span class="nx">f</span><span class="p">();</span> <span class="nx">@ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Draw an ellipse at the origin with axis half-lengths (a, b)</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nv">ellipse: </span><span class="nf">(a, b) -&gt;</span>
+      <span class="nv">steps = </span><span class="mi">90</span>
+      <span class="nv">step_arc = </span><span class="mi">2</span><span class="o">*</span><span class="nx">PI</span><span class="o">/</span><span class="nx">steps</span>
+
+      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="nx">steps</span><span class="p">]</span>
+        <span class="nv">theta = </span><span class="nx">i</span> <span class="o">*</span> <span class="nx">step_arc</span>
+        <span class="nv">x = </span><span class="nx">a</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">theta</span><span class="p">)</span>
+        <span class="nv">y = </span><span class="nx">b</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">theta</span><span class="p">)</span>
+        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
 
 </pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       &copy; 2010 Bo Borgerson |       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 

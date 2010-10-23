@@ -68,6 +68,15 @@ canvas {
     @include highlight();
   */ }
 
+select {
+  font-size: 150%;
+  color: black;
+  background-color: #babaab;
+  border: 0px solid #d1d1c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; }
+
 input {
   font-size: 150%;
   color: black;
@@ -119,6 +128,18 @@ pre {
 
 #about_tools {
   background-color: #7e7e67;
+  padding: 1em; }
+
+#about_description .about_section {
+  padding: 2em;
+  padding-bottom: 0px; }
+#about_description ol {
+  padding: 2em;
+  list-style-type: decimal;
+  clear: left; }
+#about_description blockquote {
+  background-color: #f4f4f1;
+  margin: 2em;
   padding: 1em; }
 
 #about_footer {

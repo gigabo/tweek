@@ -3,6 +3,7 @@ class TweekApp
     class Index < Layout
       def toys
         [
+          { :name => 'Kepler\'s First Law', :link => '/kepler_1' },
           { :name => 'Box2D Rocket', :link => '/rocket_box2d' },
           { :name => 'Unit Circle', :link => '/unit_circle' },
           { :name => 'Pasta Box', :link => '/pasta' },

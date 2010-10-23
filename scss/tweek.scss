@@ -99,6 +99,13 @@ canvas {
 */
 }
 
+select {
+  font-size: 150%;
+  color: darken($text_color, 20%);
+  background-color: $container_color;
+  border: 0px solid lighten($text_color, 70%);
+  @include rounded_corners(5px);
+}
 input {
   font-size: 150%;
   color: darken($text_color, 20%);
@@ -161,6 +168,23 @@ pre {
 #about_tools {
   background-color: darken($body_color, 25%);
   padding: 1em;
+}
+
+#about_description {
+  & .about_section {
+    padding: 2em;
+    padding-bottom: 0px;
+  }
+  & ol {
+    padding: 2em;
+    list-style-type: decimal; 
+    clear: left;
+  }
+  & blockquote {
+    background-color: lighten($body_color, 25%);
+    margin: 2em;
+    padding: 1em;
+  }
 }
 
 #about_footer {
