@@ -61,7 +61,7 @@ require.def [
     init_controls: () ->
       @current_formula = 0
       @current_steps   = 10
-      @steps_values = [1..20]
+      @steps_values = [1..10]
       $("#controls").append Mustache.to_html '''
         <select id="steps_selector">
           {{#steps_values}}

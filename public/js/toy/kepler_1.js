@@ -67,7 +67,7 @@
       var f_control, s_control;
       this.current_formula = 0;
       this.current_steps = 10;
-      this.steps_values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+      this.steps_values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       $("#controls").append(Mustache.to_html('<select id="steps_selector">\n  {{#steps_values}}\n  <option value="{{.}}">Approximation steps: {{.}}</option>\n  {{/steps_values}}\n</select>\n<select id="formula_selector">\n  {{#formulae}}\n  <option value="{{index}}">Formula: {{name}}</option>\n  {{/formulae}}\n</select>', this));
       f_control = $("#formula_selector");
       f_control.change(__bind(function() {

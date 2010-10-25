@@ -57,7 +57,7 @@ of an ellipse: sqrt(1-(b/a)^2)</p>             </td>             <td class="code
     <span class="nv">init_controls: </span><span class="nf">() -&gt;</span>
       <span class="vi">@current_formula = </span><span class="mi">0</span>
       <span class="vi">@current_steps   = </span><span class="mi">10</span>
-      <span class="vi">@steps_values = </span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">20</span><span class="p">]</span>
+      <span class="vi">@steps_values = </span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">10</span><span class="p">]</span>
       <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#controls&quot;</span><span class="p">).</span><span class="nx">append</span> <span class="nx">Mustache</span><span class="p">.</span><span class="nx">to_html</span> <span class="sh">&#39;&#39;&#39;</span>
 <span class="sh">        &lt;select id=&quot;steps_selector&quot;&gt;</span>
 <span class="sh">          {{#steps_values}}</span>
