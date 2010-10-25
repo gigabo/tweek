@@ -34,9 +34,9 @@ def about_this_toy
           Laws.  I realized, though, that I don't remember much about
           ellipses.  I remember that there are two foci, and that a ray from
           either focus reflected off of the inner surface of the ellipse will
-          intersect the other focus.  That doesn't really help me draw an
-          one, though.  Wikipedia to the rescue!  Other useful things to know
-          about ellipses:
+          intersect the other focus.  That doesn't really help me draw one,
+          though.  Wikipedia to the rescue!  Other useful things to know about
+          ellipses:
           <ol>
             <li>The sum of distances from the two foci to any point on the
             ellipse is the same as to any other point.</li>
