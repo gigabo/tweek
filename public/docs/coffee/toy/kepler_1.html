@@ -1,119 +1,299 @@
-<!DOCTYPE html>  <html> <head>   <title>kepler_1.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script>   <script type="text/javascript" src="/js/ga.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="hanoi.html">                 hanoi.coffee               </a>                                           <a class="source" href="kepler_1.html">                 kepler_1.coffee               </a>                                           <a class="source" href="pasta.html">                 pasta.coffee               </a>                                           <a class="source" href="punch.html">                 punch.coffee               </a>                                           <a class="source" href="rocket.html">                 rocket.coffee               </a>                                           <a class="source" href="rocket_box2d.html">                 rocket_box2d.coffee               </a>                                           <a class="source" href="unit_circle.html">                 unit_circle.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               kepler_1.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span>
-  <span class="s1">&#39;toy2d/debug&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;toy2d/canvas&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;toy2d/canvas_scale&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;/js/mustache.js&#39;</span><span class="p">,</span>
-<span class="p">],</span>
-<span class="p">(</span><span class="nx">Debug</span><span class="p">,</span> <span class="nx">Canvas</span><span class="p">,</span> <span class="nx">CanvasScale</span><span class="p">)</span> <span class="o">=&gt;</span>
+<!DOCTYPE html>
 
-  <span class="nv">PI = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span>
+<html>
+<head>
+  <title>kepler_1.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="hanoi.html">
+                hanoi.coffee
+              </a>
+            
+              
+              <a class="source" href="kepler_1.html">
+                kepler_1.coffee
+              </a>
+            
+              
+              <a class="source" href="pasta.html">
+                pasta.coffee
+              </a>
+            
+              
+              <a class="source" href="punch.html">
+                punch.coffee
+              </a>
+            
+              
+              <a class="source" href="rocket.html">
+                rocket.coffee
+              </a>
+            
+              
+              <a class="source" href="rocket_box2d.html">
+                rocket_box2d.coffee
+              </a>
+            
+              
+              <a class="source" href="unit_circle.html">
+                unit_circle.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>kepler_1.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>.def [
+  <span class="hljs-string">'toy2d/debug'</span>,
+  <span class="hljs-string">'toy2d/canvas'</span>,
+  <span class="hljs-string">'toy2d/canvas_scale'</span>,
+  <span class="hljs-string">'/js/mustache.js'</span>,
+],
+<span class="hljs-function"><span class="hljs-params">(Debug, Canvas, CanvasScale)</span> =&gt;</span>
 
-  <span class="k">class</span> <span class="nx">Toy</span>
-    <span class="nv">constructor: </span><span class="nf">() -&gt;</span>
-      <span class="vi">@canvas = </span><span class="k">new</span> <span class="nx">Canvas</span>
-      <span class="k">new</span> <span class="nx">CanvasScale</span><span class="p">(</span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">jquery</span><span class="p">(),.</span><span class="mi">8</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">init_centered</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
-      <span class="vi">@width  = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_width</span>
-      <span class="vi">@height = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_height</span>
-      <span class="vi">@degree = </span><span class="mi">0</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_formulae</span><span class="p">()</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_controls</span><span class="p">()</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
+  PI = Math.PI
 
-    <span class="nv">init_formulae: </span><span class="nf">() -&gt;</span>
-      <span class="vi">@formulae = </span><span class="p">[</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>This is what I found when I read the wikipedia article on ellipses
-more carefully :)</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="p">{</span>
-          <span class="nv">name: </span><span class="s1">&#39;sqrt(a^2-b^2)&#39;</span><span class="p">,</span>
-          <span class="nv">func: </span><span class="nf">(a, b) -&gt;</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">((</span><span class="nx">a</span><span class="o">*</span><span class="nx">a</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="nx">b</span><span class="o">*</span><span class="nx">b</span><span class="p">))</span>
-        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>This is what I came up with given the formula for the eccentricity
-of an ellipse: sqrt(1-(b/a)^2)</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="p">{</span>
-          <span class="nv">name: </span><span class="s1">&#39;a * sqrt(1-(b^2/a^2))&#39;</span><span class="p">,</span>
-          <span class="nv">func: </span><span class="nf">(a, b) -&gt;</span> <span class="nx">a</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">((</span><span class="nx">b</span><span class="o">*</span><span class="nx">b</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nx">a</span><span class="o">*</span><span class="nx">a</span><span class="p">)))</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nv">name: </span><span class="s1">&#39;a&#39;</span><span class="p">,</span>
-          <span class="nv">func: </span><span class="nf">(a, b) -&gt;</span> <span class="nx">a</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nv">name: </span><span class="s1">&#39;a - b&#39;</span><span class="p">,</span>
-          <span class="nv">func: </span><span class="nf">(a, b) -&gt;</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nv">name: </span><span class="s1">&#39;a^2 - b^2&#39;</span><span class="p">,</span>
-          <span class="nv">func: </span><span class="nf">(a, b) -&gt;</span> <span class="nx">a</span><span class="o">*</span><span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="o">*</span><span class="nx">b</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nv">name: </span><span class="s1">&#39;a * cos(b/a)&#39;</span><span class="p">,</span>
-          <span class="nv">func: </span><span class="nf">(a, b) -&gt;</span> <span class="nx">a</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">b</span><span class="o">/</span><span class="nx">a</span><span class="p">)</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nv">name: </span><span class="s1">&#39;a * 2^(a-b) - a&#39;</span><span class="p">,</span>
-          <span class="nv">func: </span><span class="nf">(a, b) -&gt;</span> <span class="nx">a</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="nx">a</span><span class="o">-</span><span class="nx">b</span><span class="p">))</span><span class="o">-</span><span class="nx">a</span>
-        <span class="p">},</span>
-      <span class="p">]</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">@formulae</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="nx">@formulae</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">index</span><span class="o">=</span><span class="nx">i</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Toy</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@canvas</span> = <span class="hljs-keyword">new</span> Canvas
+      <span class="hljs-keyword">new</span> CanvasScale(<span class="hljs-property">@canvas</span>.jquery(),<span class="hljs-number">.8</span>)
+      <span class="hljs-property">@canvas</span>.init_centered(<span class="hljs-number">5.0</span>)
+      <span class="hljs-property">@width</span>  = <span class="hljs-property">@canvas</span>.draw_width
+      <span class="hljs-property">@height</span> = <span class="hljs-property">@canvas</span>.draw_height
+      <span class="hljs-property">@degree</span> = <span class="hljs-number">0</span>
+      <span class="hljs-keyword">this</span>.init_formulae()
+      <span class="hljs-keyword">this</span>.init_controls()
+      <span class="hljs-keyword">this</span>.start()
 
-    <span class="nv">init_controls: </span><span class="nf">() -&gt;</span>
-      <span class="vi">@current_formula = </span><span class="mi">0</span>
-      <span class="vi">@current_steps   = </span><span class="mi">10</span>
-      <span class="vi">@steps_values = </span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">10</span><span class="p">]</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#controls&quot;</span><span class="p">).</span><span class="nx">append</span> <span class="nx">Mustache</span><span class="p">.</span><span class="nx">to_html</span> <span class="sh">&#39;&#39;&#39;</span>
-<span class="sh">        &lt;select id=&quot;steps_selector&quot;&gt;</span>
-<span class="sh">          {{#steps_values}}</span>
-<span class="sh">          &lt;option value=&quot;{{.}}&quot;&gt;Approximation steps: {{.}}&lt;/option&gt;</span>
-<span class="sh">          {{/steps_values}}</span>
-<span class="sh">        &lt;/select&gt;</span>
-<span class="sh">        &lt;select id=&quot;formula_selector&quot;&gt;</span>
-<span class="sh">          {{#formulae}}</span>
-<span class="sh">          &lt;option value=&quot;{{index}}&quot;&gt;Formula: {{name}}&lt;/option&gt;</span>
-<span class="sh">          {{/formulae}}</span>
-<span class="sh">        &lt;/select&gt;</span>
-<span class="sh">      &#39;&#39;&#39;</span><span class="p">,</span> <span class="k">this</span>
-      <span class="nv">f_control= </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#formula_selector&quot;</span><span class="p">)</span>
-      <span class="nx">f_control</span><span class="p">.</span><span class="nx">change</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="vi">@current_formula = </span><span class="nx">f_control</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span>
-      <span class="nv">s_control= </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#steps_selector&quot;</span><span class="p">)</span>
-      <span class="nx">s_control</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-      <span class="nx">s_control</span><span class="p">.</span><span class="nx">change</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="vi">@current_steps = </span><span class="nx">s_control</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span>
+    <span class="hljs-attribute">init_formulae</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@formulae</span> = [</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>This is what I found when I read the wikipedia article on ellipses
+more carefully :)</p>
 
-    <span class="nv">start: </span><span class="nf">() -&gt;</span> <span class="nx">setInterval</span><span class="p">(</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">step</span><span class="p">()),</span> <span class="mi">33</span><span class="p">)</span>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        {
+          <span class="hljs-attribute">name</span>: <span class="hljs-string">'sqrt(a^2-b^2)'</span>,
+          <span class="hljs-attribute">func</span>: <span class="hljs-function"><span class="hljs-params">(a, b)</span> -&gt;</span> Math.sqrt((a*a)-(b*b))
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>This is what I came up with given the formula for the eccentricity
+of an ellipse: sqrt(1-(b/a)^2)</p>
 
-    <span class="nv">step: </span><span class="nf">() -&gt;</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">clear</span><span class="p">()</span>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        {
+          <span class="hljs-attribute">name</span>: <span class="hljs-string">'a * sqrt(1-(b^2/a^2))'</span>,
+          <span class="hljs-attribute">func</span>: <span class="hljs-function"><span class="hljs-params">(a, b)</span> -&gt;</span> a * Math.sqrt(<span class="hljs-number">1</span>-((b*b)/(a*a)))
+        },
+        {
+          <span class="hljs-attribute">name</span>: <span class="hljs-string">'a'</span>,
+          <span class="hljs-attribute">func</span>: <span class="hljs-function"><span class="hljs-params">(a, b)</span> -&gt;</span> a
+        },
+        {
+          <span class="hljs-attribute">name</span>: <span class="hljs-string">'a - b'</span>,
+          <span class="hljs-attribute">func</span>: <span class="hljs-function"><span class="hljs-params">(a, b)</span> -&gt;</span> a - b
+        },
+        {
+          <span class="hljs-attribute">name</span>: <span class="hljs-string">'a^2 - b^2'</span>,
+          <span class="hljs-attribute">func</span>: <span class="hljs-function"><span class="hljs-params">(a, b)</span> -&gt;</span> a*a - b*b
+        },
+        {
+          <span class="hljs-attribute">name</span>: <span class="hljs-string">'a * cos(b/a)'</span>,
+          <span class="hljs-attribute">func</span>: <span class="hljs-function"><span class="hljs-params">(a, b)</span> -&gt;</span> a*Math.cos(b/a)
+        },
+        {
+          <span class="hljs-attribute">name</span>: <span class="hljs-string">'a * 2^(a-b) - a'</span>,
+          <span class="hljs-attribute">func</span>: <span class="hljs-function"><span class="hljs-params">(a, b)</span> -&gt;</span> a*Math.pow(<span class="hljs-number">2</span>, (a-b))-a
+        },
+      ]
+      <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>.<span class="hljs-property">@formulae</span>.length-<span class="hljs-number">1</span>]
+        <span class="hljs-property">@formulae</span>[i].index=i
 
-      <span class="k">if</span> <span class="o">++</span><span class="nx">@degree</span> <span class="o">==</span> <span class="mi">360</span> <span class="k">then</span> <span class="vi">@degree = </span><span class="mi">0</span>
+    <span class="hljs-attribute">init_controls</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@current_formula</span> = <span class="hljs-number">0</span>
+      <span class="hljs-property">@current_steps</span>   = <span class="hljs-number">10</span>
+      <span class="hljs-property">@steps_values</span> = [<span class="hljs-number">1.</span><span class="hljs-number">.10</span>]
+      $(<span class="hljs-string">"#controls"</span>).append Mustache.to_html <span class="hljs-string">'''
+        &lt;select id="steps_selector"&gt;
+          {{#steps_values}}
+          &lt;option value="{{.}}"&gt;Approximation steps: {{.}}&lt;/option&gt;
+          {{/steps_values}}
+        &lt;/select&gt;
+        &lt;select id="formula_selector"&gt;
+          {{#formulae}}
+          &lt;option value="{{index}}"&gt;Formula: {{name}}&lt;/option&gt;
+          {{/formulae}}
+        &lt;/select&gt;
+      '''</span>, <span class="hljs-keyword">this</span>
+      f_control= $(<span class="hljs-string">"#formula_selector"</span>)
+      f_control.change <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@current_formula</span> = f_control.val()
+      s_control= $(<span class="hljs-string">"#steps_selector"</span>)
+      s_control.val(<span class="hljs-number">10</span>)
+      s_control.change <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@current_steps</span> = s_control.val()
 
-      <span class="nv">thick = </span><span class="p">.</span><span class="mi">025</span>
-      <span class="nv">thin  = </span><span class="p">.</span><span class="mi">005</span>
+    <span class="hljs-attribute">start</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span> setInterval( <span class="hljs-function">(<span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.step()), <span class="hljs-number">33</span>)
 
-      <span class="nv">theta = </span><span class="nx">@degree</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">PI</span> <span class="o">/</span> <span class="mi">360</span>
-      <span class="nv">x = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">theta</span><span class="p">)</span>
-      <span class="nv">y = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">theta</span><span class="p">)</span>
+    <span class="hljs-attribute">step</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@canvas</span>.clear()
 
-      <span class="vi">@canvas.ctx.lineWidth = </span><span class="nx">thin</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Axes</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">set_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_at</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">line</span><span class="p">(</span><span class="o">-</span><span class="nx">@width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nx">@width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_at</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">line</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="nx">@height</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nx">@height</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+      <span class="hljs-keyword">if</span> ++<span class="hljs-property">@degree</span> == <span class="hljs-number">360</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@degree</span> = <span class="hljs-number">0</span>
 
-      <span class="vi">@canvas.ctx.lineWidth = </span><span class="nx">thick</span>
+      thick = <span class="hljs-number">.025</span>
+      thin  = <span class="hljs-number">.005</span>
 
-      <span class="nv">a = </span><span class="mf">1.5</span><span class="o">+</span><span class="nx">x</span><span class="o">/</span><span class="mi">2</span>
-      <span class="nv">b = </span><span class="mi">1</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_at</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">ellipse</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Ellipse Axes</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">set_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,.</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_at</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">line</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span><span class="nx">a</span><span class="p">,</span><span class="o">-</span><span class="p">.</span><span class="mi">1</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">label</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="nx">a</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_at</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">line</span><span class="p">(</span><span class="o">-</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">label</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="nx">b</span><span class="o">/</span><span class="mi">2</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>First, draw an approximation of focus position.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nv">fx = </span><span class="k">this</span><span class="p">.</span><span class="nx">approximate_focus</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">set_color</span><span class="p">(.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_at</span> <span class="nx">fx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">thick</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nx">PI</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">label</span> <span class="s2">&quot;Sun&quot;</span><span class="p">,</span> <span class="nx">fx</span><span class="p">,</span> <span class="mf">0.1</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_at</span><span class="p">(</span><span class="o">-</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">thick</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nx">PI</span><span class="p">))</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">label_left</span> <span class="s2">&quot;Binary Approximation (#{@current_steps})&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">1.1</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Then try to find a formula to match it.</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nv">fx = </span><span class="nx">@formulae</span><span class="p">[</span><span class="nx">@current_formula</span><span class="p">].</span><span class="nx">func</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span>
+      theta = <span class="hljs-property">@degree</span> * <span class="hljs-number">2</span> * PI / <span class="hljs-number">360</span>
+      x = Math.cos(theta)
+      y = Math.sin(theta)
 
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">set_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_at</span> <span class="nx">fx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">thick</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nx">PI</span><span class="p">)</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">label</span> <span class="s2">&quot;Sun&quot;</span><span class="p">,</span> <span class="nx">fx</span><span class="p">,</span> <span class="mf">0.1</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">draw_at</span><span class="p">(</span><span class="o">-</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">thick</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nx">PI</span><span class="p">))</span>
-      <span class="nx">@canvas</span><span class="p">.</span><span class="nx">label_left</span> <span class="s2">&quot;Formula: #{@formulae[@current_formula].name}&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">0.95</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>I didn't know how to derive the position of foci from the axis lengths
+      <span class="hljs-property">@canvas</span>.ctx.lineWidth = thin</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Axes</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-property">@canvas</span>.set_color(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)
+      <span class="hljs-property">@canvas</span>.draw_at <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@canvas</span>.line(-<span class="hljs-property">@width</span>/<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-property">@width</span>/<span class="hljs-number">2</span>,<span class="hljs-number">0</span>)
+      <span class="hljs-property">@canvas</span>.draw_at <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@canvas</span>.line(<span class="hljs-number">0</span>,-<span class="hljs-property">@height</span>/<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-property">@height</span>/<span class="hljs-number">2</span>)
+
+      <span class="hljs-property">@canvas</span>.ctx.lineWidth = thick
+
+      a = <span class="hljs-number">1.5</span>+x/<span class="hljs-number">2</span>
+      b = <span class="hljs-number">1</span>
+      <span class="hljs-property">@canvas</span>.draw_at <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@canvas</span>.ellipse(a, b)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Ellipse Axes</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-property">@canvas</span>.set_color(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">.7</span>,<span class="hljs-number">1</span>)
+      <span class="hljs-property">@canvas</span>.draw_at <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@canvas</span>.line(<span class="hljs-number">0</span>,-<span class="hljs-number">.1</span>,a,-<span class="hljs-number">.1</span>)
+      <span class="hljs-property">@canvas</span>.label <span class="hljs-string">"a"</span>, a/<span class="hljs-number">2</span>, -<span class="hljs-number">0.2</span>
+      <span class="hljs-property">@canvas</span>.draw_at <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@canvas</span>.line(-<span class="hljs-number">.1</span>,<span class="hljs-number">0</span>,-<span class="hljs-number">.1</span>,b)
+      <span class="hljs-property">@canvas</span>.label <span class="hljs-string">"b"</span>, -<span class="hljs-number">0.2</span>, b/<span class="hljs-number">2</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>First, draw an approximation of focus position.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      fx = <span class="hljs-keyword">this</span>.approximate_focus(a, b)
+      <span class="hljs-property">@canvas</span>.set_color(<span class="hljs-number">.5</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)
+      <span class="hljs-property">@canvas</span>.draw_at fx, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>,  <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@canvas</span>.arc(thick/<span class="hljs-number">2</span>, <span class="hljs-number">2</span>*PI)
+      <span class="hljs-property">@canvas</span>.label <span class="hljs-string">"Sun"</span>, fx, <span class="hljs-number">0.1</span>
+      <span class="hljs-property">@canvas</span>.draw_at(-<span class="hljs-number">2.4</span>, <span class="hljs-number">1.1</span>, <span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@canvas</span>.arc(thick/<span class="hljs-number">2</span>, <span class="hljs-number">2</span>*PI))
+      <span class="hljs-property">@canvas</span>.label_left <span class="hljs-string">"Binary Approximation (<span class="hljs-subst">#{<span class="hljs-property">@current_steps</span>}</span>)"</span>, -<span class="hljs-number">2.3</span>, <span class="hljs-number">1.1</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Then try to find a formula to match it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+      fx = <span class="hljs-property">@formulae</span>[<span class="hljs-property">@current_formula</span>].func(a,b)
+
+      <span class="hljs-property">@canvas</span>.set_color(<span class="hljs-number">0</span>,<span class="hljs-number">.5</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)
+      <span class="hljs-property">@canvas</span>.draw_at fx, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>,  <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@canvas</span>.arc(thick/<span class="hljs-number">2</span>, <span class="hljs-number">2</span>*PI)
+      <span class="hljs-property">@canvas</span>.label <span class="hljs-string">"Sun"</span>, fx, <span class="hljs-number">0.1</span>
+      <span class="hljs-property">@canvas</span>.draw_at(-<span class="hljs-number">2.4</span>, <span class="hljs-number">0.95</span>, <span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-property">@canvas</span>.arc(thick/<span class="hljs-number">2</span>, <span class="hljs-number">2</span>*PI))
+      <span class="hljs-property">@canvas</span>.label_left <span class="hljs-string">"Formula: <span class="hljs-subst">#{<span class="hljs-property">@formulae</span>[<span class="hljs-property">@current_formula</span>].name}</span>"</span>, -<span class="hljs-number">2.3</span>, <span class="hljs-number">0.95</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>I didn’t know how to derive the position of foci from the axis lengths
 of my ellipse, so I decided to first approximate, and then see if I
 could figure out a simple formula that would match the approximation and
 eliminate the need for it.  This approximation uses the fact that the
@@ -123,23 +303,92 @@ It starts with a candidate focus halfway between the center of the
 ellipse and the positive-X intersection with the major axis, and then
 does a binary searh for 10 steps.  I initially made the number of steps
 dynamic and then tried various values to find the lowest that gave a
-smooth animation. :D</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nv">approximate_focus: </span><span class="nf">(a, b) -&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>x is our candidate focus position (on the x axis)
-dx is how far we move the candidate focus each step</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nv">dx = x = </span><span class="nx">a</span> <span class="o">/</span> <span class="mi">2</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>Sum of distances from foci to point on major axis.
-This is always just 2 * semimajor axis length:
+smooth animation. :D</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-attribute">approximate_focus</span>: <span class="hljs-function"><span class="hljs-params">(a, b)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>x is our candidate focus position (on the x axis)
+dx is how far we move the candidate focus each step</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      dx = x = a / <span class="hljs-number">2</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Sum of distances from foci to point on major axis.
+This is always just 2 <em> semimajor axis length:
   Foci are P1:[x, 0] and P2:[-x, 0].
   Point on major axis is [a, 0]
   P1 distance is a-x
   P2 distance is a+x
-  Sum of distances is a+x+a-x = a+a+x-x = 2*a</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nv">major = </span><span class="mi">2</span><span class="o">*</span><span class="nx">a</span>
+  Sum of distances is a+x+a-x = a+a+x-x = 2</em>a</p>
 
-      <span class="k">for</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">...</span><span class="nx">@current_steps</span><span class="p">]</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>The sum of distances from foci to point on minor axis.
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      major = <span class="hljs-number">2</span>*a
+
+      <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>..<span class="hljs-property">@current_steps</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>The sum of distances from foci to point on minor axis.
 Each focal distance is the hypotenuse of a right triangle
 with legs on the X and Y axes, which lets us easily calculate
-using the Pythagorean theorem.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nv">minor = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">b</span><span class="o">*</span><span class="nx">b</span><span class="o">+</span><span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>This is a binary search.  Each step we'll move half as far
-as we did previously.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">dx</span> <span class="o">/=</span> <span class="mi">2</span>
+using the Pythagorean theorem.</p>
 
-        <span class="nx">x</span> <span class="o">+=</span> <span class="nx">dx</span> <span class="o">*</span> <span class="k">if</span> <span class="nx">minor</span> <span class="o">&lt;</span> <span class="nx">major</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        minor = Math.sqrt(b*b+x*x)*<span class="hljs-number">2</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>This is a binary search.  Each step we’ll move half as far
+as we did previously.</p>
 
-      <span class="nx">x</span>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        dx /= <span class="hljs-number">2</span>
 
-</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       &copy; 2010 Bo Borgerson |       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 
+        x += dx * <span class="hljs-keyword">if</span> minor &lt; major <span class="hljs-keyword">then</span> <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> -<span class="hljs-number">1</span>
+
+      x</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

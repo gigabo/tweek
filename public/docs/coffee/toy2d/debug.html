@@ -1,7 +1,76 @@
-<!DOCTYPE html>  <html> <head>   <title>debug.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script>   <script type="text/javascript" src="/js/ga.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="canvas.html">                 canvas.coffee               </a>                                           <a class="source" href="canvas_scale.html">                 canvas_scale.coffee               </a>                                           <a class="source" href="controls.html">                 controls.coffee               </a>                                           <a class="source" href="debug.html">                 debug.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               debug.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">()</span> <span class="o">=&gt;</span>
-  <span class="nv">ID = </span><span class="s1">&#39;debug&#39;</span>
-  <span class="nv">id: </span><span class="nf">(id) -&gt;</span> <span class="nv">ID = </span><span class="nx">id</span> <span class="k">if</span> <span class="nx">id</span><span class="p">;</span> <span class="nx">ID</span>
-  <span class="nv">clear: </span><span class="nf">() -&gt;</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;##{ID}&quot;</span><span class="p">).</span><span class="nx">empty</span><span class="p">()</span>
-  <span class="nv">out: </span><span class="nf">(v) -&gt;</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;##{ID}&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+<!DOCTYPE html>
 
-</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       &copy; 2010 Bo Borgerson |       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 
+<html>
+<head>
+  <title>debug.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="canvas.html">
+                canvas.coffee
+              </a>
+            
+              
+              <a class="source" href="canvas_scale.html">
+                canvas_scale.coffee
+              </a>
+            
+              
+              <a class="source" href="controls.html">
+                controls.coffee
+              </a>
+            
+              
+              <a class="source" href="debug.html">
+                debug.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>debug.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-built_in">require</span>.def <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+  ID = <span class="hljs-string">'debug'</span>
+  <span class="hljs-attribute">id</span>: <span class="hljs-function"><span class="hljs-params">(id)</span> -&gt;</span> ID = id <span class="hljs-keyword">if</span> id; ID
+  <span class="hljs-attribute">clear</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span> $(<span class="hljs-string">"#<span class="hljs-subst">#{ID}</span>"</span>).empty()
+  <span class="hljs-attribute">out</span>: <span class="hljs-function"><span class="hljs-params">(v)</span> -&gt;</span> $(<span class="hljs-string">"#<span class="hljs-subst">#{ID}</span>"</span>).append(v)</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

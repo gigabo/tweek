@@ -1,123 +1,206 @@
-<!DOCTYPE html>  <html> <head>   <title>hanoi.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script>   <script type="text/javascript" src="/js/ga.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="hanoi.html">                 hanoi.coffee               </a>                                           <a class="source" href="kepler_1.html">                 kepler_1.coffee               </a>                                           <a class="source" href="pasta.html">                 pasta.coffee               </a>                                           <a class="source" href="punch.html">                 punch.coffee               </a>                                           <a class="source" href="rocket.html">                 rocket.coffee               </a>                                           <a class="source" href="rocket_box2d.html">                 rocket_box2d.coffee               </a>                                           <a class="source" href="unit_circle.html">                 unit_circle.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               hanoi.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span><span class="s1">&#39;toy2d/canvas&#39;</span><span class="p">,</span> <span class="s1">&#39;toy2d/canvas_scale&#39;</span><span class="p">],</span> <span class="p">(</span><span class="nx">Canvas</span><span class="p">,</span> <span class="nx">CanvasScale</span><span class="p">)</span> <span class="o">=&gt;</span>
-  <span class="nv">WIDTH         = </span><span class="kc">undefined</span>
-  <span class="nv">HEIGHT        = </span><span class="kc">undefined</span>
-  <span class="nv">MAX_HEIGHT    = </span><span class="kc">undefined</span>
-  <span class="nv">canvas        = </span><span class="kc">undefined</span>
-  <span class="nv">ctx           = </span><span class="kc">undefined</span>
-  <span class="nv">towers        = </span><span class="kc">undefined</span>
-  <span class="nv">step_timer    = </span><span class="kc">undefined</span>
-  <span class="nv">initial_ratio = </span><span class="kc">undefined</span>
-  <span class="nv">move_number   = </span><span class="mi">1</span>
-  <span class="nv">tower_height  = </span><span class="mi">1</span>
+<!DOCTYPE html>
 
-  <span class="k">class</span> <span class="nx">Tower</span>
-    <span class="nv">constructor: </span><span class="nf">(@index) -&gt;</span>
-      <span class="vi">@disks = </span><span class="p">[]</span>
+<html>
+<head>
+  <title>hanoi.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="hanoi.html">
+                hanoi.coffee
+              </a>
+            
+              
+              <a class="source" href="kepler_1.html">
+                kepler_1.coffee
+              </a>
+            
+              
+              <a class="source" href="pasta.html">
+                pasta.coffee
+              </a>
+            
+              
+              <a class="source" href="punch.html">
+                punch.coffee
+              </a>
+            
+              
+              <a class="source" href="rocket.html">
+                rocket.coffee
+              </a>
+            
+              
+              <a class="source" href="rocket_box2d.html">
+                rocket_box2d.coffee
+              </a>
+            
+              
+              <a class="source" href="unit_circle.html">
+                unit_circle.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>hanoi.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>.def [<span class="hljs-string">'toy2d/canvas'</span>, <span class="hljs-string">'toy2d/canvas_scale'</span>], <span class="hljs-function"><span class="hljs-params">(Canvas, CanvasScale)</span> =&gt;</span>
+  WIDTH         = <span class="hljs-literal">undefined</span>
+  HEIGHT        = <span class="hljs-literal">undefined</span>
+  MAX_HEIGHT    = <span class="hljs-literal">undefined</span>
+  canvas        = <span class="hljs-literal">undefined</span>
+  ctx           = <span class="hljs-literal">undefined</span>
+  towers        = <span class="hljs-literal">undefined</span>
+  step_timer    = <span class="hljs-literal">undefined</span>
+  initial_ratio = <span class="hljs-literal">undefined</span>
+  move_number   = <span class="hljs-number">1</span>
+  tower_height  = <span class="hljs-number">1</span>
 
-  <span class="k">class</span> <span class="nx">Disk</span>
-    <span class="nv">constructor: </span><span class="nf">(@width) -&gt;</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Tower</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@index</span>)</span> -&gt;</span>
+      <span class="hljs-property">@disks</span> = []
 
-  <span class="nv">init = </span><span class="nf">() -&gt;</span>
-    <span class="nx">init_canvas</span><span class="p">()</span>
-    <span class="nx">init_controls</span><span class="p">()</span>
-    <span class="nx">init_towers</span><span class="p">()</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Disk</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@width</span>)</span> -&gt;</span>
+<span class="hljs-function">
+  <span class="hljs-title">init</span> = <span class="hljs-params">()</span> -&gt;</span>
+    init_canvas()
+    init_controls()
+    init_towers()
+<span class="hljs-function">
+  <span class="hljs-title">init_canvas</span> = <span class="hljs-params">()</span> -&gt;</span>
 
-  <span class="nv">init_canvas = </span><span class="nf">() -&gt;</span>
+    canvas      = (<span class="hljs-keyword">new</span> Canvas).jquery()
+    ctx         = canvas[<span class="hljs-number">0</span>].getContext(<span class="hljs-string">"2d"</span>)
 
-    <span class="nv">canvas      = </span><span class="p">(</span><span class="k">new</span> <span class="nx">Canvas</span><span class="p">).</span><span class="nx">jquery</span><span class="p">()</span>
-    <span class="nv">ctx         = </span><span class="nx">canvas</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">)</span>
+    WIDTH = canvas.width()
+    HEIGHT = canvas.height()
+    MAX_HEIGHT = HEIGHT / <span class="hljs-number">2</span>
+    <span class="hljs-keyword">new</span> CanvasScale(canvas, <span class="hljs-number">0.5</span>)
+<span class="hljs-function">
+  <span class="hljs-title">init_controls</span> = <span class="hljs-params">()</span> -&gt;</span>
+    $(<span class="hljs-string">"#controls"</span>).append(<span class="hljs-string">"&lt;input type='text' id='tower_height'&gt;"</span>)
+    $(<span class="hljs-string">"#controls"</span>).append(<span class="hljs-string">"&lt;input id='tower_refresh' type='button' value='Go'&gt;"</span>)
+    $(<span class="hljs-string">"#tower_refresh"</span>).click re_init_towers
+    $<span class="hljs-function"><span class="hljs-params">(<span class="hljs-string">"#tower_height"</span>)</span>.<span class="hljs-title">keydown</span> <span class="hljs-params">(evt)</span> =&gt;</span>
+      <span class="hljs-keyword">if</span> evt.keyCode == <span class="hljs-number">13</span> <span class="hljs-keyword">then</span> re_init_towers()
+<span class="hljs-function">
+  <span class="hljs-title">re_init_towers</span> = <span class="hljs-params">()</span> -&gt;</span>
+    init_towers($(<span class="hljs-string">"#tower_height"</span>).val())
+<span class="hljs-function">
+  <span class="hljs-title">init_towers</span> = <span class="hljs-params">(new_height)</span> -&gt;</span>
+    clearInterval(step_timer) <span class="hljs-keyword">if</span> step_timer
 
-    <span class="nv">WIDTH = </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span>
-    <span class="nv">HEIGHT = </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">()</span>
-    <span class="nv">MAX_HEIGHT = </span><span class="nx">HEIGHT</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="k">new</span> <span class="nx">CanvasScale</span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="hljs-keyword">if</span> new_height
+      new_height = parseInt(new_height)
+      <span class="hljs-keyword">if</span> !_.isNaN(new_height)
+        <span class="hljs-keyword">if</span> new_height &lt; <span class="hljs-number">1</span>
+          tower_height = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> new_height &gt; MAX_HEIGHT
+          tower_height = MAX_HEIGHT
+        <span class="hljs-keyword">else</span>
+          tower_height = new_height
 
-  <span class="nv">init_controls = </span><span class="nf">() -&gt;</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#controls&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;input type=&#39;text&#39; id=&#39;tower_height&#39;&gt;&quot;</span><span class="p">)</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#controls&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;input id=&#39;tower_refresh&#39; type=&#39;button&#39; value=&#39;Go&#39;&gt;&quot;</span><span class="p">)</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#tower_refresh&quot;</span><span class="p">).</span><span class="nx">click</span> <span class="nx">re_init_towers</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#tower_height&quot;</span><span class="p">).</span><span class="nx">keydown</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span>
-      <span class="k">if</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="mi">13</span> <span class="k">then</span> <span class="nx">re_init_towers</span><span class="p">()</span>
+    $(<span class="hljs-string">"#tower_height"</span>).val(tower_height)
 
-  <span class="nv">re_init_towers = </span><span class="nf">() -&gt;</span>
-    <span class="nx">init_towers</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#tower_height&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span>
+    move_number = <span class="hljs-number">1</span>
 
-  <span class="nv">init_towers = </span><span class="nf">(new_height) -&gt;</span>
-    <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">step_timer</span><span class="p">)</span> <span class="k">if</span> <span class="nx">step_timer</span>
+    towers = _.map [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>], <span class="hljs-function"><span class="hljs-params">(i)</span>=&gt;</span>
+      <span class="hljs-keyword">new</span> Tower(i)
 
-    <span class="k">if</span> <span class="nx">new_height</span>
-      <span class="nv">new_height = </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">new_height</span><span class="p">)</span>
-      <span class="k">if</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">new_height</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nx">new_height</span> <span class="o">&lt;</span> <span class="mi">1</span>
-          <span class="nv">tower_height = </span><span class="mi">1</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="nx">new_height</span> <span class="o">&gt;</span> <span class="nx">MAX_HEIGHT</span>
-          <span class="nv">tower_height = </span><span class="nx">MAX_HEIGHT</span>
-        <span class="k">else</span>
-          <span class="nv">tower_height = </span><span class="nx">new_height</span>
+    towers[<span class="hljs-number">0</span>].disks = _([<span class="hljs-number">1.</span>.tower_height]).chain()
+      .reverse()
+      .map <span class="hljs-function"><span class="hljs-params">(i)</span>=&gt;</span>
+        <span class="hljs-keyword">new</span> Disk(i)
+      .value()
 
-    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#tower_height&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">tower_height</span><span class="p">)</span>
+    draw()
+    step_timer = setInterval(step, <span class="hljs-number">1000</span>/Math.pow(tower_height, <span class="hljs-number">1.3</span>))
+<span class="hljs-function">
+  <span class="hljs-title">rect</span> = <span class="hljs-params">(x,y,w,h)</span> -&gt;</span>
+    ctx.beginPath()
+    ctx.rect(x,y,w,h)
+    ctx.closePath()
+    ctx.fill()
+<span class="hljs-function">
+  <span class="hljs-title">clear</span> = <span class="hljs-params">()</span> -&gt;</span>
+    ctx.clearRect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, WIDTH, HEIGHT)
+<span class="hljs-function">
+  <span class="hljs-title">draw</span> = <span class="hljs-params">()</span> -&gt;</span>
+    clear()
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> towers
+      j = <span class="hljs-number">0</span>
+      <span class="hljs-keyword">for</span> disk <span class="hljs-keyword">in</span> towers[i].disks
+        mult = MAX_HEIGHT/tower_height
+        rect(WIDTH/<span class="hljs-number">4</span>*(i+<span class="hljs-number">1</span>)-disk.width*mult/<span class="hljs-number">2</span>,HEIGHT-MAX_HEIGHT/<span class="hljs-number">2</span>-j*mult-mult,
+          disk.width * mult,mult)
+        j++
+      i++
+<span class="hljs-function">
+  <span class="hljs-title">get_move</span> = <span class="hljs-params">(move)</span> -&gt;</span>
+    disk = <span class="hljs-number">1</span>
 
-    <span class="nv">move_number = </span><span class="mi">1</span>
+    <span class="hljs-keyword">while</span> (!(move &amp; <span class="hljs-number">1</span>))
+      move &gt;&gt;= <span class="hljs-number">1</span>
+      disk += <span class="hljs-number">1</span>
 
-    <span class="nv">towers = </span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="o">=&gt;</span>
-      <span class="k">new</span> <span class="nx">Tower</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+    move &gt;&gt;= <span class="hljs-number">1</span>; <span class="hljs-comment"># Now the Nth move *for this disk*</span>
 
-    <span class="nx">towers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nv">disks = </span><span class="nx">_</span><span class="p">([</span><span class="mi">1</span><span class="p">..</span><span class="nx">tower_height</span><span class="p">]).</span><span class="nx">chain</span><span class="p">()</span>
-      <span class="p">.</span><span class="nx">reverse</span><span class="p">()</span>
-      <span class="p">.</span><span class="nx">map</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="o">=&gt;</span>
-        <span class="k">new</span> <span class="nx">Disk</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-      <span class="p">.</span><span class="nx">value</span><span class="p">()</span>
+    direction = [
+      [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ],
+      [ <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span> ],
+    ][(disk+tower_height)%<span class="hljs-number">2</span>]
 
-    <span class="nx">draw</span><span class="p">()</span>
-    <span class="nv">step_timer = </span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">step</span><span class="p">,</span> <span class="mi">1000</span><span class="o">/</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">tower_height</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">))</span>
+    [ direction[ move % <span class="hljs-number">3</span>], direction[ (move + <span class="hljs-number">1</span>) % <span class="hljs-number">3</span> ] ]
+<span class="hljs-function">
+  <span class="hljs-title">step</span> = <span class="hljs-params">()</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> towers[<span class="hljs-number">1</span>].disks.length != tower_height
+      [from, to] = get_move(move_number++)
+      towers[to].disks.push(towers[from].disks.pop())
+    <span class="hljs-keyword">else</span>
+      init_towers(tower_height+<span class="hljs-number">1</span>)
 
-  <span class="nv">rect = </span><span class="nf">(x,y,w,h) -&gt;</span>
-    <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">()</span>
-    <span class="nx">ctx</span><span class="p">.</span><span class="nx">rect</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">,</span><span class="nx">w</span><span class="p">,</span><span class="nx">h</span><span class="p">)</span>
-    <span class="nx">ctx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">()</span>
-    <span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">()</span>
+    draw()
 
-  <span class="nv">clear = </span><span class="nf">() -&gt;</span>
-    <span class="nx">ctx</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">WIDTH</span><span class="p">,</span> <span class="nx">HEIGHT</span><span class="p">)</span>
-
-  <span class="nv">draw = </span><span class="nf">() -&gt;</span>
-    <span class="nx">clear</span><span class="p">()</span>
-    <span class="nv">i = </span><span class="mi">0</span>
-    <span class="k">for</span> <span class="nx">col</span> <span class="k">in</span> <span class="nx">towers</span>
-      <span class="nv">j = </span><span class="mi">0</span>
-      <span class="k">for</span> <span class="nx">disk</span> <span class="k">in</span> <span class="nx">towers</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">disks</span>
-        <span class="nv">mult = </span><span class="nx">MAX_HEIGHT</span><span class="o">/</span><span class="nx">tower_height</span>
-        <span class="nx">rect</span><span class="p">(</span><span class="nx">WIDTH</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="nx">disk</span><span class="p">.</span><span class="nx">width</span><span class="o">*</span><span class="nx">mult</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="nx">HEIGHT</span><span class="o">-</span><span class="nx">MAX_HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="nx">j</span><span class="o">*</span><span class="nx">mult</span><span class="o">-</span><span class="nx">mult</span><span class="p">,</span>
-          <span class="nx">disk</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">mult</span><span class="p">,</span><span class="nx">mult</span><span class="p">)</span>
-        <span class="nx">j</span><span class="o">++</span>
-      <span class="nx">i</span><span class="o">++</span>
-
-  <span class="nv">get_move = </span><span class="nf">(move) -&gt;</span>
-    <span class="nv">disk = </span><span class="mi">1</span>
-
-    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">move</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">))</span>
-      <span class="nx">move</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
-      <span class="nx">disk</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="nx">move</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1"># Now the Nth move *for this disk*</span>
-
-    <span class="nv">direction = </span><span class="p">[</span>
-      <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">],</span>
-      <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
-    <span class="p">][(</span><span class="nx">disk</span><span class="o">+</span><span class="nx">tower_height</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">]</span>
-
-    <span class="p">[</span> <span class="nx">direction</span><span class="p">[</span> <span class="nx">move</span> <span class="o">%</span> <span class="mi">3</span><span class="p">],</span> <span class="nx">direction</span><span class="p">[</span> <span class="p">(</span><span class="nx">move</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">]</span> <span class="p">]</span>
-
-  <span class="nv">step = </span><span class="nf">() -&gt;</span>
-    <span class="k">if</span> <span class="nx">towers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">disks</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="nx">tower_height</span>
-      <span class="p">[</span><span class="nx">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">]</span> <span class="o">=</span> <span class="nx">get_move</span><span class="p">(</span><span class="nx">move_number</span><span class="o">++</span><span class="p">)</span>
-      <span class="nx">towers</span><span class="p">[</span><span class="nx">to</span><span class="p">].</span><span class="nx">disks</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">towers</span><span class="p">[</span><span class="nx">from</span><span class="p">].</span><span class="nx">disks</span><span class="p">.</span><span class="nx">pop</span><span class="p">())</span>
-    <span class="k">else</span>
-      <span class="nx">init_towers</span><span class="p">(</span><span class="nx">tower_height</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="nx">draw</span><span class="p">()</span>
-
-  <span class="k">class</span> <span class="nx">Game</span>
-    <span class="nv">constructor: </span><span class="nf">(canvas) -&gt;</span> <span class="nx">init</span><span class="p">()</span>
-
-</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       &copy; 2010 Bo Borgerson |       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Game</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(canvas)</span> -&gt;</span> init()</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

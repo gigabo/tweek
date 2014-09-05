@@ -1,26 +1,96 @@
-<!DOCTYPE html>  <html> <head>   <title>api_client.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script>   <script type="text/javascript" src="/js/ga.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="api_client.html">                 api_client.coffee               </a>                                           <a class="source" href="link_deps.html">                 link_deps.coffee               </a>                                           <a class="source" href="toy.html">                 toy.coffee               </a>                                           <a class="source" href="underscore.html">                 underscore.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               api_client.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nv">init_controls = </span><span class="nf">() -&gt;</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#play_container&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;input type=&#39;text&#39; spellcheck=&#39;false&#39; id=&#39;api_query&#39;&gt;&quot;</span><span class="p">)</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#play_container&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;input id=&#39;api_go&#39; type=&#39;button&#39; value=&#39;Go&#39;&gt;&quot;</span><span class="p">)</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#play_container&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;pre id=&#39;api_result&#39;&gt;&lt;/pre&gt;&quot;</span><span class="p">)</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#api_go&quot;</span><span class="p">).</span><span class="nx">click</span> <span class="nx">api_go</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#api_query&quot;</span><span class="p">).</span><span class="nx">width</span><span class="p">(</span><span class="s2">&quot;90%&quot;</span><span class="p">)</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#api_query&quot;</span><span class="p">).</span><span class="nx">focus</span><span class="p">()</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#api_query&quot;</span><span class="p">).</span><span class="nx">keydown</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span>
-    <span class="k">if</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="mi">13</span> <span class="k">then</span> <span class="nx">api_go</span><span class="p">()</span>
+<!DOCTYPE html>
 
-<span class="nv">api_go = </span><span class="nf">() -&gt;</span>
-  <span class="nv">query = </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#api_query&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
-  <span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span> <span class="s2">&quot;/api/json/#{query}&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span>
-    <span class="nv">dump = </span><span class="nx">$</span><span class="p">.</span><span class="nx">dump</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#api_result&quot;</span><span class="p">).</span><span class="nx">empty</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">dump</span><span class="p">.</span><span class="nx">length</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#api_result&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;#{dump}\n&quot;</span><span class="p">)</span>
-    <span class="k">else</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#api_result&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;No response.\n&quot;</span><span class="p">)</span>
+<html>
+<head>
+  <title>api_client.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="api_client.html">
+                api_client.coffee
+              </a>
+            
+              
+              <a class="source" href="link_deps.html">
+                link_deps.coffee
+              </a>
+            
+              
+              <a class="source" href="toy.html">
+                toy.coffee
+              </a>
+            
+              
+              <a class="source" href="underscore.html">
+                underscore.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>api_client.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function">
+
+<span class="hljs-title">init_controls</span> = <span class="hljs-params">()</span> -&gt;</span>
+  $(<span class="hljs-string">"#play_container"</span>).append(<span class="hljs-string">"&lt;input type='text' spellcheck='false' id='api_query'&gt;"</span>)
+  $(<span class="hljs-string">"#play_container"</span>).append(<span class="hljs-string">"&lt;input id='api_go' type='button' value='Go'&gt;"</span>)
+  $(<span class="hljs-string">"#play_container"</span>).append(<span class="hljs-string">"&lt;pre id='api_result'&gt;&lt;/pre&gt;"</span>)
+  $(<span class="hljs-string">"#api_go"</span>).click api_go
+  $(<span class="hljs-string">"#api_query"</span>).width(<span class="hljs-string">"90%"</span>)
+  $(<span class="hljs-string">"#api_query"</span>).focus()
+  $<span class="hljs-function"><span class="hljs-params">(<span class="hljs-string">"#api_query"</span>)</span>.<span class="hljs-title">keydown</span> <span class="hljs-params">(evt)</span> =&gt;</span>
+    <span class="hljs-keyword">if</span> evt.keyCode == <span class="hljs-number">13</span> <span class="hljs-keyword">then</span> api_go()
+<span class="hljs-function">
+<span class="hljs-title">api_go</span> = <span class="hljs-params">()</span> -&gt;</span>
+  query = $(<span class="hljs-string">"#api_query"</span>).val()
+  $.getJSON <span class="hljs-string">"/api/json/<span class="hljs-subst">#{query}</span>"</span>, <span class="hljs-function"><span class="hljs-params">(res)</span> =&gt;</span>
+    dump = $.dump(res)
+    $(<span class="hljs-string">"#api_result"</span>).empty()
+    <span class="hljs-keyword">if</span> dump.length
+      $(<span class="hljs-string">"#api_result"</span>).append(<span class="hljs-string">"<span class="hljs-subst">#{dump}</span>\n"</span>)
+    <span class="hljs-keyword">else</span>
+      $(<span class="hljs-string">"#api_result"</span>).append(<span class="hljs-string">"No response.\n"</span>)
 
 
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span> <span class="p">()</span> <span class="o">=&gt;</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#play_canvas&quot;</span><span class="p">).</span><span class="nx">remove</span><span class="p">()</span> <span class="c1"># Don&#39;t need this for now</span>
-  <span class="nx">$</span><span class="p">.</span><span class="nx">getScript</span> <span class="s2">&quot;/js/jquery.tweekdump.js&quot;</span><span class="p">,</span> <span class="nx">init_controls</span>
-
-</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       &copy; 2010 Bo Borgerson |       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 
+$<span class="hljs-function"><span class="hljs-params">(<span class="hljs-built_in">document</span>)</span>.<span class="hljs-title">ready</span> <span class="hljs-params">()</span> =&gt;</span>
+  $(<span class="hljs-string">"#play_canvas"</span>).remove() <span class="hljs-comment"># Don't need this for now</span>
+  $.getScript <span class="hljs-string">"/js/jquery.tweekdump.js"</span>, init_controls</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

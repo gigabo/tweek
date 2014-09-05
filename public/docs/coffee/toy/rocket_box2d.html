@@ -1,218 +1,316 @@
-<!DOCTYPE html>  <html> <head>   <title>rocket_box2d.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script>   <script type="text/javascript" src="/js/ga.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="hanoi.html">                 hanoi.coffee               </a>                                           <a class="source" href="kepler_1.html">                 kepler_1.coffee               </a>                                           <a class="source" href="pasta.html">                 pasta.coffee               </a>                                           <a class="source" href="punch.html">                 punch.coffee               </a>                                           <a class="source" href="rocket.html">                 rocket.coffee               </a>                                           <a class="source" href="rocket_box2d.html">                 rocket_box2d.coffee               </a>                                           <a class="source" href="unit_circle.html">                 unit_circle.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               rocket_box2d.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span>
-  <span class="s1">&#39;toy2d/debug&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;toy2d/canvas&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;toy2d/canvas_scale&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;toy2d/controls&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;/js/box2d.js&#39;</span><span class="p">,</span>
-<span class="p">],</span>
-<span class="p">(</span><span class="nx">Debug</span><span class="p">,</span> <span class="nx">Canvas</span><span class="p">,</span> <span class="nx">CanvasScale</span><span class="p">,</span> <span class="nx">Controls</span><span class="p">)</span> <span class="o">=&gt;</span>
+<!DOCTYPE html>
 
-  <span class="k">class</span> <span class="nx">Trail</span>
-    <span class="nv">constructor: </span><span class="nf">(@game) -&gt;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
+<html>
+<head>
+  <title>rocket_box2d.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="hanoi.html">
+                hanoi.coffee
+              </a>
+            
+              
+              <a class="source" href="kepler_1.html">
+                kepler_1.coffee
+              </a>
+            
+              
+              <a class="source" href="pasta.html">
+                pasta.coffee
+              </a>
+            
+              
+              <a class="source" href="punch.html">
+                punch.coffee
+              </a>
+            
+              
+              <a class="source" href="rocket.html">
+                rocket.coffee
+              </a>
+            
+              
+              <a class="source" href="rocket_box2d.html">
+                rocket_box2d.coffee
+              </a>
+            
+              
+              <a class="source" href="unit_circle.html">
+                unit_circle.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>rocket_box2d.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>.def [
+  <span class="hljs-string">'toy2d/debug'</span>,
+  <span class="hljs-string">'toy2d/canvas'</span>,
+  <span class="hljs-string">'toy2d/canvas_scale'</span>,
+  <span class="hljs-string">'toy2d/controls'</span>,
+  <span class="hljs-string">'/js/box2d.js'</span>,
+],
+<span class="hljs-function"><span class="hljs-params">(Debug, Canvas, CanvasScale, Controls)</span> =&gt;</span>
 
-    <span class="nv">init: </span><span class="nf">() -&gt;</span>
-      <span class="vi">@length = </span><span class="mi">40</span>
-      <span class="vi">@sparks = </span><span class="p">[]</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Trail</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@game</span>)</span> -&gt;</span>
+      <span class="hljs-keyword">this</span>.init()
 
-    <span class="nv">step: </span><span class="nf">() -&gt;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">add_spark</span><span class="p">()</span>
+    <span class="hljs-attribute">init</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@length</span> = <span class="hljs-number">40</span>
+      <span class="hljs-property">@sparks</span> = []
 
-    <span class="nv">add_spark: </span><span class="nf">() -&gt;</span>
-      <span class="nv">rocket = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">rocket</span>
-      <span class="nv">rpos = </span><span class="nx">rocket</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">GetPosition</span><span class="p">()</span>
-      <span class="nv">rx = </span><span class="nx">rpos</span><span class="p">.</span><span class="nx">x</span>
-      <span class="nv">ry = </span><span class="nx">rpos</span><span class="p">.</span><span class="nx">y</span>
-      <span class="nv">ra = </span><span class="nx">rocket</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">GetAngle</span><span class="p">()</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="hljs-attribute">step</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">this</span>.add_spark()
 
-      <span class="nv">x = </span><span class="nx">rx</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">ra</span><span class="p">)</span><span class="o">*</span><span class="nx">rocket</span><span class="p">.</span><span class="nx">length</span><span class="o">*</span><span class="mf">1.5</span>
-      <span class="nv">y = </span><span class="nx">ry</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">ra</span><span class="p">)</span><span class="o">*</span><span class="nx">rocket</span><span class="p">.</span><span class="nx">length</span><span class="o">*</span><span class="mf">1.5</span>
-      <span class="nv">w = </span><span class="mf">0.2</span>
-      <span class="nv">h = </span><span class="mf">0.2</span>
-      <span class="nv">bodyDef = </span><span class="k">new</span> <span class="nx">b2BodyDef</span><span class="p">()</span>
-      <span class="nx">bodyDef</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
-      <span class="nv">body = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">CreateBody</span><span class="p">(</span><span class="nx">bodyDef</span><span class="p">)</span>
-      <span class="nv">shapeDef = </span><span class="k">new</span> <span class="nx">b2PolygonDef</span><span class="p">()</span>
-      <span class="nx">shapeDef</span><span class="p">.</span><span class="nx">SetAsBox</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
-      <span class="nv">body.w = </span><span class="nx">w</span>
-      <span class="nv">body.h = </span><span class="nx">h</span>
-      <span class="nv">shapeDef.restitution = </span><span class="mf">0.4</span>
-      <span class="nv">shapeDef.density = </span><span class="mf">0.01</span>
-      <span class="nv">shapeDef.friction = </span><span class="mf">0.3</span>
-      <span class="nx">body</span><span class="p">.</span><span class="nx">CreateShape</span><span class="p">(</span><span class="nx">shapeDef</span><span class="p">)</span>
-      <span class="nx">body</span><span class="p">.</span><span class="nx">SetMassFromShapes</span><span class="p">()</span>
-      <span class="nv">thrust = </span><span class="mi">30</span>
-      <span class="nv">rand = </span><span class="p">.</span><span class="mi">5</span><span class="o">*</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">-</span><span class="p">.</span><span class="mi">5</span><span class="p">)</span>
-      <span class="nv">lv = </span><span class="nx">rocket</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">GetLinearVelocity</span><span class="p">()</span>
-      <span class="nv">t_x = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">ra</span><span class="o">+</span><span class="nx">rand</span><span class="p">)</span><span class="o">*</span><span class="nx">thrust</span><span class="o">-</span><span class="nx">lv</span><span class="p">.</span><span class="nx">x</span>
-      <span class="nv">t_y = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">ra</span><span class="o">+</span><span class="nx">rand</span><span class="p">)</span><span class="o">*</span><span class="nx">thrust</span><span class="o">-</span><span class="nx">lv</span><span class="p">.</span><span class="nx">y</span>
-      <span class="nx">body</span><span class="p">.</span><span class="nx">SetLinearVelocity</span><span class="p">(</span><span class="k">new</span> <span class="nx">b2Vec2</span><span class="p">(</span><span class="o">-</span><span class="nx">t_x</span><span class="p">,</span><span class="o">-</span><span class="nx">t_y</span><span class="p">))</span>
-      <span class="nx">@sparks</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">@sparks</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">@length</span>
-        <span class="nv">dead = </span><span class="nx">@sparks</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
-        <span class="nx">@game</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">DestroyBody</span><span class="p">(</span><span class="nx">dead</span><span class="p">)</span>
+    <span class="hljs-attribute">add_spark</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      rocket = <span class="hljs-property">@game</span>.rocket
+      rpos = rocket.body.GetPosition()
+      rx = rpos.x
+      ry = rpos.y
+      ra = rocket.body.GetAngle() + Math.PI / <span class="hljs-number">2</span>
 
-    <span class="nv">draw: </span><span class="nf">(graphics) -&gt;</span>
-      <span class="nv">ctx = </span><span class="nx">graphics</span><span class="p">.</span><span class="nx">ctx</span>
-      <span class="nv">ctx.fillStyle = </span><span class="s1">&#39;black&#39;</span>
-      <span class="nv">i = </span><span class="mi">0</span>
-      <span class="k">for</span> <span class="nx">body</span> <span class="k">in</span> <span class="nx">@sparks</span>
-        <span class="nx">i</span><span class="o">++</span>
-        <span class="nv">div = </span><span class="nx">i</span><span class="o">/</span><span class="nx">@sparks</span><span class="p">.</span><span class="nx">length</span>
-        <span class="nv">tff = </span><span class="mi">255</span><span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">div</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span>
-        <span class="nv">ctx.fillStyle = </span><span class="s2">&quot;rgba(255,#{tff},#{tff},#{div})&quot;</span>
-        <span class="nv">t = </span><span class="nx">body</span><span class="p">.</span><span class="nx">m_xf</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
-        <span class="nv">mult = </span><span class="mf">0.4</span><span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="o">-</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="nx">i</span><span class="o">/</span><span class="nx">@sparks</span><span class="p">.</span><span class="nx">length</span><span class="p">))</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">()</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nx">mult</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">,</span><span class="kc">false</span><span class="p">)</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="o">-</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="o">-</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">()</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">()</span>
+      x = rx - Math.cos(ra)*rocket.length*<span class="hljs-number">1.5</span>
+      y = ry - Math.sin(ra)*rocket.length*<span class="hljs-number">1.5</span>
+      w = <span class="hljs-number">0.2</span>
+      h = <span class="hljs-number">0.2</span>
+      bodyDef = <span class="hljs-keyword">new</span> b2BodyDef()
+      bodyDef.position.Set(x, y)
+      body = <span class="hljs-property">@game</span>.world.CreateBody(bodyDef)
+      shapeDef = <span class="hljs-keyword">new</span> b2PolygonDef()
+      shapeDef.SetAsBox(w, h)
+      body.w = w
+      body.h = h
+      shapeDef.restitution = <span class="hljs-number">0.4</span>
+      shapeDef.density = <span class="hljs-number">0.01</span>
+      shapeDef.friction = <span class="hljs-number">0.3</span>
+      body.CreateShape(shapeDef)
+      body.SetMassFromShapes()
+      thrust = <span class="hljs-number">30</span>
+      rand = <span class="hljs-number">.5</span>*(Math.random()-<span class="hljs-number">.5</span>)
+      lv = rocket.body.GetLinearVelocity()
+      t_x = Math.cos(ra+rand)*thrust-lv.x
+      t_y = Math.sin(ra+rand)*thrust-lv.y
+      body.SetLinearVelocity(<span class="hljs-keyword">new</span> b2Vec2(-t_x,-t_y))
+      <span class="hljs-property">@sparks</span>.push(body)
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@sparks</span>.length &gt; <span class="hljs-property">@length</span>
+        dead = <span class="hljs-property">@sparks</span>.shift()
+        <span class="hljs-property">@game</span>.world.DestroyBody(dead)
 
-
-  <span class="k">class</span> <span class="nx">Rocket</span>
-    <span class="nv">constructor: </span><span class="nf">(@game) -&gt;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
-    <span class="nv">init: </span><span class="nf">() -&gt;</span>
-      <span class="nv">x = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">width</span><span class="o">/</span><span class="mi">2</span>
-      <span class="nv">y = </span><span class="mi">2</span>
-      <span class="nv">w = </span><span class="mf">0.2</span>
-      <span class="vi">@length = </span><span class="mf">1.0</span>
-      <span class="nv">h = </span><span class="nx">@length</span>
-      <span class="nv">bodyDef = </span><span class="k">new</span> <span class="nx">b2BodyDef</span><span class="p">()</span>
-      <span class="nx">bodyDef</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
-      <span class="vi">@body = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">CreateBody</span><span class="p">(</span><span class="nx">bodyDef</span><span class="p">)</span>
-      <span class="nv">shapeDef = </span><span class="k">new</span> <span class="nx">b2PolygonDef</span><span class="p">()</span>
-      <span class="nx">shapeDef</span><span class="p">.</span><span class="nx">SetAsBox</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
-      <span class="vi">@body.w = </span><span class="nx">w</span>
-      <span class="vi">@body.h = </span><span class="nx">@length</span>
-      <span class="nv">shapeDef.restitution = </span><span class="mf">0.4</span>
-      <span class="nv">shapeDef.density = </span><span class="mf">1.0</span>
-      <span class="nv">shapeDef.friction = </span><span class="mf">0.01</span>
-      <span class="nx">@body</span><span class="p">.</span><span class="nx">CreateShape</span><span class="p">(</span><span class="nx">shapeDef</span><span class="p">)</span>
-      <span class="nx">@body</span><span class="p">.</span><span class="nx">SetMassFromShapes</span><span class="p">()</span>
-      <span class="vi">@trail = </span><span class="k">new</span> <span class="nx">Trail</span><span class="p">(</span><span class="nx">@game</span><span class="p">)</span>
-
-    <span class="nv">step: </span><span class="nf">() -&gt;</span>
-      <span class="nv">t = </span><span class="nx">@body</span><span class="p">.</span><span class="nx">m_xf</span>
-      <span class="nv">a = </span><span class="nx">@body</span><span class="p">.</span><span class="nx">GetAngle</span><span class="p">()</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">2</span>
-      <span class="nv">thrust = </span><span class="mi">20</span>
-      <span class="nv">t_x = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="o">*</span> <span class="nx">thrust</span>
-      <span class="nv">t_y = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="o">*</span> <span class="nx">thrust</span>
-      <span class="nv">l_x = </span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">@length</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-      <span class="nv">l_y = </span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">@length</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-      <span class="nx">@body</span><span class="p">.</span><span class="nx">ApplyForce</span><span class="p">(</span><span class="k">new</span> <span class="nx">b2Vec2</span><span class="p">(</span><span class="nx">t_x</span><span class="p">,</span><span class="nx">t_y</span><span class="p">),</span><span class="k">new</span> <span class="nx">b2Vec2</span><span class="p">(</span><span class="nx">l_x</span><span class="p">,</span><span class="nx">l_y</span><span class="p">))</span>
-      <span class="nx">@body</span><span class="p">.</span><span class="nx">SetAngularVelocity</span><span class="p">(</span><span class="nx">@body</span><span class="p">.</span><span class="nx">GetAngularVelocity</span><span class="p">()</span><span class="o">*</span><span class="mf">0.925</span><span class="p">)</span>
-      <span class="nv">torque = </span><span class="mi">10</span>
-      <span class="k">if</span> <span class="nx">@game</span><span class="p">.</span><span class="nx">controls</span><span class="p">.</span><span class="nx">left</span>  <span class="k">then</span> <span class="nx">@body</span><span class="p">.</span><span class="nx">ApplyTorque</span><span class="p">(</span><span class="nx">torque</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">@game</span><span class="p">.</span><span class="nx">controls</span><span class="p">.</span><span class="nx">right</span> <span class="k">then</span> <span class="nx">@body</span><span class="p">.</span><span class="nx">ApplyTorque</span><span class="p">(</span><span class="o">-</span><span class="nx">torque</span><span class="p">)</span>
-      <span class="nx">@trail</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
-
-    <span class="nv">draw: </span><span class="nf">(graphics) -&gt;</span>
-      <span class="nv">ctx = </span><span class="nx">graphics</span><span class="p">.</span><span class="nx">ctx</span>
-      <span class="nv">ctx.fillStyle = </span><span class="s1">&#39;white&#39;</span>
-      <span class="nv">t = </span><span class="nx">@body</span><span class="p">.</span><span class="nx">m_xf</span>
-      <span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
-      <span class="nx">ctx</span><span class="p">.</span><span class="nx">rotate</span><span class="p">(</span><span class="nx">@body</span><span class="p">.</span><span class="nx">GetAngle</span><span class="p">())</span>
-      <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="o">-</span><span class="nx">@body</span><span class="p">.</span><span class="nx">w</span><span class="p">,</span> <span class="o">-</span><span class="nx">@body</span><span class="p">.</span><span class="nx">h</span><span class="p">,</span> <span class="nx">@body</span><span class="p">.</span><span class="nx">w</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="nx">@body</span><span class="p">.</span><span class="nx">h</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
-      <span class="nx">ctx</span><span class="p">.</span><span class="nx">rotate</span><span class="p">(</span><span class="o">-</span><span class="nx">@body</span><span class="p">.</span><span class="nx">GetAngle</span><span class="p">())</span>
-      <span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="o">-</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="o">-</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
-      <span class="nx">@trail</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">graphics</span><span class="p">)</span>
-
-
-  <span class="k">class</span> <span class="nx">Toy</span>
-    <span class="nv">constructor: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="nx">$</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">mozilla</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#canvas_container&quot;</span><span class="p">).</span><span class="nx">html</span> <span class="sh">&#39;&#39;&#39;</span>
-<span class="sh">          Sorry, this toy doesn&#39;t work in Firefox. Not sure why. :(</span>
-<span class="sh">        &#39;&#39;&#39;</span>
-        <span class="k">return</span>
-      <span class="nv">canvas = </span><span class="p">(</span><span class="k">new</span> <span class="nx">Canvas</span><span class="p">).</span><span class="nx">jquery</span><span class="p">()</span>
-      <span class="k">new</span> <span class="nx">CanvasScale</span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span> <span class="p">.</span><span class="mi">8</span><span class="p">)</span>
-      <span class="vi">@canvas = </span><span class="nx">canvas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="vi">@ctx = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;2d&#39;</span><span class="p">)</span>
-      <span class="vi">@width = </span><span class="mf">100.0</span>
-      <span class="nv">ppm = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">width</span><span class="o">/</span><span class="nx">@width</span>
-      <span class="vi">@height = </span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">height</span><span class="o">/</span><span class="nx">ppm</span>
-      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">setTransform</span><span class="p">(</span><span class="nx">ppm</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="nx">ppm</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
-      <span class="vi">@tick = </span><span class="mi">0</span>
-      <span class="vi">@bodies = </span><span class="p">[]</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_world</span><span class="p">()</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_walls</span><span class="p">()</span>
-      <span class="vi">@controls = </span><span class="k">new</span> <span class="nx">Controls</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-      <span class="vi">@rocket = </span><span class="k">new</span> <span class="nx">Rocket</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
-
-    <span class="nv">start: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="o">!</span><span class="nx">@running</span>
-        <span class="vi">@main_interval = </span><span class="nx">setInterval</span> <span class="p">()</span> <span class="o">=&gt;</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
-        <span class="p">,</span> <span class="mi">20</span>
-        <span class="vi">@running = </span><span class="kc">true</span>
-
-    <span class="nv">stop: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="nx">@running</span>
-        <span class="nx">clearInterval</span> <span class="nx">@main_interval</span>
-        <span class="vi">@running = </span><span class="kc">false</span>
-
-    <span class="nv">step: </span><span class="nf">() -&gt;</span>
-        <span class="nx">@world</span><span class="p">.</span><span class="nx">Step</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">60.0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">draw_bodies</span><span class="p">()</span>
-        <span class="nx">@rocket</span><span class="p">.</span><span class="nx">step</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-        <span class="nx">@rocket</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-
-    <span class="nv">draw_bodies: </span><span class="nf">() -&gt;</span>
-      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">@canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
-      <span class="vi">@ctx.fillStyle = </span><span class="s1">&#39;black&#39;</span>
-      <span class="nx">@ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span><span class="nx">@canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
-      <span class="k">for</span> <span class="nx">body</span> <span class="k">in</span> <span class="nx">@bodies</span>
-        <span class="vi">@ctx.fillStyle = </span><span class="nx">body</span><span class="p">.</span><span class="nx">color</span> <span class="o">||</span> <span class="s1">&#39;blue&#39;</span>
-        <span class="nv">t = </span><span class="nx">body</span><span class="p">.</span><span class="nx">m_xf</span>
-        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
-        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">rotate</span><span class="p">(</span><span class="nx">body</span><span class="p">.</span><span class="nx">GetAngle</span><span class="p">())</span>
-        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="o">-</span><span class="nx">body</span><span class="p">.</span><span class="nx">w</span><span class="p">,</span> <span class="o">-</span><span class="nx">body</span><span class="p">.</span><span class="nx">h</span><span class="p">,</span> <span class="nx">body</span><span class="p">.</span><span class="nx">w</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="nx">body</span><span class="p">.</span><span class="nx">h</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
-        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">rotate</span><span class="p">(</span><span class="o">-</span><span class="nx">body</span><span class="p">.</span><span class="nx">GetAngle</span><span class="p">())</span>
-        <span class="nx">@ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="o">-</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="o">-</span><span class="nx">t</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
+    <span class="hljs-attribute">draw</span>: <span class="hljs-function"><span class="hljs-params">(graphics)</span> -&gt;</span>
+      ctx = graphics.ctx
+      ctx.fillStyle = <span class="hljs-string">'black'</span>
+      i = <span class="hljs-number">0</span>
+      <span class="hljs-keyword">for</span> body <span class="hljs-keyword">in</span> <span class="hljs-property">@sparks</span>
+        i++
+        div = i/<span class="hljs-property">@sparks</span>.length
+        tff = <span class="hljs-number">255</span>-Math.floor(div * <span class="hljs-number">255</span>)
+        ctx.fillStyle = <span class="hljs-string">"rgba(255,<span class="hljs-subst">#{tff}</span>,<span class="hljs-subst">#{tff}</span>,<span class="hljs-subst">#{div}</span>)"</span>
+        t = body.m_xf
+        ctx.translate(t.position.x, t.position.y)
+        mult = <span class="hljs-number">0.4</span>*(<span class="hljs-number">5</span>-(<span class="hljs-number">4</span>*i/<span class="hljs-property">@sparks</span>.length))
+        ctx.beginPath()
+        ctx.arc(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,mult,<span class="hljs-number">2</span>*Math.PI,<span class="hljs-literal">false</span>)
+        ctx.translate(-t.position.x, -t.position.y)
+        ctx.closePath()
+        ctx.fill()
 
 
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rocket</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@game</span>)</span> -&gt;</span>
+      <span class="hljs-keyword">this</span>.init()
+    <span class="hljs-attribute">init</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      x = <span class="hljs-property">@game</span>.width/<span class="hljs-number">2</span>
+      y = <span class="hljs-number">2</span>
+      w = <span class="hljs-number">0.2</span>
+      <span class="hljs-property">@length</span> = <span class="hljs-number">1.0</span>
+      h = <span class="hljs-property">@length</span>
+      bodyDef = <span class="hljs-keyword">new</span> b2BodyDef()
+      bodyDef.position.Set(x, y)
+      <span class="hljs-property">@body</span> = <span class="hljs-property">@game</span>.world.CreateBody(bodyDef)
+      shapeDef = <span class="hljs-keyword">new</span> b2PolygonDef()
+      shapeDef.SetAsBox(w, h)
+      <span class="hljs-property">@body</span>.w = w
+      <span class="hljs-property">@body</span>.h = <span class="hljs-property">@length</span>
+      shapeDef.restitution = <span class="hljs-number">0.4</span>
+      shapeDef.density = <span class="hljs-number">1.0</span>
+      shapeDef.friction = <span class="hljs-number">0.01</span>
+      <span class="hljs-property">@body</span>.CreateShape(shapeDef)
+      <span class="hljs-property">@body</span>.SetMassFromShapes()
+      <span class="hljs-property">@trail</span> = <span class="hljs-keyword">new</span> Trail(<span class="hljs-property">@game</span>)
 
-    <span class="nv">init_world: </span><span class="nf">() -&gt;</span>
-      <span class="nv">worldAABB = </span><span class="k">new</span> <span class="nx">b2AABB</span><span class="p">()</span>
-      <span class="nx">worldAABB</span><span class="p">.</span><span class="nx">lowerBound</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="o">-</span><span class="mf">1000.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1000.0</span><span class="p">)</span>
-      <span class="nx">worldAABB</span><span class="p">.</span><span class="nx">upperBound</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="mf">1000.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
-      <span class="nv">gravity = </span><span class="k">new</span> <span class="nx">b2Vec2</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.8</span><span class="p">)</span>
-      <span class="vi">@world = </span><span class="k">new</span> <span class="nx">b2World</span><span class="p">(</span><span class="nx">worldAABB</span><span class="p">,</span> <span class="nx">gravity</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="hljs-attribute">step</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      t = <span class="hljs-property">@body</span>.m_xf
+      a = <span class="hljs-property">@body</span>.GetAngle() + Math.PI/<span class="hljs-number">2</span>
+      thrust = <span class="hljs-number">20</span>
+      t_x = Math.cos(a) * thrust
+      t_y = Math.sin(a) * thrust
+      l_x = t.position.x - <span class="hljs-property">@length</span>/<span class="hljs-number">2</span>*Math.cos(a)
+      l_y = t.position.y - <span class="hljs-property">@length</span>/<span class="hljs-number">2</span>*Math.sin(a)
+      <span class="hljs-property">@body</span>.ApplyForce(<span class="hljs-keyword">new</span> b2Vec2(t_x,t_y),<span class="hljs-keyword">new</span> b2Vec2(l_x,l_y))
+      <span class="hljs-property">@body</span>.SetAngularVelocity(<span class="hljs-property">@body</span>.GetAngularVelocity()*<span class="hljs-number">0.925</span>)
+      torque = <span class="hljs-number">10</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@game</span>.controls.left  <span class="hljs-keyword">then</span> <span class="hljs-property">@body</span>.ApplyTorque(torque)
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@game</span>.controls.right <span class="hljs-keyword">then</span> <span class="hljs-property">@body</span>.ApplyTorque(-torque)
+      <span class="hljs-property">@trail</span>.step()
 
-    <span class="nv">init_walls: </span><span class="nf">() -&gt;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="nx">@width</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>          <span class="c1"># top</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="nx">@height</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="nx">@width</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>  <span class="c1"># bottom</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="nx">@height</span><span class="p">)</span>        <span class="c1"># left</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="nx">@height</span><span class="p">)</span> <span class="c1"># right</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>barriers</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nx">@width</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nx">@width</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nx">@width</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="nx">@height</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+    <span class="hljs-attribute">draw</span>: <span class="hljs-function"><span class="hljs-params">(graphics)</span> -&gt;</span>
+      ctx = graphics.ctx
+      ctx.fillStyle = <span class="hljs-string">'white'</span>
+      t = <span class="hljs-property">@body</span>.m_xf
+      ctx.translate(t.position.x, t.position.y)
+      ctx.rotate(<span class="hljs-property">@body</span>.GetAngle())
+      ctx.fillRect(-<span class="hljs-property">@body</span>.w, -<span class="hljs-property">@body</span>.h, <span class="hljs-property">@body</span>.w*<span class="hljs-number">2</span>, <span class="hljs-property">@body</span>.h*<span class="hljs-number">2</span>)
+      ctx.rotate(-<span class="hljs-property">@body</span>.GetAngle())
+      ctx.translate(-t.position.x, -t.position.y)
+      <span class="hljs-property">@trail</span>.draw(graphics)
 
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">@height</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">init_static</span><span class="p">(</span><span class="nx">@width</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">@height</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
 
-    <span class="nv">init_static: </span><span class="nf">(x, y, w, h, a) -&gt;</span>
-      <span class="nv">groundBodyDef = </span><span class="k">new</span> <span class="nx">b2BodyDef</span><span class="p">()</span>
-      <span class="nx">groundBodyDef</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
-      <span class="nv">body = </span><span class="nx">@world</span><span class="p">.</span><span class="nx">CreateBody</span><span class="p">(</span><span class="nx">groundBodyDef</span><span class="p">)</span>
-      <span class="nv">groundShapeDef = </span><span class="k">new</span> <span class="nx">b2PolygonDef</span><span class="p">()</span>
-      <span class="nv">groundShapeDef.restitution = </span><span class="mf">0.0</span>
-      <span class="nv">groundShapeDef.friction = </span><span class="mf">0.5</span>
-      <span class="nv">groundShapeDef.density = </span><span class="mf">1.0</span>
-      <span class="nv">body.w = </span><span class="nx">w</span>
-      <span class="nv">body.h = </span><span class="nx">h</span>
-      <span class="nx">groundShapeDef</span><span class="p">.</span><span class="nx">SetAsBox</span><span class="p">(</span><span class="nx">body</span><span class="p">.</span><span class="nx">w</span><span class="p">,</span> <span class="nx">body</span><span class="p">.</span><span class="nx">h</span><span class="p">)</span>
-      <span class="nx">body</span><span class="p">.</span><span class="nx">CreateShape</span><span class="p">(</span><span class="nx">groundShapeDef</span><span class="p">)</span>
-      <span class="nx">body</span><span class="p">.</span><span class="nx">SynchronizeShapes</span><span class="p">()</span>
-      <span class="k">if</span> <span class="nx">a</span> <span class="k">then</span> <span class="nx">body</span><span class="p">.</span><span class="nx">SetXForm</span><span class="p">(</span><span class="k">new</span> <span class="nx">b2Vec2</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span>
-      <span class="nx">@bodies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
-      <span class="nx">body</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Toy</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> $.browser.mozilla
+        $(<span class="hljs-string">"#canvas_container"</span>).html <span class="hljs-string">'''
+          Sorry, this toy doesn't work in Firefox. Not sure why. :(
+        '''</span>
+        <span class="hljs-keyword">return</span>
+      canvas = (<span class="hljs-keyword">new</span> Canvas).jquery()
+      <span class="hljs-keyword">new</span> CanvasScale(canvas, <span class="hljs-number">.8</span>)
+      <span class="hljs-property">@canvas</span> = canvas[<span class="hljs-number">0</span>]
+      <span class="hljs-property">@ctx</span> = <span class="hljs-property">@canvas</span>.getContext(<span class="hljs-string">'2d'</span>)
+      <span class="hljs-property">@width</span> = <span class="hljs-number">100.0</span>
+      ppm = <span class="hljs-property">@canvas</span>.width/<span class="hljs-property">@width</span>
+      <span class="hljs-property">@height</span> = <span class="hljs-property">@canvas</span>.height/ppm
+      <span class="hljs-property">@ctx</span>.setTransform(ppm, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, -ppm, <span class="hljs-number">0</span>, <span class="hljs-property">@canvas</span>.height)
+      <span class="hljs-property">@tick</span> = <span class="hljs-number">0</span>
+      <span class="hljs-property">@bodies</span> = []
+      <span class="hljs-keyword">this</span>.init_world()
+      <span class="hljs-keyword">this</span>.init_walls()
+      <span class="hljs-property">@controls</span> = <span class="hljs-keyword">new</span> Controls(<span class="hljs-keyword">this</span>)
+      <span class="hljs-property">@rocket</span> = <span class="hljs-keyword">new</span> Rocket(<span class="hljs-keyword">this</span>)
+      <span class="hljs-keyword">this</span>.start()
 
-</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       &copy; 2010 Bo Borgerson |       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 
+    <span class="hljs-attribute">start</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> !<span class="hljs-property">@running</span>
+        <span class="hljs-property">@main_interval</span> = setInterval <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+          <span class="hljs-keyword">this</span>.step()
+        , <span class="hljs-number">20</span>
+        <span class="hljs-property">@running</span> = <span class="hljs-literal">true</span>
+
+    <span class="hljs-attribute">stop</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@running</span>
+        clearInterval <span class="hljs-property">@main_interval</span>
+        <span class="hljs-property">@running</span> = <span class="hljs-literal">false</span>
+
+    <span class="hljs-attribute">step</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+        <span class="hljs-property">@world</span>.Step(<span class="hljs-number">1.0</span>/<span class="hljs-number">60.0</span>, <span class="hljs-number">10</span>)
+
+        <span class="hljs-keyword">this</span>.draw_bodies()
+        <span class="hljs-property">@rocket</span>.step(<span class="hljs-keyword">this</span>)
+        <span class="hljs-property">@rocket</span>.draw(<span class="hljs-keyword">this</span>)
+
+    <span class="hljs-attribute">draw_bodies</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@ctx</span>.clearRect(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-property">@canvas</span>.width, <span class="hljs-property">@canvas</span>.height)
+      <span class="hljs-property">@ctx</span>.fillStyle = <span class="hljs-string">'black'</span>
+      <span class="hljs-property">@ctx</span>.fillRect(<span class="hljs-number">0.0</span>,<span class="hljs-number">0.0</span>,<span class="hljs-property">@canvas</span>.width,<span class="hljs-property">@canvas</span>.height)
+      <span class="hljs-keyword">for</span> body <span class="hljs-keyword">in</span> <span class="hljs-property">@bodies</span>
+        <span class="hljs-property">@ctx</span>.fillStyle = body.color || <span class="hljs-string">'blue'</span>
+        t = body.m_xf
+        <span class="hljs-property">@ctx</span>.translate(t.position.x, t.position.y)
+        <span class="hljs-property">@ctx</span>.rotate(body.GetAngle())
+        <span class="hljs-property">@ctx</span>.fillRect(-body.w, -body.h, body.w*<span class="hljs-number">2</span>, body.h*<span class="hljs-number">2</span>)
+        <span class="hljs-property">@ctx</span>.rotate(-body.GetAngle())
+        <span class="hljs-property">@ctx</span>.translate(-t.position.x, -t.position.y)
+
+
+
+    <span class="hljs-attribute">init_world</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      worldAABB = <span class="hljs-keyword">new</span> b2AABB()
+      worldAABB.lowerBound.Set(-<span class="hljs-number">1000.0</span>, -<span class="hljs-number">1000.0</span>)
+      worldAABB.upperBound.Set(<span class="hljs-number">1000.0</span>, <span class="hljs-number">1000.0</span>)
+      gravity = <span class="hljs-keyword">new</span> b2Vec2(<span class="hljs-number">0.0</span>, -<span class="hljs-number">9.8</span>)
+      <span class="hljs-property">@world</span> = <span class="hljs-keyword">new</span> b2World(worldAABB, gravity, <span class="hljs-literal">true</span>)
+
+    <span class="hljs-attribute">init_walls</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-property">@width</span>/<span class="hljs-number">2.0</span>, <span class="hljs-number">0.2</span>, <span class="hljs-property">@width</span>, <span class="hljs-number">0.4</span>)          <span class="hljs-comment"># top</span>
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-property">@width</span>/<span class="hljs-number">2.0</span>, <span class="hljs-property">@height</span>-<span class="hljs-number">0.2</span>, <span class="hljs-property">@width</span>, <span class="hljs-number">0.4</span>)  <span class="hljs-comment"># bottom</span>
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-number">0.2</span>, <span class="hljs-property">@height</span>/<span class="hljs-number">2.0</span>, <span class="hljs-number">0.4</span>, <span class="hljs-property">@height</span>)        <span class="hljs-comment"># left</span>
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-property">@width</span>-<span class="hljs-number">0.2</span>, <span class="hljs-property">@height</span>/<span class="hljs-number">2.0</span>, <span class="hljs-number">0.4</span>, <span class="hljs-property">@height</span>) <span class="hljs-comment"># right</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>barriers</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-property">@width</span>/<span class="hljs-number">4</span>, <span class="hljs-property">@height</span>/<span class="hljs-number">2</span>, <span class="hljs-property">@width</span>/<span class="hljs-number">16</span>, <span class="hljs-property">@height</span>/<span class="hljs-number">8</span>, Math.PI/<span class="hljs-number">4</span>)
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-property">@width</span>/<span class="hljs-number">4</span>*<span class="hljs-number">3</span>, <span class="hljs-property">@height</span>/<span class="hljs-number">2</span>, <span class="hljs-property">@width</span>/<span class="hljs-number">16</span>, <span class="hljs-property">@height</span>/<span class="hljs-number">8</span>, Math.PI/<span class="hljs-number">4</span>)
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-property">@width</span>/<span class="hljs-number">4</span>, <span class="hljs-property">@height</span>/<span class="hljs-number">2</span>, <span class="hljs-property">@width</span>/<span class="hljs-number">16</span>, <span class="hljs-property">@height</span>/<span class="hljs-number">8</span>, Math.PI/<span class="hljs-number">4</span>)
+
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, Math.PI/<span class="hljs-number">4</span>)
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-property">@width</span>-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, -Math.PI/<span class="hljs-number">4</span>)
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-number">1</span>, <span class="hljs-property">@height</span>-<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, -Math.PI/<span class="hljs-number">4</span>)
+      <span class="hljs-keyword">this</span>.init_static(<span class="hljs-property">@width</span>-<span class="hljs-number">1</span>, <span class="hljs-property">@height</span>-<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, Math.PI/<span class="hljs-number">4</span>)
+
+    <span class="hljs-attribute">init_static</span>: <span class="hljs-function"><span class="hljs-params">(x, y, w, h, a)</span> -&gt;</span>
+      groundBodyDef = <span class="hljs-keyword">new</span> b2BodyDef()
+      groundBodyDef.position.Set(x, y)
+      body = <span class="hljs-property">@world</span>.CreateBody(groundBodyDef)
+      groundShapeDef = <span class="hljs-keyword">new</span> b2PolygonDef()
+      groundShapeDef.restitution = <span class="hljs-number">0.0</span>
+      groundShapeDef.friction = <span class="hljs-number">0.5</span>
+      groundShapeDef.density = <span class="hljs-number">1.0</span>
+      body.w = w
+      body.h = h
+      groundShapeDef.SetAsBox(body.w, body.h)
+      body.CreateShape(groundShapeDef)
+      body.SynchronizeShapes()
+      <span class="hljs-keyword">if</span> a <span class="hljs-keyword">then</span> body.SetXForm(<span class="hljs-keyword">new</span> b2Vec2(x, y), a)
+      <span class="hljs-property">@bodies</span>.push(body)
+      body</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,108 +1,275 @@
-<!DOCTYPE html>  <html> <head>   <title>game.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script>   <script type="text/javascript" src="/js/ga.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="banner.html">                 banner.coffee               </a>                                           <a class="source" href="barrier.html">                 barrier.coffee               </a>                                           <a class="source" href="controls.html">                 controls.coffee               </a>                                           <a class="source" href="debug.html">                 debug.coffee               </a>                                           <a class="source" href="dialog.html">                 dialog.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="goal.html">                 goal.coffee               </a>                                           <a class="source" href="graphics.html">                 graphics.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                                           <a class="source" href="performance.html">                 performance.coffee               </a>                                           <a class="source" href="player.html">                 player.coffee               </a>                                           <a class="source" href="rocket.html">                 rocket.coffee               </a>                                           <a class="source" href="score.html">                 score.coffee               </a>                                           <a class="source" href="score_finish.html">                 score_finish.coffee               </a>                                           <a class="source" href="score_loops.html">                 score_loops.coffee               </a>                                           <a class="source" href="score_manager.html">                 score_manager.coffee               </a>                                           <a class="source" href="score_time.html">                 score_time.coffee               </a>                                           <a class="source" href="score_total.html">                 score_total.coffee               </a>                                           <a class="source" href="space_circle.html">                 space_circle.coffee               </a>                                           <a class="source" href="trail.html">                 trail.coffee               </a>                                           <a class="source" href="transition.html">                 transition.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               game.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span>
-  <span class="s1">&#39;rg/controls&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;rg/performance&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;rg/graphics&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;rg/player&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;rg/transition&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;rg/debug&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;toy2d/canvas&#39;</span>
-<span class="p">],</span>
-<span class="p">(</span><span class="nx">Controls</span><span class="p">,</span> <span class="nx">Performance</span><span class="p">,</span> <span class="nx">Graphics</span><span class="p">,</span> <span class="nx">Player</span><span class="p">,</span> <span class="nx">Transition</span><span class="p">,</span> <span class="nx">Debug</span><span class="p">,</span> <span class="nx">Canvas</span><span class="p">)</span> <span class="o">=&gt;</span>
+<!DOCTYPE html>
 
-  <span class="nv">UNINITIALIZED = </span><span class="o">-</span><span class="mi">1</span>
-  <span class="nv">IN_LEVEL = </span><span class="mi">0</span>
-  <span class="nv">FINISHING = </span><span class="mi">1</span>
-  <span class="nv">TRANSITION = </span><span class="mi">2</span>
-  <span class="nv">ADVANCING = </span><span class="mi">3</span>
+<html>
+<head>
+  <title>game.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="banner.html">
+                banner.coffee
+              </a>
+            
+              
+              <a class="source" href="barrier.html">
+                barrier.coffee
+              </a>
+            
+              
+              <a class="source" href="controls.html">
+                controls.coffee
+              </a>
+            
+              
+              <a class="source" href="debug.html">
+                debug.coffee
+              </a>
+            
+              
+              <a class="source" href="dialog.html">
+                dialog.coffee
+              </a>
+            
+              
+              <a class="source" href="game.html">
+                game.coffee
+              </a>
+            
+              
+              <a class="source" href="goal.html">
+                goal.coffee
+              </a>
+            
+              
+              <a class="source" href="graphics.html">
+                graphics.coffee
+              </a>
+            
+              
+              <a class="source" href="level.html">
+                level.coffee
+              </a>
+            
+              
+              <a class="source" href="performance.html">
+                performance.coffee
+              </a>
+            
+              
+              <a class="source" href="player.html">
+                player.coffee
+              </a>
+            
+              
+              <a class="source" href="rocket.html">
+                rocket.coffee
+              </a>
+            
+              
+              <a class="source" href="score.html">
+                score.coffee
+              </a>
+            
+              
+              <a class="source" href="score_finish.html">
+                score_finish.coffee
+              </a>
+            
+              
+              <a class="source" href="score_loops.html">
+                score_loops.coffee
+              </a>
+            
+              
+              <a class="source" href="score_manager.html">
+                score_manager.coffee
+              </a>
+            
+              
+              <a class="source" href="score_time.html">
+                score_time.coffee
+              </a>
+            
+              
+              <a class="source" href="score_total.html">
+                score_total.coffee
+              </a>
+            
+              
+              <a class="source" href="space_circle.html">
+                space_circle.coffee
+              </a>
+            
+              
+              <a class="source" href="trail.html">
+                trail.coffee
+              </a>
+            
+              
+              <a class="source" href="transition.html">
+                transition.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>game.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>.def [
+  <span class="hljs-string">'rg/controls'</span>,
+  <span class="hljs-string">'rg/performance'</span>,
+  <span class="hljs-string">'rg/graphics'</span>,
+  <span class="hljs-string">'rg/player'</span>,
+  <span class="hljs-string">'rg/transition'</span>,
+  <span class="hljs-string">'rg/debug'</span>,
+  <span class="hljs-string">'toy2d/canvas'</span>
+],
+<span class="hljs-function"><span class="hljs-params">(Controls, Performance, Graphics, Player, Transition, Debug, Canvas)</span> =&gt;</span>
 
-  <span class="k">class</span> <span class="nx">Game</span>
-    <span class="nv">constructor: </span><span class="nf">() -&gt;</span>
-      <span class="vi">@running = </span><span class="kc">false</span>
-      <span class="vi">@state = </span><span class="nx">UNINITIALIZED</span>
-      <span class="vi">@previous_state = </span><span class="nx">UNINITIALIZED</span>
-      <span class="nv">canvas = </span><span class="p">(</span><span class="k">new</span> <span class="nx">Canvas</span><span class="p">).</span><span class="nx">jquery</span><span class="p">()</span>
-      <span class="vi">@performance = </span><span class="k">new</span> <span class="nx">Performance</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-      <span class="vi">@graphics = </span><span class="k">new</span> <span class="nx">Graphics</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">canvas</span><span class="p">)</span>
-      <span class="vi">@controls = </span><span class="k">new</span> <span class="nx">Controls</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-      <span class="vi">@player = </span><span class="k">new</span> <span class="nx">Player</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-      <span class="vi">@width  = </span><span class="nx">@graphics</span><span class="p">.</span><span class="nx">width</span>
-      <span class="vi">@height = </span><span class="nx">@graphics</span><span class="p">.</span><span class="nx">height</span>
-      <span class="vi">@level_number = </span><span class="mi">0</span>
-      <span class="vi">@hud_on = </span><span class="kc">false</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
+  UNINITIALIZED = -<span class="hljs-number">1</span>
+  IN_LEVEL = <span class="hljs-number">0</span>
+  FINISHING = <span class="hljs-number">1</span>
+  TRANSITION = <span class="hljs-number">2</span>
+  ADVANCING = <span class="hljs-number">3</span>
 
-    <span class="nv">finishing: </span><span class="nf">() -&gt;</span> <span class="nx">@state</span> <span class="o">==</span> <span class="nx">FINISHING</span>
-    <span class="nv">in_transition: </span> <span class="nf">() -&gt;</span> <span class="nx">@state</span> <span class="o">==</span> <span class="nx">TRANSITION</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Game</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@running</span> = <span class="hljs-literal">false</span>
+      <span class="hljs-property">@state</span> = UNINITIALIZED
+      <span class="hljs-property">@previous_state</span> = UNINITIALIZED
+      canvas = (<span class="hljs-keyword">new</span> Canvas).jquery()
+      <span class="hljs-property">@performance</span> = <span class="hljs-keyword">new</span> Performance(<span class="hljs-keyword">this</span>)
+      <span class="hljs-property">@graphics</span> = <span class="hljs-keyword">new</span> Graphics(<span class="hljs-keyword">this</span>,canvas)
+      <span class="hljs-property">@controls</span> = <span class="hljs-keyword">new</span> Controls(<span class="hljs-keyword">this</span>)
+      <span class="hljs-property">@player</span> = <span class="hljs-keyword">new</span> Player(<span class="hljs-keyword">this</span>)
+      <span class="hljs-property">@width</span>  = <span class="hljs-property">@graphics</span>.width
+      <span class="hljs-property">@height</span> = <span class="hljs-property">@graphics</span>.height
+      <span class="hljs-property">@level_number</span> = <span class="hljs-number">0</span>
+      <span class="hljs-property">@hud_on</span> = <span class="hljs-literal">false</span>
+      <span class="hljs-keyword">this</span>.start()
 
-    <span class="nv">change_state: </span><span class="nf">(new_state) -&gt;</span>
-      <span class="vi">@previous_state = </span><span class="nx">@state</span>
-      <span class="vi">@state = </span><span class="nx">new_state</span>
+    <span class="hljs-attribute">finishing</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span> <span class="hljs-property">@state</span> == FINISHING
+    <span class="hljs-attribute">in_transition</span>:  <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span> <span class="hljs-property">@state</span> == TRANSITION
 
-    <span class="nv">start: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="o">!</span><span class="nx">@running</span>
-        <span class="nx">@performance</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
-        <span class="vi">@main_interval = </span><span class="nx">setInterval</span> <span class="p">()</span> <span class="o">=&gt;</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
-        <span class="p">,</span> <span class="nx">@performance</span><span class="p">.</span><span class="nx">step_time</span>
-        <span class="vi">@running = </span><span class="kc">true</span>
+    <span class="hljs-attribute">change_state</span>: <span class="hljs-function"><span class="hljs-params">(new_state)</span> -&gt;</span>
+      <span class="hljs-property">@previous_state</span> = <span class="hljs-property">@state</span>
+      <span class="hljs-property">@state</span> = new_state
 
-    <span class="nv">stop: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="nx">@running</span>
-        <span class="nx">clearInterval</span> <span class="nx">@main_interval</span>
-        <span class="vi">@running = </span><span class="kc">false</span>
+    <span class="hljs-attribute">start</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> !<span class="hljs-property">@running</span>
+        <span class="hljs-property">@performance</span>.init()
+        <span class="hljs-property">@main_interval</span> = setInterval <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+          <span class="hljs-keyword">this</span>.step()
+        , <span class="hljs-property">@performance</span>.step_time
+        <span class="hljs-property">@running</span> = <span class="hljs-literal">true</span>
 
-    <span class="nv">level_step: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="nx">@level</span><span class="p">.</span><span class="nx">won</span><span class="p">()</span> <span class="k">then</span> <span class="k">this</span><span class="p">.</span><span class="nx">change_state</span><span class="p">(</span><span class="nx">FINISHING</span><span class="p">)</span>
-      <span class="nx">@level</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">draw</span><span class="p">()</span>
+    <span class="hljs-attribute">stop</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@running</span>
+        clearInterval <span class="hljs-property">@main_interval</span>
+        <span class="hljs-property">@running</span> = <span class="hljs-literal">false</span>
 
-    <span class="nv">step: </span><span class="nf">() -&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <pre><code> Debug.clear()
- Debug.out("State: #{@state}, pstate: #{@previous_state}")
-</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="nx">@performance</span><span class="p">.</span><span class="nx">check</span><span class="p">()</span>
-      <span class="k">switch</span> <span class="nx">@state</span>
-        <span class="k">when</span> <span class="nx">IN_LEVEL</span><span class="p">,</span> <span class="nx">FINISHING</span>  <span class="k">then</span> <span class="k">this</span><span class="p">.</span><span class="nx">level_step</span><span class="p">()</span>
-        <span class="k">when</span> <span class="nx">TRANSITION</span>           <span class="k">then</span> <span class="k">this</span><span class="p">.</span><span class="nx">transition_step</span><span class="p">()</span>
-        <span class="k">when</span> <span class="nx">ADVANCING</span>            <span class="k">then</span> <span class="k">this</span><span class="p">.</span><span class="nx">init_level</span><span class="p">()</span>
-        <span class="k">else</span>                           <span class="k">this</span><span class="p">.</span><span class="nx">init_level</span><span class="p">()</span>
+    <span class="hljs-attribute">level_step</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@level</span>.won() <span class="hljs-keyword">then</span> <span class="hljs-keyword">this</span>.change_state(FINISHING)
+      <span class="hljs-property">@level</span>.step()
+      <span class="hljs-keyword">this</span>.draw()
 
-    <span class="nv">transition_step: </span><span class="nf">() -&gt;</span>
-      <span class="vi">@transition = </span><span class="k">new</span> <span class="nx">Transition</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="nx">unless</span> <span class="nx">@transition</span>
-      <span class="k">if</span> <span class="nx">@transition</span><span class="p">.</span><span class="nx">done</span>
-        <span class="nx">@level_number</span> <span class="o">+=</span> <span class="k">if</span> <span class="nx">@transition</span><span class="p">.</span><span class="nx">advance</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span>
-        <span class="vi">@transition = </span><span class="kc">undefined</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">change_state</span><span class="p">(</span><span class="nx">ADVANCING</span><span class="p">)</span>
-      <span class="k">else</span>
-        <span class="nx">@transition</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">draw</span><span class="p">()</span>
+    <span class="hljs-attribute">step</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <pre><code> Debug.clear()
+ Debug.out(<span class="hljs-string">"State: <span class="hljs-subst">#{<span class="hljs-property">@state</span>}</span>, pstate: <span class="hljs-subst">#{<span class="hljs-property">@previous_state</span>}</span>"</span>)
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-property">@performance</span>.check()
+      <span class="hljs-keyword">switch</span> <span class="hljs-property">@state</span>
+        <span class="hljs-keyword">when</span> IN_LEVEL, FINISHING  <span class="hljs-keyword">then</span> <span class="hljs-keyword">this</span>.level_step()
+        <span class="hljs-keyword">when</span> TRANSITION           <span class="hljs-keyword">then</span> <span class="hljs-keyword">this</span>.transition_step()
+        <span class="hljs-keyword">when</span> ADVANCING            <span class="hljs-keyword">then</span> <span class="hljs-keyword">this</span>.init_level()
+        <span class="hljs-keyword">else</span>                           <span class="hljs-keyword">this</span>.init_level()
+
+    <span class="hljs-attribute">transition_step</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@transition</span> = <span class="hljs-keyword">new</span> Transition(<span class="hljs-keyword">this</span>) <span class="hljs-keyword">unless</span> <span class="hljs-property">@transition</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@transition</span>.done
+        <span class="hljs-property">@level_number</span> += <span class="hljs-keyword">if</span> <span class="hljs-property">@transition</span>.advance <span class="hljs-keyword">then</span> <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>
+        <span class="hljs-property">@transition</span> = <span class="hljs-literal">undefined</span>
+        <span class="hljs-keyword">this</span>.change_state(ADVANCING)
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-property">@transition</span>.step()
+        <span class="hljs-keyword">this</span>.draw()
 
 
-    <span class="nv">begin_level: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="nx">@state</span> <span class="o">==</span> <span class="nx">FINISHING</span> <span class="k">then</span> <span class="k">this</span><span class="p">.</span><span class="nx">change_state</span><span class="p">(</span><span class="nx">TRANSITION</span><span class="p">)</span>
-      <span class="k">else</span>
-        <span class="nx">@level</span><span class="p">.</span><span class="nx">begin</span><span class="p">()</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">change_state</span><span class="p">(</span><span class="nx">IN_LEVEL</span><span class="p">)</span>
+    <span class="hljs-attribute">begin_level</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@state</span> == FINISHING <span class="hljs-keyword">then</span> <span class="hljs-keyword">this</span>.change_state(TRANSITION)
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-property">@level</span>.begin()
+        <span class="hljs-keyword">this</span>.change_state(IN_LEVEL)
 
-    <span class="nv">init_level: </span><span class="nf">() -&gt;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">stop</span><span class="p">()</span>
-      <span class="nx">require</span> <span class="p">[</span><span class="s2">&quot;rg/level/#{@level_number}&quot;</span><span class="p">],</span> <span class="p">(</span><span class="nx">Level</span><span class="p">)</span> <span class="o">=&gt;</span>
-        <span class="vi">@level = </span><span class="k">new</span> <span class="nx">Level</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">begin_level</span><span class="p">()</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
+    <span class="hljs-attribute">init_level</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">this</span>.stop()
+      <span class="hljs-built_in">require</span> [<span class="hljs-string">"rg/level/<span class="hljs-subst">#{<span class="hljs-property">@level_number</span>}</span>"</span>], <span class="hljs-function"><span class="hljs-params">(Level)</span> =&gt;</span>
+        <span class="hljs-property">@level</span> = <span class="hljs-keyword">new</span> Level(<span class="hljs-keyword">this</span>)
+        <span class="hljs-keyword">this</span>.begin_level()
+        <span class="hljs-keyword">this</span>.start()
 
-    <span class="nv">draw: </span><span class="nf">() -&gt;</span>
-      <span class="nx">@graphics</span><span class="p">.</span><span class="nx">clear</span><span class="p">()</span>
-      <span class="k">switch</span> <span class="nx">@state</span>
-        <span class="k">when</span> <span class="nx">TRANSITION</span> <span class="k">then</span> <span class="nx">@transition</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">@graphics</span><span class="p">)</span> <span class="k">if</span> <span class="nx">@transition</span>
-        <span class="k">else</span> <span class="nx">@level</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">@graphics</span><span class="p">)</span>
+    <span class="hljs-attribute">draw</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@graphics</span>.clear()
+      <span class="hljs-keyword">switch</span> <span class="hljs-property">@state</span>
+        <span class="hljs-keyword">when</span> TRANSITION <span class="hljs-keyword">then</span> <span class="hljs-property">@transition</span>.draw(<span class="hljs-property">@graphics</span>) <span class="hljs-keyword">if</span> <span class="hljs-property">@transition</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-property">@level</span>.draw(<span class="hljs-property">@graphics</span>)
 
-    <span class="nv">show_hud: </span><span class="nf">() -&gt;</span>
-      <span class="k">switch</span> <span class="nx">@state</span>
-        <span class="k">when</span> <span class="nx">IN_LEVEL</span><span class="p">,</span> <span class="nx">FINISHING</span> <span class="k">then</span> <span class="nx">@hud_on</span>
-        <span class="k">else</span> <span class="kc">false</span>
+    <span class="hljs-attribute">show_hud</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">switch</span> <span class="hljs-property">@state</span>
+        <span class="hljs-keyword">when</span> IN_LEVEL, FINISHING <span class="hljs-keyword">then</span> <span class="hljs-property">@hud_on</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
 
-    <span class="nv">toggle_hud: </span><span class="nf">() -&gt;</span>
-      <span class="k">switch</span> <span class="nx">@state</span>
-        <span class="k">when</span> <span class="nx">IN_LEVEL</span><span class="p">,</span> <span class="nx">FINISHING</span>
-          <span class="vi">@hud_on = </span><span class="k">if</span> <span class="nx">@hud_on</span> <span class="k">then</span> <span class="kc">false</span> <span class="k">else</span> <span class="kc">true</span>
-
-</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       &copy; 2010 Bo Borgerson |       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 
+    <span class="hljs-attribute">toggle_hud</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">switch</span> <span class="hljs-property">@state</span>
+        <span class="hljs-keyword">when</span> IN_LEVEL, FINISHING
+          <span class="hljs-property">@hud_on</span> = <span class="hljs-keyword">if</span> <span class="hljs-property">@hud_on</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">true</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

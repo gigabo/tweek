@@ -1,81 +1,234 @@
-<!DOCTYPE html>  <html> <head>   <title>rocket.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script>   <script type="text/javascript" src="/js/ga.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="banner.html">                 banner.coffee               </a>                                           <a class="source" href="barrier.html">                 barrier.coffee               </a>                                           <a class="source" href="controls.html">                 controls.coffee               </a>                                           <a class="source" href="debug.html">                 debug.coffee               </a>                                           <a class="source" href="dialog.html">                 dialog.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="goal.html">                 goal.coffee               </a>                                           <a class="source" href="graphics.html">                 graphics.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                                           <a class="source" href="performance.html">                 performance.coffee               </a>                                           <a class="source" href="player.html">                 player.coffee               </a>                                           <a class="source" href="rocket.html">                 rocket.coffee               </a>                                           <a class="source" href="score.html">                 score.coffee               </a>                                           <a class="source" href="score_finish.html">                 score_finish.coffee               </a>                                           <a class="source" href="score_loops.html">                 score_loops.coffee               </a>                                           <a class="source" href="score_manager.html">                 score_manager.coffee               </a>                                           <a class="source" href="score_time.html">                 score_time.coffee               </a>                                           <a class="source" href="score_total.html">                 score_total.coffee               </a>                                           <a class="source" href="space_circle.html">                 space_circle.coffee               </a>                                           <a class="source" href="trail.html">                 trail.coffee               </a>                                           <a class="source" href="transition.html">                 transition.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               rocket.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span><span class="s1">&#39;rg/trail&#39;</span><span class="p">,</span> <span class="s1">&#39;rg/debug&#39;</span><span class="p">],</span> <span class="nf">(Trail, Debug) -&gt;</span>
-  <span class="k">class</span> <span class="nx">Rocket</span>
-    <span class="nv">constructor: </span><span class="nf">(@game, @init_x, @init_y) -&gt;</span>
-      <span class="vi">@thrust = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">width</span><span class="o">/</span><span class="mi">7000</span>
-      <span class="vi">@gravity = </span><span class="nx">@thrust</span><span class="o">*</span><span class="p">.</span><span class="mi">5</span>
-      <span class="vi">@length = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">width</span><span class="o">/</span><span class="mi">56</span>
-      <span class="nx">@init_y</span> <span class="o">-=</span> <span class="nx">@length</span><span class="o">/</span><span class="mi">2</span>
-      <span class="vi">@rot_ticks = </span><span class="mi">60</span>
-      <span class="vi">@north = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">2</span>
-      <span class="vi">@slice = </span><span class="mi">2</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="nx">@rot_ticks</span>
-      <span class="vi">@controls = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">controls</span>
-      <span class="vi">@trail = </span><span class="k">new</span> <span class="nx">Trail</span><span class="p">(</span><span class="nx">@game</span><span class="p">,</span> <span class="k">this</span><span class="p">)</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">reset</span><span class="p">()</span>
+<!DOCTYPE html>
 
-    <span class="nv">reset: </span><span class="nf">() -&gt;</span>
-      <span class="vi">@x = </span><span class="nx">@init_x</span>
-      <span class="vi">@y = </span><span class="nx">@init_y</span>
-      <span class="vi">@a = </span><span class="nx">@north</span>
-      <span class="vi">@dial = </span><span class="mi">0</span>
-      <span class="vi">@dx = </span><span class="mi">0</span>
-      <span class="vi">@dy = </span><span class="mi">0</span>
+<html>
+<head>
+  <title>rocket.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="banner.html">
+                banner.coffee
+              </a>
+            
+              
+              <a class="source" href="barrier.html">
+                barrier.coffee
+              </a>
+            
+              
+              <a class="source" href="controls.html">
+                controls.coffee
+              </a>
+            
+              
+              <a class="source" href="debug.html">
+                debug.coffee
+              </a>
+            
+              
+              <a class="source" href="dialog.html">
+                dialog.coffee
+              </a>
+            
+              
+              <a class="source" href="game.html">
+                game.coffee
+              </a>
+            
+              
+              <a class="source" href="goal.html">
+                goal.coffee
+              </a>
+            
+              
+              <a class="source" href="graphics.html">
+                graphics.coffee
+              </a>
+            
+              
+              <a class="source" href="level.html">
+                level.coffee
+              </a>
+            
+              
+              <a class="source" href="performance.html">
+                performance.coffee
+              </a>
+            
+              
+              <a class="source" href="player.html">
+                player.coffee
+              </a>
+            
+              
+              <a class="source" href="rocket.html">
+                rocket.coffee
+              </a>
+            
+              
+              <a class="source" href="score.html">
+                score.coffee
+              </a>
+            
+              
+              <a class="source" href="score_finish.html">
+                score_finish.coffee
+              </a>
+            
+              
+              <a class="source" href="score_loops.html">
+                score_loops.coffee
+              </a>
+            
+              
+              <a class="source" href="score_manager.html">
+                score_manager.coffee
+              </a>
+            
+              
+              <a class="source" href="score_time.html">
+                score_time.coffee
+              </a>
+            
+              
+              <a class="source" href="score_total.html">
+                score_total.coffee
+              </a>
+            
+              
+              <a class="source" href="space_circle.html">
+                space_circle.coffee
+              </a>
+            
+              
+              <a class="source" href="trail.html">
+                trail.coffee
+              </a>
+            
+              
+              <a class="source" href="transition.html">
+                transition.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>rocket.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>.def [<span class="hljs-string">'rg/trail'</span>, <span class="hljs-string">'rg/debug'</span>], <span class="hljs-function"><span class="hljs-params">(Trail, Debug)</span> -&gt;</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rocket</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@game</span>, <span class="hljs-property">@init_x</span>, <span class="hljs-property">@init_y</span>)</span> -&gt;</span>
+      <span class="hljs-property">@thrust</span> = <span class="hljs-property">@game</span>.width/<span class="hljs-number">7000</span>
+      <span class="hljs-property">@gravity</span> = <span class="hljs-property">@thrust</span>*<span class="hljs-number">.5</span>
+      <span class="hljs-property">@length</span> = <span class="hljs-property">@game</span>.width/<span class="hljs-number">56</span>
+      <span class="hljs-property">@init_y</span> -= <span class="hljs-property">@length</span>/<span class="hljs-number">2</span>
+      <span class="hljs-property">@rot_ticks</span> = <span class="hljs-number">60</span>
+      <span class="hljs-property">@north</span> = Math.PI/<span class="hljs-number">2</span>
+      <span class="hljs-property">@slice</span> = <span class="hljs-number">2</span>*Math.PI/<span class="hljs-property">@rot_ticks</span>
+      <span class="hljs-property">@controls</span> = <span class="hljs-property">@game</span>.controls
+      <span class="hljs-property">@trail</span> = <span class="hljs-keyword">new</span> Trail(<span class="hljs-property">@game</span>, <span class="hljs-keyword">this</span>)
+      <span class="hljs-keyword">this</span>.reset()
 
-    <span class="nv">apply_gravity: </span><span class="nf">() -&gt;</span>
-      <span class="nx">@dy</span> <span class="o">+=</span> <span class="nx">@gravity</span>
+    <span class="hljs-attribute">reset</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@x</span> = <span class="hljs-property">@init_x</span>
+      <span class="hljs-property">@y</span> = <span class="hljs-property">@init_y</span>
+      <span class="hljs-property">@a</span> = <span class="hljs-property">@north</span>
+      <span class="hljs-property">@dial</span> = <span class="hljs-number">0</span>
+      <span class="hljs-property">@dx</span> = <span class="hljs-number">0</span>
+      <span class="hljs-property">@dy</span> = <span class="hljs-number">0</span>
 
-    <span class="nv">apply_rotation: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="nx">@controls</span><span class="p">.</span><span class="nx">rotate_l</span><span class="p">()</span>
-        <span class="nx">@dial</span> <span class="o">-=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="nx">@dial</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="k">then</span> <span class="vi">@dial = </span><span class="nx">@rot_ticks</span><span class="o">-</span><span class="mi">1</span>
-      <span class="k">if</span> <span class="nx">@controls</span><span class="p">.</span><span class="nx">rotate_r</span><span class="p">()</span>
-        <span class="nx">@dial</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="nx">@dial</span> <span class="o">==</span> <span class="nx">@rot_ticks</span> <span class="k">then</span> <span class="vi">@dial = </span><span class="mi">0</span>
+    <span class="hljs-attribute">apply_gravity</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@dy</span> += <span class="hljs-property">@gravity</span>
 
-      <span class="vi">@a = </span><span class="nx">@north</span><span class="o">+</span><span class="nx">@slice</span><span class="o">*</span><span class="nx">@dial</span>
+    <span class="hljs-attribute">apply_rotation</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@controls</span>.rotate_l()
+        <span class="hljs-property">@dial</span> -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-property">@dial</span> == -<span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@dial</span> = <span class="hljs-property">@rot_ticks</span>-<span class="hljs-number">1</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@controls</span>.rotate_r()
+        <span class="hljs-property">@dial</span> += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-property">@dial</span> == <span class="hljs-property">@rot_ticks</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@dial</span> = <span class="hljs-number">0</span>
 
-    <span class="nv">apply_thrust: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="nx">@controls</span><span class="p">.</span><span class="nx">thrust_on</span><span class="p">()</span>
-        <span class="nx">@dx</span> <span class="o">-=</span> <span class="nx">@thrust</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">@a</span><span class="p">)</span>
-        <span class="nx">@dy</span> <span class="o">-=</span> <span class="nx">@thrust</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">@a</span><span class="p">)</span>
+      <span class="hljs-property">@a</span> = <span class="hljs-property">@north</span>+<span class="hljs-property">@slice</span>*<span class="hljs-property">@dial</span>
 
-    <span class="nv">front: </span><span class="nf">() -&gt;</span>
-      <span class="p">{</span>
-        <span class="nv">x: </span><span class="nx">@x</span> <span class="o">-</span> <span class="nx">@length</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">@a</span><span class="p">),</span>
-        <span class="nv">y: </span><span class="nx">@y</span> <span class="o">-</span> <span class="nx">@length</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">@a</span><span class="p">)</span>
-      <span class="p">}</span>
+    <span class="hljs-attribute">apply_thrust</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@controls</span>.thrust_on()
+        <span class="hljs-property">@dx</span> -= <span class="hljs-property">@thrust</span>*Math.cos(<span class="hljs-property">@a</span>)
+        <span class="hljs-property">@dy</span> -= <span class="hljs-property">@thrust</span>*Math.sin(<span class="hljs-property">@a</span>)
 
-    <span class="nv">back: </span><span class="nf">() -&gt;</span>
-      <span class="p">{</span>
-        <span class="nv">x: </span><span class="nx">@x</span> <span class="o">+</span> <span class="nx">@length</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">@a</span><span class="p">),</span>
-        <span class="nv">y: </span><span class="nx">@y</span> <span class="o">+</span> <span class="nx">@length</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">@a</span><span class="p">)</span>
-      <span class="p">}</span>
+    <span class="hljs-attribute">front</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      {
+        <span class="hljs-attribute">x</span>: <span class="hljs-property">@x</span> - <span class="hljs-property">@length</span>/<span class="hljs-number">2</span>*Math.cos(<span class="hljs-property">@a</span>),
+        <span class="hljs-attribute">y</span>: <span class="hljs-property">@y</span> - <span class="hljs-property">@length</span>/<span class="hljs-number">2</span>*Math.sin(<span class="hljs-property">@a</span>)
+      }
 
-    <span class="nv">draw: </span><span class="nf">(graphics) -&gt;</span>
-      <span class="nv">ctx = </span><span class="nx">graphics</span><span class="p">.</span><span class="nx">ctx</span>
-      <span class="nv">front = </span><span class="k">this</span><span class="p">.</span><span class="nx">front</span><span class="p">()</span>
-      <span class="nv">back  = </span><span class="k">this</span><span class="p">.</span><span class="nx">back</span><span class="p">()</span>
-      <span class="nv">ctx.strokeStyle = </span><span class="s2">&quot;rgba(255, 255, 255, 1)&quot;</span>
-      <span class="nv">ctx.lineWidth = </span><span class="nx">@length</span><span class="o">/</span><span class="mi">5</span>
-      <span class="nx">graphics</span><span class="p">.</span><span class="nx">line</span> <span class="nx">front</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">front</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="nx">back</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">back</span><span class="p">.</span><span class="nx">y</span>
-      <span class="nx">@trail</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">graphics</span><span class="p">)</span>
+    <span class="hljs-attribute">back</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      {
+        <span class="hljs-attribute">x</span>: <span class="hljs-property">@x</span> + <span class="hljs-property">@length</span>/<span class="hljs-number">2</span>*Math.cos(<span class="hljs-property">@a</span>),
+        <span class="hljs-attribute">y</span>: <span class="hljs-property">@y</span> + <span class="hljs-property">@length</span>/<span class="hljs-number">2</span>*Math.sin(<span class="hljs-property">@a</span>)
+      }
 
-    <span class="nv">move: </span><span class="nf">() -&gt;</span>
-      <span class="nx">@x</span> <span class="o">+=</span> <span class="nx">@dx</span>
-      <span class="nx">@y</span> <span class="o">+=</span> <span class="nx">@dy</span>
+    <span class="hljs-attribute">draw</span>: <span class="hljs-function"><span class="hljs-params">(graphics)</span> -&gt;</span>
+      ctx = graphics.ctx
+      front = <span class="hljs-keyword">this</span>.front()
+      back  = <span class="hljs-keyword">this</span>.back()
+      ctx.strokeStyle = <span class="hljs-string">"rgba(255, 255, 255, 1)"</span>
+      ctx.lineWidth = <span class="hljs-property">@length</span>/<span class="hljs-number">5</span>
+      graphics.line front.x, front.y, back.x, back.y
+      <span class="hljs-property">@trail</span>.draw(graphics)
 
-    <span class="nv">check_bounds: </span><span class="nf">() -&gt;</span>
-      <span class="k">for</span> <span class="nx">end</span> <span class="k">in</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">front</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="nx">back</span><span class="p">()]</span>
-        <span class="k">if</span> <span class="o">!</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="nx">end</span><span class="p">.</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">@game</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">or</span> <span class="o">!</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="nx">end</span><span class="p">.</span><span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">@game</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
-          <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">splode</span><span class="p">()</span>
+    <span class="hljs-attribute">move</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-property">@x</span> += <span class="hljs-property">@dx</span>
+      <span class="hljs-property">@y</span> += <span class="hljs-property">@dy</span>
 
-    <span class="nv">splode: </span><span class="nf">() -&gt;</span> <span class="nx">@game</span><span class="p">.</span><span class="nx">begin_level</span><span class="p">()</span>
+    <span class="hljs-attribute">check_bounds</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">for</span> end <span class="hljs-keyword">in</span> [<span class="hljs-keyword">this</span>.front(), <span class="hljs-keyword">this</span>.back()]
+        <span class="hljs-keyword">if</span> !(<span class="hljs-number">0</span> &lt; end.x &lt; <span class="hljs-property">@game</span>.width) <span class="hljs-keyword">or</span> !(<span class="hljs-number">0</span> &lt; end.y &lt; <span class="hljs-property">@game</span>.height)
+          <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.splode()
 
-    <span class="nv">step: </span><span class="nf">() -&gt;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">apply_gravity</span><span class="p">()</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">apply_rotation</span><span class="p">()</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">apply_thrust</span><span class="p">()</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">move</span><span class="p">()</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">check_bounds</span><span class="p">()</span>
-      <span class="nx">@trail</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
+    <span class="hljs-attribute">splode</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span> <span class="hljs-property">@game</span>.begin_level()
 
-</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       &copy; 2010 Bo Borgerson |       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 
+    <span class="hljs-attribute">step</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">this</span>.apply_gravity()
+      <span class="hljs-keyword">this</span>.apply_rotation()
+      <span class="hljs-keyword">this</span>.apply_thrust()
+      <span class="hljs-keyword">this</span>.move()
+      <span class="hljs-keyword">this</span>.check_bounds()
+      <span class="hljs-property">@trail</span>.step()</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

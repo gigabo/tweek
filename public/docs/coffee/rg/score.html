@@ -1,71 +1,224 @@
-<!DOCTYPE html>  <html> <head>   <title>score.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="/css/docco.css" />   <script type="text/javascript"     src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">   </script>   <script type="text/javascript" src="/js/link_deps.js"></script>   <script type="text/javascript" src="/js/ga.js"></script> </head> <body>   <div id="container">            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="banner.html">                 banner.coffee               </a>                                           <a class="source" href="barrier.html">                 barrier.coffee               </a>                                           <a class="source" href="controls.html">                 controls.coffee               </a>                                           <a class="source" href="debug.html">                 debug.coffee               </a>                                           <a class="source" href="dialog.html">                 dialog.coffee               </a>                                           <a class="source" href="game.html">                 game.coffee               </a>                                           <a class="source" href="goal.html">                 goal.coffee               </a>                                           <a class="source" href="graphics.html">                 graphics.coffee               </a>                                           <a class="source" href="level.html">                 level.coffee               </a>                                           <a class="source" href="performance.html">                 performance.coffee               </a>                                           <a class="source" href="player.html">                 player.coffee               </a>                                           <a class="source" href="rocket.html">                 rocket.coffee               </a>                                           <a class="source" href="score.html">                 score.coffee               </a>                                           <a class="source" href="score_finish.html">                 score_finish.coffee               </a>                                           <a class="source" href="score_loops.html">                 score_loops.coffee               </a>                                           <a class="source" href="score_manager.html">                 score_manager.coffee               </a>                                           <a class="source" href="score_time.html">                 score_time.coffee               </a>                                           <a class="source" href="score_total.html">                 score_total.coffee               </a>                                           <a class="source" href="space_circle.html">                 space_circle.coffee               </a>                                           <a class="source" href="trail.html">                 trail.coffee               </a>                                           <a class="source" href="transition.html">                 transition.coffee               </a>                        </div>         </div>       </div>          <div id="background"></div>     <div id="link_home"><a href="/">Home</a></div>     <div id="link_deps"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               score.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span> <span class="p">[</span><span class="s1">&#39;rg/debug&#39;</span><span class="p">,</span> <span class="s1">&#39;rg/score_manager&#39;</span><span class="p">],</span> <span class="p">(</span><span class="nx">Debug</span><span class="p">,</span><span class="nx">ScoreManager</span><span class="p">)</span> <span class="o">=&gt;</span>
+<!DOCTYPE html>
 
-  <span class="k">class</span> <span class="nx">Score</span>
-    <span class="nv">constructor: </span><span class="nf">(@game, @type) -&gt;</span>
-      <span class="vi">@off_screen = </span><span class="kc">false</span>
-      <span class="vi">@slide_stride = </span><span class="mi">10</span>
-      <span class="vi">@wait = </span><span class="mi">0</span>
-      <span class="vi">@outro_wait = </span><span class="mi">20</span>
-      <span class="vi">@hud_on_y_pos = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">height</span><span class="o">-</span><span class="mi">20</span>
-      <span class="vi">@hud_off_y_pos = </span><span class="nx">@game</span><span class="p">.</span><span class="nx">height</span><span class="o">+</span><span class="mi">20</span>
-      <span class="vi">@y_pos = </span><span class="k">if</span> <span class="nx">@game</span><span class="p">.</span><span class="nx">hud_on</span> <span class="k">then</span> <span class="nx">@hud_on_y_pos</span> <span class="k">else</span> <span class="nx">@hud_off_y_pos</span>
-      <span class="vi">@queue = </span><span class="p">[]</span>
-      <span class="vi">@manager = </span><span class="k">new</span> <span class="nx">ScoreManager</span>
-      <span class="nx">@manager</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="nx">unless</span> <span class="nx">@type</span> <span class="o">==</span> <span class="s1">&#39;total&#39;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">load_strategy</span><span class="p">()</span>
+<html>
+<head>
+  <title>score.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="banner.html">
+                banner.coffee
+              </a>
+            
+              
+              <a class="source" href="barrier.html">
+                barrier.coffee
+              </a>
+            
+              
+              <a class="source" href="controls.html">
+                controls.coffee
+              </a>
+            
+              
+              <a class="source" href="debug.html">
+                debug.coffee
+              </a>
+            
+              
+              <a class="source" href="dialog.html">
+                dialog.coffee
+              </a>
+            
+              
+              <a class="source" href="game.html">
+                game.coffee
+              </a>
+            
+              
+              <a class="source" href="goal.html">
+                goal.coffee
+              </a>
+            
+              
+              <a class="source" href="graphics.html">
+                graphics.coffee
+              </a>
+            
+              
+              <a class="source" href="level.html">
+                level.coffee
+              </a>
+            
+              
+              <a class="source" href="performance.html">
+                performance.coffee
+              </a>
+            
+              
+              <a class="source" href="player.html">
+                player.coffee
+              </a>
+            
+              
+              <a class="source" href="rocket.html">
+                rocket.coffee
+              </a>
+            
+              
+              <a class="source" href="score.html">
+                score.coffee
+              </a>
+            
+              
+              <a class="source" href="score_finish.html">
+                score_finish.coffee
+              </a>
+            
+              
+              <a class="source" href="score_loops.html">
+                score_loops.coffee
+              </a>
+            
+              
+              <a class="source" href="score_manager.html">
+                score_manager.coffee
+              </a>
+            
+              
+              <a class="source" href="score_time.html">
+                score_time.coffee
+              </a>
+            
+              
+              <a class="source" href="score_total.html">
+                score_total.coffee
+              </a>
+            
+              
+              <a class="source" href="space_circle.html">
+                space_circle.coffee
+              </a>
+            
+              
+              <a class="source" href="trail.html">
+                trail.coffee
+              </a>
+            
+              
+              <a class="source" href="transition.html">
+                transition.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>score.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>.def [<span class="hljs-string">'rg/debug'</span>, <span class="hljs-string">'rg/score_manager'</span>], <span class="hljs-function"><span class="hljs-params">(Debug,ScoreManager)</span> =&gt;</span>
 
-    <span class="nv">load_strategy: </span><span class="nf">() -&gt;</span>
-      <span class="nx">require</span> <span class="p">[</span><span class="s2">&quot;rg/score_#{@type}&quot;</span><span class="p">],</span> <span class="p">(</span><span class="nx">Strategy</span><span class="p">)</span> <span class="o">=&gt;</span>
-        <span class="vi">@strategy = </span><span class="k">new</span> <span class="nx">Strategy</span><span class="p">(</span><span class="nx">@game</span><span class="p">)</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Score</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@game</span>, <span class="hljs-property">@type</span>)</span> -&gt;</span>
+      <span class="hljs-property">@off_screen</span> = <span class="hljs-literal">false</span>
+      <span class="hljs-property">@slide_stride</span> = <span class="hljs-number">10</span>
+      <span class="hljs-property">@wait</span> = <span class="hljs-number">0</span>
+      <span class="hljs-property">@outro_wait</span> = <span class="hljs-number">20</span>
+      <span class="hljs-property">@hud_on_y_pos</span> = <span class="hljs-property">@game</span>.height-<span class="hljs-number">20</span>
+      <span class="hljs-property">@hud_off_y_pos</span> = <span class="hljs-property">@game</span>.height+<span class="hljs-number">20</span>
+      <span class="hljs-property">@y_pos</span> = <span class="hljs-keyword">if</span> <span class="hljs-property">@game</span>.hud_on <span class="hljs-keyword">then</span> <span class="hljs-property">@hud_on_y_pos</span> <span class="hljs-keyword">else</span> <span class="hljs-property">@hud_off_y_pos</span>
+      <span class="hljs-property">@queue</span> = []
+      <span class="hljs-property">@manager</span> = <span class="hljs-keyword">new</span> ScoreManager
+      <span class="hljs-property">@manager</span>.register(<span class="hljs-keyword">this</span>) <span class="hljs-keyword">unless</span> <span class="hljs-property">@type</span> == <span class="hljs-string">'total'</span>
+      <span class="hljs-keyword">this</span>.load_strategy()
 
-    <span class="nv">value: </span><span class="nf">() -&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">strategy</span><span class="p">.</span><span class="nx">value</span>
+    <span class="hljs-attribute">load_strategy</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-built_in">require</span> [<span class="hljs-string">"rg/score_<span class="hljs-subst">#{<span class="hljs-property">@type</span>}</span>"</span>], <span class="hljs-function"><span class="hljs-params">(Strategy)</span> =&gt;</span>
+        <span class="hljs-property">@strategy</span> = <span class="hljs-keyword">new</span> Strategy(<span class="hljs-property">@game</span>)
 
-    <span class="nv">dispatch: </span><span class="nf">(method) -&gt;</span>
-      <span class="k">if</span> <span class="nx">@strategy</span>
-        <span class="k">if</span> <span class="nx">@queue</span>
-          <span class="k">while</span> <span class="nv">catchup = </span><span class="nx">@queue</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
-            <span class="nx">@strategy</span><span class="p">[</span><span class="nx">catchup</span><span class="p">]()</span>
-          <span class="vi">@queue = </span><span class="kc">false</span>
-        <span class="nx">@strategy</span><span class="p">[</span><span class="nx">method</span><span class="p">]()</span>
-      <span class="k">else</span>
-        <span class="nx">@queue</span><span class="p">.</span><span class="nx">push</span> <span class="nx">method</span>
+    <span class="hljs-attribute">value</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span> <span class="hljs-keyword">this</span>.strategy.value
 
-    <span class="nv">reset: </span><span class="nf">() -&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">dispatch</span> <span class="s1">&#39;reset&#39;</span>
-    <span class="nv">step: </span><span class="nf">()  -&gt;</span>
-      <span class="vi">@off_screen = </span><span class="kc">false</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">dispatch</span> <span class="s1">&#39;step&#39;</span>
-      <span class="k">if</span> <span class="nx">@highlight</span>
-        <span class="vi">@y_pos = </span><span class="nx">@hud_on_y_pos</span>
-      <span class="k">else</span>
-        <span class="k">if</span> <span class="nx">@game</span><span class="p">.</span><span class="nx">show_hud</span><span class="p">()</span> <span class="k">then</span> <span class="k">this</span><span class="p">.</span><span class="nx">raise</span><span class="p">()</span>
-        <span class="k">else</span>
-          <span class="k">if</span> <span class="nx">@y_pos</span> <span class="o">&lt;</span> <span class="nx">@hud_off_y_pos</span> <span class="k">then</span> <span class="nx">@y_pos</span><span class="o">+=</span><span class="nx">@slide_stride</span>
-          <span class="k">else</span> <span class="vi">@off_screen = </span><span class="kc">true</span>
+    <span class="hljs-attribute">dispatch</span>: <span class="hljs-function"><span class="hljs-params">(method)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@strategy</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-property">@queue</span>
+          <span class="hljs-keyword">while</span> catchup = <span class="hljs-property">@queue</span>.shift()
+            <span class="hljs-property">@strategy</span>[catchup]()
+          <span class="hljs-property">@queue</span> = <span class="hljs-literal">false</span>
+        <span class="hljs-property">@strategy</span>[method]()
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-property">@queue</span>.push method
 
-    <span class="nv">raise: </span><span class="nf">() -&gt;</span>
-      <span class="k">if</span> <span class="nx">@y_pos</span> <span class="o">&gt;</span> <span class="nx">@hud_on_y_pos</span> <span class="k">then</span> <span class="nx">@y_pos</span><span class="o">-=</span><span class="nx">@slide_stride</span>
-      <span class="k">if</span> <span class="nx">@y_pos</span> <span class="o">&lt;</span> <span class="nx">@hud_on_y_pos</span> <span class="k">then</span> <span class="vi">@y_pos = </span><span class="nx">@hud_on_y_pos</span>
+    <span class="hljs-attribute">reset</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span> <span class="hljs-keyword">this</span>.dispatch <span class="hljs-string">'reset'</span>
+    <span class="hljs-attribute">step</span>: <span class="hljs-function"><span class="hljs-params">()</span>  -&gt;</span>
+      <span class="hljs-property">@off_screen</span> = <span class="hljs-literal">false</span>
+      <span class="hljs-keyword">this</span>.dispatch <span class="hljs-string">'step'</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@highlight</span>
+        <span class="hljs-property">@y_pos</span> = <span class="hljs-property">@hud_on_y_pos</span>
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-property">@game</span>.show_hud() <span class="hljs-keyword">then</span> <span class="hljs-keyword">this</span>.raise()
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-keyword">if</span> <span class="hljs-property">@y_pos</span> &lt; <span class="hljs-property">@hud_off_y_pos</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@y_pos</span>+=<span class="hljs-property">@slide_stride</span>
+          <span class="hljs-keyword">else</span> <span class="hljs-property">@off_screen</span> = <span class="hljs-literal">true</span>
 
-    <span class="nv">draw: </span><span class="nf">(graphics) -&gt;</span>
-      <span class="k">return</span> <span class="k">if</span> <span class="p">(</span><span class="nx">@off_screen</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">@game</span><span class="p">.</span><span class="nx">in_transition</span><span class="p">()</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">@highlight</span><span class="p">)</span>
-      <span class="nv">ctx = </span><span class="nx">graphics</span><span class="p">.</span><span class="nx">ctx</span>
-      <span class="nv">ctx.font          = </span><span class="s2">&quot;20pt Verdana&quot;</span>
-      <span class="nv">ctx.textAlign     = </span><span class="s2">&quot;center&quot;</span>
-      <span class="nv">ctx.textBaseline  = </span><span class="s2">&quot;middle&quot;</span>
-      <span class="nv">ctx.fillStyle     = </span><span class="nx">@strategy</span><span class="p">.</span><span class="nx">color</span><span class="p">()</span>
-      <span class="nx">graphics</span><span class="p">.</span><span class="nx">text</span> <span class="nx">@strategy</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="nx">@strategy</span><span class="p">.</span><span class="nx">x_pos</span><span class="p">(),</span> <span class="nx">@y_pos</span>
-      <span class="k">if</span> <span class="nx">@highlight</span>
-        <span class="nv">ctx.strokeStyle = </span><span class="nx">@strategy</span><span class="p">.</span><span class="nx">color</span><span class="p">()</span>
-        <span class="nv">ctx.lineWidth = </span><span class="mi">5</span>
-        <span class="nx">graphics</span><span class="p">.</span><span class="nx">rect_stroke_rounded</span> <span class="nx">@strategy</span><span class="p">.</span><span class="nx">x_pos</span><span class="p">()</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span>
-                                     <span class="nx">@y_pos</span> <span class="o">-</span> <span class="mi">22</span><span class="p">,</span>
-                                     <span class="mi">200</span><span class="p">,</span>
-                                     <span class="mi">40</span><span class="p">,</span>
-                                     <span class="mi">10</span>
+    <span class="hljs-attribute">raise</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@y_pos</span> &gt; <span class="hljs-property">@hud_on_y_pos</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@y_pos</span>-=<span class="hljs-property">@slide_stride</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@y_pos</span> &lt; <span class="hljs-property">@hud_on_y_pos</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@y_pos</span> = <span class="hljs-property">@hud_on_y_pos</span>
 
-    <span class="nv">outro_step: </span><span class="nf">()  -&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">raise</span><span class="p">()</span>
-    <span class="nv">outro_draw: </span><span class="nf">(g) -&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">draw</span><span class="p">(</span><span class="nx">g</span><span class="p">)</span>
-    <span class="nv">outro_done: </span><span class="nf">()  -&gt;</span>
-      <span class="nx">@y_pos</span> <span class="o">&lt;=</span> <span class="nx">@hud_on_y_pos</span> <span class="o">and</span> <span class="p">(</span><span class="nx">@game</span><span class="p">.</span><span class="nx">hud_on</span> <span class="o">or</span> <span class="nx">@wait</span><span class="o">++</span> <span class="o">&gt;</span> <span class="nx">@outro_wait</span><span class="p">)</span>
+    <span class="hljs-attribute">draw</span>: <span class="hljs-function"><span class="hljs-params">(graphics)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> (<span class="hljs-property">@off_screen</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@game</span>.in_transition() <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@highlight</span>)
+      ctx = graphics.ctx
+      ctx.font          = <span class="hljs-string">"20pt Verdana"</span>
+      ctx.textAlign     = <span class="hljs-string">"center"</span>
+      ctx.textBaseline  = <span class="hljs-string">"middle"</span>
+      ctx.fillStyle     = <span class="hljs-property">@strategy</span>.color()
+      graphics.text <span class="hljs-property">@strategy</span>.value, <span class="hljs-property">@strategy</span>.x_pos(), <span class="hljs-property">@y_pos</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@highlight</span>
+        ctx.strokeStyle = <span class="hljs-property">@strategy</span>.color()
+        ctx.lineWidth = <span class="hljs-number">5</span>
+        graphics.rect_stroke_rounded <span class="hljs-property">@strategy</span>.x_pos()-<span class="hljs-number">100</span>,
+                                     <span class="hljs-property">@y_pos</span> - <span class="hljs-number">22</span>,
+                                     <span class="hljs-number">200</span>,
+                                     <span class="hljs-number">40</span>,
+                                     <span class="hljs-number">10</span>
 
-</pre></div>             </td>           </tr>                </tbody>     </table>     <div id="link_docco">       &copy; 2010 Bo Borgerson |       HTML Docs produced with <a href="http://jashkenas.github.com/docco/">Docco</a>     </div>   </div> </body> </html> 
+    <span class="hljs-attribute">outro_step</span>: <span class="hljs-function"><span class="hljs-params">()</span>  -&gt;</span> <span class="hljs-keyword">this</span>.raise()
+    <span class="hljs-attribute">outro_draw</span>: <span class="hljs-function"><span class="hljs-params">(g)</span> -&gt;</span> <span class="hljs-keyword">this</span>.draw(g)
+    <span class="hljs-attribute">outro_done</span>: <span class="hljs-function"><span class="hljs-params">()</span>  -&gt;</span>
+      <span class="hljs-property">@y_pos</span> &lt;= <span class="hljs-property">@hud_on_y_pos</span> <span class="hljs-keyword">and</span> (<span class="hljs-property">@game</span>.hud_on <span class="hljs-keyword">or</span> <span class="hljs-property">@wait</span>++ &gt; <span class="hljs-property">@outro_wait</span>)</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
