@@ -22,9 +22,9 @@ require.def () =>
           if @res < .3 then this.too_slow()
           @game.graphics.update_canvas_width()
           if @check_frames > 1
-            @check_frames --
+            @check_frames--
         else
-          @check_frames ++
+          @check_frames++
 
         this.init()
 
