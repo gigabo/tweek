@@ -1,3 +1,4 @@
+$:.unshift '.'
 require 'rubygems'
 require 'sinatra/base'
 require 'mustache/sinatra'
@@ -12,7 +13,7 @@ class TweekApp < Sinatra::Base
   require 'views/layout'
 
   set :mustache, { :views => 'views/', :templates => 'templates/' }
-  set :public, File.dirname(__FILE__) + '/public'
+  set :public_dir, File.dirname(__FILE__) + '/public'
 
   get '/' do mustache :index end
 
@@ -34,4 +35,7 @@ class TweekApp < Sinatra::Base
     @about[:code] ||= [{:item => "toy/#{@toy}"}] if @about
     mustache :play
   end
+
+  # start the server if ruby file executed directly
+  run! if app_file == $0
 end
