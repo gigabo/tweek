@@ -9,7 +9,8 @@ class TweekApp
           { :name => 'Pasta Box', :link => '/pasta' },
           { :name => 'Rocket Game', :link => '/rocket' },
           { :name => 'Hanoi', :link => '/hanoi' },
-          { :name => 'Twitter Punch Card', :link => '/punch' },
+# TODO: Get this working again, some day.
+#          { :name => 'Twitter Punch Card', :link => '/punch' },
         ]
       end
       def tools
