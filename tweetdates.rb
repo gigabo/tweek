@@ -14,6 +14,9 @@ class TweetDates
 
   def initialize(handle)
     @handle = handle
+    # I've revoked this key/secret.
+    # Will need to regenerate and load from outside repo if I ever want to
+    # get this thing working again.
     @client = Grackle::Client.new(:auth=>{
       :type=>:oauth,
       :consumer_key=>'lXFnhg5AgAOjcAY3XZcUPA',
