@@ -1,4 +1,3 @@
-$:.unshift '.'
 require 'rubygems'
 require 'sinatra/base'
 require 'mustache/sinatra'
