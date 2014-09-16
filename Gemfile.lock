@@ -32,4 +32,5 @@ DEPENDENCIES
   grackle
   memcached
   mustache
+  rack
   sinatra
